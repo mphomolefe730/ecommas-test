@@ -7,17 +7,21 @@ const item6 = ["Casio Calculator", "Casio traditional blue calculator", 600, "el
 
 let productList = [item1, item2,item3, item4,item5, item6,item1, item2,item3, item4,item5, item6];
 
+let removeCartItemButtons = document.getElementsByClassName('kill');
+console.log(removeCartItemButtons);
+
 document.getElementById('productItemsDisplay')!.innerHTML=init();
 
-function init(){
+function init():string{
     let pageForItems:string = '';
     for(let i=0; i<productList.length;i++){
         pageForItems+=(createItem(i));
-    }
-    return pageForItems
+    }                                               //function to initialise the page of items
+    removeCartItem();                               //function to remove from cart
+    return pageForItems;
 };
 
-function createItem(indexOfProduct){
+function createItem(indexOfProduct:number):string{
     let itemcontainer:string = '<div class="item">';
     itemcontainer+='<img id="product-image"/>'
     itemcontainer+=createItemDescription(indexOfProduct);
@@ -26,7 +30,7 @@ function createItem(indexOfProduct){
     return itemcontainer;
 };
 
-function createItemDescription(indexOfProduct){
+function createItemDescription(indexOfProduct):string{
     let itemDescriptionContainer:string = '<div class="ItemDescription">';//div
     itemDescriptionContainer+=`<h2 id="productname[i]"> ${productList[indexOfProduct][0]} </h2>`;
     //name is the 1st element in productlist array
@@ -35,4 +39,13 @@ function createItemDescription(indexOfProduct){
     itemDescriptionContainer+='</div>';//div
 
     return itemDescriptionContainer;
+};
+
+function removeCartItem():void{
+    for(let i=0; i<removeCartItemButtons.length;i++){ //loop over the buttons
+        let button = removeCartItemButtons[i];//button of selected loop element
+        button.addEventListener('click', ()=>{
+            button.parentElement?.remove(); //if slected loop element has a parent, remove it
+        })
+    }
 };
