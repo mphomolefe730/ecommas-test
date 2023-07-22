@@ -43,7 +43,7 @@ main{
     justify-content: space-between;
 }
 
-#purchase-btn{
+.purchase-btn{
     background-color: black;
     float: right;
     color: white;
