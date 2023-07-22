@@ -21,10 +21,10 @@ main{
 #productItemsDisplay{
     padding: 10px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /*min width is 300px if theres space, add more items next to it*/
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 10px;
     background-color: chocolate;
-    /* height: 100%; */
     /* overflow:scroll; */
 }
 .item{
@@ -36,6 +36,11 @@ main{
     background-color: blue;
     width: 100%;
     height: 350px;
+}
+
+#productprice{
+    display: flex;
+    justify-content: space-between;
 }
 
 #purchase-btn{
@@ -64,19 +69,18 @@ main{
     .shopping-cart{
         display: block;
     }
-    #productItemsDisplay{
+    /* #productItemsDisplay{
         grid-template-columns: repeat(4, 1fr);
-    }
+    } */
 }
 
-/* phone */
+/* phone 
 @media (max-width: 551px){
     #productItemsDisplay{
         grid-template-columns: 1fr;
-    }   
+    }    
     #product-image{
         background-color: blue;
         height: 350px;
     }
-}
-
+}*/
