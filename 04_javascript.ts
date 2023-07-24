@@ -1,9 +1,34 @@
-let productList = [{name: "air force 1", Description: "white shoes",price: 1200, id: "peoirj"},
-{name: "jordan 13", Description: "blue, white and black shoes",price: 8000, id: "djhgs"},
-{name: "JBL bt500", Description: "wireless bluetooth earphones",price: 800, id: "2j2h2t"},
-{name: "shield rollon", Description: "dry sport shield rollon",price: 20, id: "sdj283"},
-{name: "vaseline", Description: "vaseline tab, kid size",price: 25, id: "2ieudhv"},
-{name: "Casio Calculator", Description: "Casio Calculator",price: 600, id: "sbhdv2t6"},];
+let productList = [{ name: "Nike Air Force 1", Description: `The radiance lives on in the
+Nike Air Force 1 '07, the basketball original that puts a fresh spin on what you know 
+best: durably stitched overlays, clean finishes and the perfect amount of flash to make 
+you shine.`, price: 2_199, id: "peoirj", img:`./src/images/air-force-1.webp`},
+
+{name: "Air Jordan 13 Retro", Description: `The Air Jordan 13 Retro brings back the memorable 
+game shoe that Michael Jordan wore during the '97-98 season, all the way to his 6th 
+championship title. All the classic details are there like the quilted overlay, iconic 
+sculpted midsole and holographic eye.`,price: 3_765, id: "djhgs",img:`./src/images/air-jordan-13-retro.webp`},
+
+{name: "JBL TUNE500BT", Description: `The JBL TUNE500BT headphones let you stream powerful sound 
+with no strings attached for up to 16 hours of pure pleasure. Easy to use and equipped with 
+32mm JBL drivers and JBL Pure Bass sound, these headphones provide easy access to great sound 
+every time. And if a call comes in while you are watching a video on another device, the JBL 
+TUNE500BT seamlessly switches to your mobile. Bluetooth enabled and designed to be comfortable, 
+the JBL TUNE500BT headphones also allow you to connect to Siri or Google Now without using your 
+mobile device. Available in 4 fresh colors and foldable for easy portability, the JBL TUNE500BT 
+headphones are a grab ‘n go solution that help you to inject music into every aspect of your busy 
+life.`,price: 720, id: "2j2h2t", img:`./src/images/jbl-500-bt.webp`},
+
+{name: "Shield Roll On 50ml Ladies", Description: `Make Shield Women Sensitive Antiperspirant 
+Roll-On the cornerstone of your daily routine for up to 48 hours of protection against sweat 
+and body odour.`,price: 20, id: "sdj283",img:`./src/images/shield-roll-on.webp`},
+
+{name: "Vaseline® MEN SPF 10 Even Tone Body Lotion", Description: `Vaseline® MEN SPF 10 Even Tone Body 
+Lotion protects your skin from sun damage and helps to even skin tone. `,price: 72, id: "2ieudhv",
+img:`./src/images/vaseline-cream.webp`},
+
+{name: `Standard Scientific Calculators fx-350CW`, Description: `High-definition & 4-gradation display, 
+the current input location is displayed in a darker color. Simple cursor-based operations and a key layout
+that follows the natural flow of use.`,price: 72, id: "sbhdv2t6", img:`./src/images/casio-calculator.webp`},];
 
 let removeCartItemButtons = document.getElementsByClassName('kill');
 const productDOM = document.getElementById('productItemsDisplay');
@@ -25,7 +50,7 @@ function loadProducts():void{                                          //functio
 
 function createItem(indexOfProduct:number):string{
     let itemcontainer:string = '<div class="item">';
-    itemcontainer+='<img id="product-image" alt="Product Image"/>'
+    itemcontainer+=`<img src="${productList[indexOfProduct].img}" class="product-image" alt="Product Image"/>`;
     itemcontainer+=createItemDescription(indexOfProduct);
     itemcontainer+='</div>'; 
 
@@ -34,12 +59,12 @@ function createItem(indexOfProduct:number):string{
 
 function createItemDescription(indexOfProduct):string{
     let itemDescriptionContainer:string = '<div class="ItemDescription">';//div
-    itemDescriptionContainer+=`<h2 title="${productList[indexOfProduct].name}" id="productname"> ${productList[indexOfProduct].name} </h2>`;
+    itemDescriptionContainer+=`<h1 title="${productList[indexOfProduct].name}" class="productname"> ${productList[indexOfProduct].name} </h1>`;
     //name is the 1st element in productlist array
-    itemDescriptionContainer+=`<p id="productdescription"> ${productList[indexOfProduct].Description} </p>`;//description
+    itemDescriptionContainer+=`<p class="productdescription"> ${productList[indexOfProduct].Description} </p>`;//description
     
-    let priceAndPurchase =`<div id="productprice">
-    <span> ${productList[indexOfProduct].price}</span>
+    let priceAndPurchase =`<div class="productprice">
+    <div><span>R ${productList[indexOfProduct].price}<br/>Rating</span></div>
     <button class="purchase-btn" data-id="${productList[indexOfProduct].id}">PURCHASE</button>
     </div>`
     

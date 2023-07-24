@@ -1,9 +1,10 @@
-var productList = [{ name: "air force 1", Description: "white shoes", price: 1200, id: "peoirj" },
-    { name: "jordan 13", Description: "blue, white and black shoes", price: 8000, id: "djhgs" },
-    { name: "JBL bt500", Description: "wireless bluetooth earphones", price: 800, id: "2j2h2t" },
-    { name: "shield rollon", Description: "dry sport shield rollon", price: 20, id: "sdj283" },
-    { name: "vaseline", Description: "vaseline tab, kid size", price: 25, id: "2ieudhv" },
-    { name: "Casio Calculator", Description: "Casio Calculator", price: 600, id: "sbhdv2t6" },];
+var productList = [{ name: "Nike Air Force 1", Description: "The radiance lives on in the\nNike Air Force 1 '07, the basketball original that puts a fresh spin on what you know \nbest: durably stitched overlays, clean finishes and the perfect amount of flash to make \nyou shine.", price: 2199, id: "peoirj", img: "./src/images/air-force-1.webp" },
+    { name: "Air Jordan 13 Retro", Description: "The Air Jordan 13 Retro brings back the memorable \ngame shoe that Michael Jordan wore during the '97-98 season, all the way to his 6th \nchampionship title. All the classic details are there like the quilted overlay, iconic \nsculpted midsole and holographic eye.", price: 3765, id: "djhgs", img: "./src/images/air-jordan-13-retro.webp" },
+    { name: "JBL TUNE500BT", Description: "The JBL TUNE500BT headphones let you stream powerful sound \nwith no strings attached for up to 16 hours of pure pleasure. Easy to use and equipped with \n32mm JBL drivers and JBL Pure Bass sound, these headphones provide easy access to great sound \nevery time. And if a call comes in while you are watching a video on another device, the JBL \nTUNE500BT seamlessly switches to your mobile. Bluetooth enabled and designed to be comfortable, \nthe JBL TUNE500BT headphones also allow you to connect to Siri or Google Now without using your \nmobile device. Available in 4 fresh colors and foldable for easy portability, the JBL TUNE500BT \nheadphones are a grab \u2018n go solution that help you to inject music into every aspect of your busy \nlife.", price: 720, id: "2j2h2t", img: "./src/images/jbl-500-bt.webp" },
+    { name: "Shield Roll On 50ml Ladies", Description: "Make Shield Women Sensitive Antiperspirant \nRoll-On the cornerstone of your daily routine for up to 48 hours of protection against sweat \nand body odour.", price: 20, id: "sdj283", img: "./src/images/shield-roll-on.webp" },
+    { name: "Vaseline® MEN SPF 10 Even Tone Body Lotion", Description: "Vaseline\u00AE MEN SPF 10 Even Tone Body \nLotion protects your skin from sun damage and helps to even skin tone. ", price: 72, id: "2ieudhv",
+        img: "./src/images/vaseline-cream.webp" },
+    { name: "Standard Scientific Calculators fx-350CW", Description: "High-definition & 4-gradation display, \nthe current input location is displayed in a darker color. Simple cursor-based operations and a key layout\nthat follows the natural flow of use.", price: 72, id: "sbhdv2t6", img: "./src/images/casio-calculator.webp" },];
 var removeCartItemButtons = document.getElementsByClassName('kill');
 var productDOM = document.getElementById('productItemsDisplay');
 //document.getElementById('productItemsDisplay')!.innerHTML=productItemDisplayContectMaker();
@@ -21,7 +22,7 @@ function loadProducts() {
 ;
 function createItem(indexOfProduct) {
     var itemcontainer = '<div class="item">';
-    itemcontainer += '<img id="product-image" alt="Product Image"/>';
+    itemcontainer += "<img src=\"".concat(productList[indexOfProduct].img, "\" class=\"product-image\" alt=\"Product Image\"/>");
     itemcontainer += createItemDescription(indexOfProduct);
     itemcontainer += '</div>';
     return itemcontainer;
@@ -29,10 +30,10 @@ function createItem(indexOfProduct) {
 ;
 function createItemDescription(indexOfProduct) {
     var itemDescriptionContainer = '<div class="ItemDescription">'; //div
-    itemDescriptionContainer += "<h2 title=\"".concat(productList[indexOfProduct].name, "\" id=\"productname\"> ").concat(productList[indexOfProduct].name, " </h2>");
+    itemDescriptionContainer += "<h1 title=\"".concat(productList[indexOfProduct].name, "\" class=\"productname\"> ").concat(productList[indexOfProduct].name, " </h1>");
     //name is the 1st element in productlist array
-    itemDescriptionContainer += "<p id=\"productdescription\"> ".concat(productList[indexOfProduct].Description, " </p>"); //description
-    var priceAndPurchase = "<div id=\"productprice\">\n    <span> ".concat(productList[indexOfProduct].price, "</span>\n    <button class=\"purchase-btn\" data-id=\"").concat(productList[indexOfProduct].id, "\">PURCHASE</button>\n    </div>");
+    itemDescriptionContainer += "<p class=\"productdescription\"> ".concat(productList[indexOfProduct].Description, " </p>"); //description
+    var priceAndPurchase = "<div class=\"productprice\">\n    <div><span>R ".concat(productList[indexOfProduct].price, "<br/>Rating</span></div>\n    <button class=\"purchase-btn\" data-id=\"").concat(productList[indexOfProduct].id, "\">PURCHASE</button>\n    </div>");
     itemDescriptionContainer += priceAndPurchase;
     itemDescriptionContainer += '</div>'; //div
     return itemDescriptionContainer;

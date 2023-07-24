@@ -1,16 +1,38 @@
+:root {
+    --primaryColor:rgba(128, 128, 128,0.05);
+    --secondaryColor:rgb(255, 255, 255);
+}
+
 body{
     margin: 0px;
     padding: 0px 20px;
+    background-color: var(--primaryColor);
 }
 main{
-    display: grid;
-    overflow: hidden;
-    gap: 10px;
-    /* height: 100vh; */
+    max-width: 2144px;
+}
+nav{
+    position: relative;
+    display: flex;
+    min-width: 250px;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--secondaryColor);
+    margin: 10px 0;
 }
 
-.shop{
-    background-color: red;
+#cartImage{
+    margin-right: 15px;
+    height: 25px;
+}
+#cartItemAmount{
+    position: absolute;
+    top: 15%;
+    right: 1.5%;
+    padding: 2.5px;
+    background-color: orange;
+    border-radius: 15px;
 }
 
 .shopping-cart{
@@ -19,41 +41,54 @@ main{
 }
 
 #productItemsDisplay{
-    padding: 10px;
     display: grid;
-    /*min width is 300px if theres space, add more items next to it*/
+    /*min width is 250px if theres space, add more items next to it*/
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 10px;
-    background-color: chocolate;
-    /* overflow:scroll; */
 }
+
 .item{
     padding: 5px;
-    background-color: white;
+    background-color: var(--secondaryColor);
+}
+.item:hover{
+    cursor: pointer;
+    opacity: 95%;
 }
 
-#product-image{
-    background-color: blue;
+.product-image{
     width: 100%;
     height: 350px;
+    object-fit: cover;
+}
+.productname{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-#productprice{
+.productdescription{
+    height: 55px;
+    opacity: 75%;
+    overflow:hidden;
+}
+
+.productprice{
     display: flex;
     justify-content: space-between;
+    width: 100%;
 }
 
 .purchase-btn{
     background-color: black;
-    float: right;
-    color: white;
+    color: var(--secondaryColor);
     height: 40px;
 }
 .shopping-cart{
     padding: 0px 10px;
 }
 #cart-item-holder{
-    border: 2px solid white;
+    border: 2px solid var(--secondaryColor);
     margin-top: 10px;
     display: grid;
     grid-template-columns:1fr 5fr 1fr;
@@ -64,6 +99,9 @@ main{
 /* laptop */
 @media (min-width: 988px) {
     main{
+        display: grid;
+        overflow: hidden;
+        gap: 10px;
         grid-template-columns: 3fr 1fr;
     }
     .shopping-cart{
