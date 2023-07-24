@@ -5,13 +5,21 @@ var productList = [{ name: "Nike Air Force 1", Description: "The radiance lives 
     { name: "Vaseline® MEN SPF 10 Even Tone Body Lotion", Description: "Vaseline\u00AE MEN SPF 10 Even Tone Body \nLotion protects your skin from sun damage and helps to even skin tone. ", price: 72, id: "2ieudhv",
         img: "./src/images/vaseline-cream.webp" },
     { name: "Standard Scientific Calculators fx-350CW", Description: "High-definition & 4-gradation display, \nthe current input location is displayed in a darker color. Simple cursor-based operations and a key layout\nthat follows the natural flow of use.", price: 72, id: "sbhdv2t6", img: "./src/images/casio-calculator.webp" },];
+var bannerImages = [{ image: "./src/images/banner/01-Shop-Products-Banner-Design.jpg" },
+    { image: "./src/images/banner/02-Shop-Products-Banner-Design.jpg" },
+    { image: "./src/images/banner/03-Shop-Products-Banner-Design.jpg" },];
+var cart = ["peoirj"];
 var removeCartItemButtons = document.getElementsByClassName('kill');
 var productDOM = document.getElementById('productItemsDisplay');
 //document.getElementById('productItemsDisplay')!.innerHTML=productItemDisplayContectMaker();
-var cart = ["peoirj"];
 console.log(removeCartItemButtons);
+//loads products on the page
 loadProducts();
+//detects product purchase button 2seconds after loading page
 setTimeout(buyButton, 2000);
+//loadsbannerads
+loadBannerAds();
+setInterval(loadBannerAds, 1000);
 function loadProducts() {
     var pageForItems = '';
     for (var i = 0; i < productList.length; i++) {
@@ -48,13 +56,15 @@ function buyButton() {
         if (inCart) {
             button.textContent = "In Cart"; //change text for purchase button
             button.setAttribute('disabled', 'disabled'); //makes the button inactive
+            button.classList.add('puchased');
         }
         button.addEventListener('click', function () {
             button.textContent = "In Cart";
             button.setAttribute('disabled', 'disabled');
+            button.classList.add('puchased');
         });
     });
-    console.log(buttons);
+    // console.log(buttons);
 }
 function createCartItem() {
     var cartItemContainer = "<div id=\"cart-item-holder\">"; //div
@@ -75,5 +85,23 @@ function removeCartItem() {
     for (var i = 0; i < removeCartItemButtons.length; i++) {
         _loop_1(i);
     }
+}
+;
+function loadBannerAds() {
+    var currentDay = new Date();
+    //convert into seconds and those seconds - dont go above 15sec
+    var seconds = Math.floor(((currentDay / (1000)) % 60) % 15);
+    var bannerCotainer = document.getElementById('bannerAds'); //where they'll be loaded
+    // console.log(seconds);
+    if (seconds == 0)
+        bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[0].image, "\"/>"); //add 1st image to banner
+    if (seconds == 4)
+        bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[1].image, "\"/>"); //add 2nd image to banner
+    if (seconds == 9)
+        bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[2].image, "\"/>"); //add 3 image to banner
+    // let activeImagesHolder="";
+    // bannerImages.map(item =>{               /*loops through array and takes element and add to img element*/
+    //     activeImagesHolder+=`<img class="bannerImg" src="${item.image}"/>`
+    // });
 }
 ;
