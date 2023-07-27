@@ -34,7 +34,7 @@ let bannerImages=[{image:`./src/images/banner/01-Shop-Products-Banner-Design.jpg
 {image:`./src/images/banner/02-Shop-Products-Banner-Design.jpg`},
 {image:`./src/images/banner/03-Shop-Products-Banner-Design.jpg`},];
 
-let cart=["peoirj"];
+let cart=[""];
 
 const productDOM = document.getElementById('productItemsDisplay');
 
@@ -42,7 +42,7 @@ const productDOM = document.getElementById('productItemsDisplay');
 //loads products on the page
 loadProducts();
 //detects product purchase button 2seconds after loading page
-setTimeout(buyButton,2000);
+setTimeout(buyButton,1000);
 //loadsbannerads
 setInterval(loadBannerAds,1000);
 setInterval(removeCartItem,1000);
@@ -82,7 +82,6 @@ function createItemDescription(indexOfProduct):string{
 };
 
 function buyButton(){
-    let ClickedproductAssest= [{}];
     //list all purchase button| is a Nodelist
     const purchaseBtn = document.querySelectorAll(".purchase-btn");
     
@@ -94,6 +93,7 @@ function buyButton(){
             button.textContent="In Cart";                   //change text for purchase button
             button.setAttribute('disabled','disabled');     //makes the button inactive
             button.classList.add('purchased');
+            createCartItem();
         }
 
         button.addEventListener('click', () => {
@@ -102,49 +102,69 @@ function buyButton(){
             button.setAttribute('disabled','disabled');
             button.classList.add('puchased')
             //add product id to cart
-            cart = [...cart,`${id}`]
-            console.log(cart)
-            //search for item that has id of click from object set "productlist"
-            ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
-            createCartItem(ClickedproductAssest);
+            cart = [...cart,`${id}`];
+            // ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
+            createCartItem();
         })
     })
 }
 
-function createCartItem(items){
+function createCartItem(){
     const shoppingCartContainer = document.getElementById('cart-items');
-    console.log(items)
-
-    let cartItemContainer:string= 
-    `<div id="cart-item-holder">
-        <div class="quantity">
-            <p>1</p>
-        </div>
-        <div>
-            <h3 class="cartProductName">${items[0].name}</h3>
-            <div class="priceContainer">
-                <span class="cartProductPrice">R ${items[0].price}</span>
-                <button class="kill" data-id="${items[0].id}">remove</button>
-            </div>
-        </div>
-        <div>
-            <p>1</p>
-        </div>
-    </div>`;
-    shoppingCartContainer!.innerHTML=cartItemContainer;
+    shoppingCartContainer!.innerText='';
+    let cartItemContainer:string;
+    
+    //get id name in cart and search for item from object"productlist"
+    cart.forEach(productId=>{
+        /*filer productlist to only show elements that have ids corresponding with cart*/
+        productList.filter(item=>item.id==productId).forEach(product=>{
+            /*for each item enter infomation to HTML template and save in variable*/
+            //console.log(product);
+            cartItemContainer+= 
+            `<div id="cart-item-holder">
+                <div>
+                    <p>${cart.indexOf(product.id)}</p>
+                </div>
+                <div>
+                    <h3 class="cartProductName">${product.name}</h3>
+                    <div class="priceContainer">
+                        <span class="cartProductPrice">R ${product.price}</span>
+                        <span class="kill" data-id="${product.id}">remove</span>
+                    </div>
+                </div>
+                <div class="quantity">
+                    <p>1</p>
+                </div>
+            </div>`;
+            
+            shoppingCartContainer!.innerHTML=cartItemContainer;
+            document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
+        })
+    });
 }
 
 function removeCartItem():void{
+    //list all purchase button| is a Nodelist
+    const purchaseBtn = document.querySelectorAll(".purchase-btn");
     let removeCartItemButtons = document.querySelectorAll('.kill');
 
     removeCartItemButtons.forEach(killBtn=>killBtn.addEventListener('click', ()=>{
-        //get remove btn id and filter to show elements that doesnt have it and updates cart
+        //get remove btn id and filter cart to show elements that doesnt have it and updates cart to that
         cart = cart.filter(product=>product!=killBtn.getAttribute('data-id'));
-        console.log(cart);
-
+        //scan all button id elements and if id==killedId | remove class, disable and add purchase-btn class and purchase as text
+        purchaseBtn.forEach(button=>{
+            let checkId = button.getAttribute('data-id')==killBtn.getAttribute('data-id');
+            if (checkId){
+                button.removeAttribute('class');
+                button.removeAttribute('disabled');
+                button.classList.add('purchase-btn');
+                button.textContent='PURCHASE';
+            }
+        });
+        // console.log(cart)
         killBtn.parentElement?.parentElement?.parentElement?.remove() //if selected element has parent parent, remove it)
-
-    })); 
+    }));
+    
 };
 
 function loadBannerAds(){
@@ -160,7 +180,6 @@ function loadBannerAds(){
     if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
 };
 
-document.getElementById('cartItemAmount')!.innerHTML=`${cart.length}`;
 document.getElementById('cartImage')!.addEventListener('click',()=>{
     document.getElementById('shopping-cart')!.style.display="block";
 });

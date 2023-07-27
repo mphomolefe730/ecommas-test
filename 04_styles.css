@@ -67,7 +67,7 @@ nav{
     overflow: hidden;
     display: none;
     position: absolute;
-    background-color: blue;
+    background-color: var(--secondaryColor);
     top: 0;
     right: 0;
     width: 75%;
@@ -78,6 +78,9 @@ nav{
     display: flex;
     justify-content: space-around;
     width: 100%;
+}
+.kill{
+    color: red;
 }
 /*------ END OF NAV------*/
 
@@ -153,6 +156,12 @@ nav{
     width: 100%;
     height: auto;
 }
+
+/* .cartProductImage{
+    height: minmax(1fr,75px);
+    width: 100%;
+    object-fit: cover;
+} */
 #cart-item-holder p{
     text-align: center;
 }
@@ -161,6 +170,7 @@ nav{
     display: flex;
     justify-content: space-between;
 }
+
 .cartProductName{
     overflow: hidden;
     text-overflow: ellipsis;

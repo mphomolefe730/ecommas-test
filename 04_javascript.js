@@ -17,12 +17,12 @@ var productList = [{ name: "Nike Air Force 1", Description: "The radiance lives 
 var bannerImages = [{ image: "./src/images/banner/01-Shop-Products-Banner-Design.jpg" },
     { image: "./src/images/banner/02-Shop-Products-Banner-Design.jpg" },
     { image: "./src/images/banner/03-Shop-Products-Banner-Design.jpg" },];
-var cart = ["peoirj"];
+var cart = [""];
 var productDOM = document.getElementById('productItemsDisplay');
 //loads products on the page
 loadProducts();
 //detects product purchase button 2seconds after loading page
-setTimeout(buyButton, 2000);
+setTimeout(buyButton, 1000);
 //loadsbannerads
 setInterval(loadBannerAds, 1000);
 setInterval(removeCartItem, 1000);
@@ -54,7 +54,6 @@ function createItemDescription(indexOfProduct) {
 }
 ;
 function buyButton() {
-    var ClickedproductAssest = [{}];
     //list all purchase button| is a Nodelist
     var purchaseBtn = document.querySelectorAll(".purchase-btn");
     purchaseBtn.forEach(function (button) {
@@ -64,6 +63,7 @@ function buyButton() {
             button.textContent = "In Cart"; //change text for purchase button
             button.setAttribute('disabled', 'disabled'); //makes the button inactive
             button.classList.add('purchased');
+            createCartItem();
         }
         button.addEventListener('click', function () {
             //change context of click button and disable button
@@ -72,26 +72,47 @@ function buyButton() {
             button.classList.add('puchased');
             //add product id to cart
             cart = __spreadArray(__spreadArray([], cart, true), ["".concat(id)], false);
-            console.log(cart);
-            //search for item that has id of click from object set "productlist"
-            ClickedproductAssest = productList.filter(function (items) { return items.id == button.getAttribute('data-id'); });
-            createCartItem(ClickedproductAssest);
+            // ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
+            createCartItem();
         });
     });
 }
-function createCartItem(items) {
+function createCartItem() {
     var shoppingCartContainer = document.getElementById('cart-items');
-    console.log(items);
-    var cartItemContainer = "<div id=\"cart-item-holder\">\n        <div class=\"quantity\">\n            <p>1</p>\n        </div>\n        <div>\n            <h3 class=\"cartProductName\">".concat(items[0].name, "</h3>\n            <div class=\"priceContainer\">\n                <span class=\"cartProductPrice\">R ").concat(items[0].price, "</span>\n                <button class=\"kill\" data-id=\"").concat(items[0].id, "\">remove</button>\n            </div>\n        </div>\n        <div>\n            <p>1</p>\n        </div>\n    </div>");
-    shoppingCartContainer.innerHTML = cartItemContainer;
+    shoppingCartContainer.innerText = '';
+    var cartItemContainer;
+    //get id name in cart and search for item from object"productlist"
+    cart.forEach(function (productId) {
+        /*filer productlist to only show elements that have ids corresponding with cart*/
+        productList.filter(function (item) { return item.id == productId; }).forEach(function (product) {
+            /*for each item enter infomation to HTML template and save in variable*/
+            //console.log(product);
+            cartItemContainer +=
+                "<div id=\"cart-item-holder\">\n                <div>\n                    <p>".concat(cart.indexOf(product.id), "</p>\n                </div>\n                <div>\n                    <h3 class=\"cartProductName\">").concat(product.name, "</h3>\n                    <div class=\"priceContainer\">\n                        <span class=\"cartProductPrice\">R ").concat(product.price, "</span>\n                        <span class=\"kill\" data-id=\"").concat(product.id, "\">remove</span>\n                    </div>\n                </div>\n                <div class=\"quantity\">\n                    <p>1</p>\n                </div>\n            </div>");
+            shoppingCartContainer.innerHTML = cartItemContainer;
+            document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
+        });
+    });
 }
 function removeCartItem() {
+    //list all purchase button| is a Nodelist
+    var purchaseBtn = document.querySelectorAll(".purchase-btn");
     var removeCartItemButtons = document.querySelectorAll('.kill');
     removeCartItemButtons.forEach(function (killBtn) { return killBtn.addEventListener('click', function () {
         var _a, _b, _c;
-        //get remove btn id and filter to show elements that doesnt have it and updates cart
+        //get remove btn id and filter cart to show elements that doesnt have it and updates cart to that
         cart = cart.filter(function (product) { return product != killBtn.getAttribute('data-id'); });
-        console.log(cart);
+        //scan all button id elements and if id==killedId | remove class, disable and add purchase-btn class and purchase as text
+        purchaseBtn.forEach(function (button) {
+            var checkId = button.getAttribute('data-id') == killBtn.getAttribute('data-id');
+            if (checkId) {
+                button.removeAttribute('class');
+                button.removeAttribute('disabled');
+                button.classList.add('purchase-btn');
+                button.textContent = 'PURCHASE';
+            }
+        });
+        // console.log(cart)
         (_c = (_b = (_a = killBtn.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement) === null || _c === void 0 ? void 0 : _c.remove(); //if selected element has parent parent, remove it)
     }); });
 }
@@ -110,7 +131,6 @@ function loadBannerAds() {
         bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[2].image, "\"/>"); //add 3 image to banner
 }
 ;
-document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length);
 document.getElementById('cartImage').addEventListener('click', function () {
     document.getElementById('shopping-cart').style.display = "block";
 });
