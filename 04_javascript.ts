@@ -36,21 +36,18 @@ let bannerImages=[{image:`./src/images/banner/01-Shop-Products-Banner-Design.jpg
 
 let cart=["peoirj"];
 
-let removeCartItemButtons = document.getElementsByClassName('kill');
 const productDOM = document.getElementById('productItemsDisplay');
-//document.getElementById('productItemsDisplay')!.innerHTML=productItemDisplayContectMaker();
 
-console.log(removeCartItemButtons);
 
 //loads products on the page
 loadProducts();
 //detects product purchase button 2seconds after loading page
 setTimeout(buyButton,2000);
 //loadsbannerads
-loadBannerAds()
 setInterval(loadBannerAds,1000);
+setInterval(removeCartItem,1000);
 
-function loadProducts():void{                                          //function to initialise the page of items
+function loadProducts():void{                            //function to initialise the page of items
     let pageForItems:string = '';
     for(let i=0; i<productList.length;i++){
         pageForItems+=(createItem(i));
@@ -85,44 +82,69 @@ function createItemDescription(indexOfProduct):string{
 };
 
 function buyButton(){
+    let ClickedproductAssest= [{}];
     //list all purchase button| is a Nodelist
-    const buttons = document.querySelectorAll(".purchase-btn");
+    const purchaseBtn = document.querySelectorAll(".purchase-btn");
     
-    buttons.forEach(button=>{
+    purchaseBtn.forEach(button=>{
         let id = button.getAttribute('data-id');            //get the id(data-id) of each product
         let inCart = cart.some(item=> item === id);         //checks if id is in cart
 
         if (inCart){
             button.textContent="In Cart";                   //change text for purchase button
             button.setAttribute('disabled','disabled');     //makes the button inactive
-            button.classList.add('puchased')
+            button.classList.add('purchased');
         }
+
         button.addEventListener('click', () => {
+            //change context of click button and disable button
             button.textContent="In Cart";
             button.setAttribute('disabled','disabled');
             button.classList.add('puchased')
+            //add product id to cart
+            cart = [...cart,`${id}`]
+            console.log(cart)
+            //search for item that has id of click from object set "productlist"
+            ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
+            createCartItem(ClickedproductAssest);
         })
     })
-    // console.log(buttons);
 }
 
-function createCartItem():string{
-    let cartItemContainer:string= `<div id="cart-item-holder">`;//div
-    cartItemContainer+=`<div class="quantity"><p>1</p></div>`;//quantity
-    cartItemContainer+=`<div class="name"><p>object one</p></div>`;//name
-    cartItemContainer+=`<div class="kill"><button>remove</button></div>`;//remove button
-    cartItemContainer+=`</div>`;//closing tag
+function createCartItem(items){
+    const shoppingCartContainer = document.getElementById('cart-items');
+    console.log(items)
 
-    return cartItemContainer;
+    let cartItemContainer:string= 
+    `<div id="cart-item-holder">
+        <div class="quantity">
+            <p>1</p>
+        </div>
+        <div>
+            <h3 class="cartProductName">${items[0].name}</h3>
+            <div class="priceContainer">
+                <span class="cartProductPrice">R ${items[0].price}</span>
+                <button class="kill" data-id="${items[0].id}">remove</button>
+            </div>
+        </div>
+        <div>
+            <p>1</p>
+        </div>
+    </div>`;
+    shoppingCartContainer!.innerHTML=cartItemContainer;
 }
 
 function removeCartItem():void{
-    for(let i=0; i<removeCartItemButtons.length;i++){ //loop over the buttons
-        let button = removeCartItemButtons[i];//button of selected loop element
-        button.addEventListener('click', ()=>{
-            button.parentElement?.remove(); //if selected loop element has a parent, remove it
-        })
-    }
+    let removeCartItemButtons = document.querySelectorAll('.kill');
+
+    removeCartItemButtons.forEach(killBtn=>killBtn.addEventListener('click', ()=>{
+        //get remove btn id and filter to show elements that doesnt have it and updates cart
+        cart = cart.filter(product=>product!=killBtn.getAttribute('data-id'));
+        console.log(cart);
+
+        killBtn.parentElement?.parentElement?.parentElement?.remove() //if selected element has parent parent, remove it)
+
+    })); 
 };
 
 function loadBannerAds(){
@@ -136,9 +158,12 @@ function loadBannerAds(){
     if(seconds == 0)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[0].image}"/>`; //add 1st image to banner
     if(seconds == 4)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[1].image}"/>`; //add 2nd image to banner
     if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
-
-    // let activeImagesHolder="";
-    // bannerImages.map(item =>{               /*loops through array and takes element and add to img element*/
-    //     activeImagesHolder+=`<img class="bannerImg" src="${item.image}"/>`
-    // });
 };
+
+document.getElementById('cartItemAmount')!.innerHTML=`${cart.length}`;
+document.getElementById('cartImage')!.addEventListener('click',()=>{
+    document.getElementById('shopping-cart')!.style.display="block";
+});
+document.getElementById('axis')!.addEventListener('click',()=>{
+    document.getElementById('shopping-cart')!.style.display="none";
+});

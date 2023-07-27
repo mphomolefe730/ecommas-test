@@ -1,3 +1,12 @@
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 var productList = [{ name: "Nike Air Force 1", Description: "The radiance lives on in the\nNike Air Force 1 '07, the basketball original that puts a fresh spin on what you know \nbest: durably stitched overlays, clean finishes and the perfect amount of flash to make \nyou shine.", price: 2199, id: "peoirj", img: "./src/images/air-force-1.webp" },
     { name: "Air Jordan 13 Retro", Description: "The Air Jordan 13 Retro brings back the memorable \ngame shoe that Michael Jordan wore during the '97-98 season, all the way to his 6th \nchampionship title. All the classic details are there like the quilted overlay, iconic \nsculpted midsole and holographic eye.", price: 3765, id: "djhgs", img: "./src/images/air-jordan-13-retro.webp" },
     { name: "JBL TUNE500BT", Description: "The JBL TUNE500BT headphones let you stream powerful sound \nwith no strings attached for up to 16 hours of pure pleasure. Easy to use and equipped with \n32mm JBL drivers and JBL Pure Bass sound, these headphones provide easy access to great sound \nevery time. And if a call comes in while you are watching a video on another device, the JBL \nTUNE500BT seamlessly switches to your mobile. Bluetooth enabled and designed to be comfortable, \nthe JBL TUNE500BT headphones also allow you to connect to Siri or Google Now without using your \nmobile device. Available in 4 fresh colors and foldable for easy portability, the JBL TUNE500BT \nheadphones are a grab \u2018n go solution that help you to inject music into every aspect of your busy \nlife.", price: 720, id: "2j2h2t", img: "./src/images/jbl-500-bt.webp" },
@@ -9,17 +18,14 @@ var bannerImages = [{ image: "./src/images/banner/01-Shop-Products-Banner-Design
     { image: "./src/images/banner/02-Shop-Products-Banner-Design.jpg" },
     { image: "./src/images/banner/03-Shop-Products-Banner-Design.jpg" },];
 var cart = ["peoirj"];
-var removeCartItemButtons = document.getElementsByClassName('kill');
 var productDOM = document.getElementById('productItemsDisplay');
-//document.getElementById('productItemsDisplay')!.innerHTML=productItemDisplayContectMaker();
-console.log(removeCartItemButtons);
 //loads products on the page
 loadProducts();
 //detects product purchase button 2seconds after loading page
 setTimeout(buyButton, 2000);
 //loadsbannerads
-loadBannerAds();
 setInterval(loadBannerAds, 1000);
+setInterval(removeCartItem, 1000);
 function loadProducts() {
     var pageForItems = '';
     for (var i = 0; i < productList.length; i++) {
@@ -48,43 +54,46 @@ function createItemDescription(indexOfProduct) {
 }
 ;
 function buyButton() {
+    var ClickedproductAssest = [{}];
     //list all purchase button| is a Nodelist
-    var buttons = document.querySelectorAll(".purchase-btn");
-    buttons.forEach(function (button) {
+    var purchaseBtn = document.querySelectorAll(".purchase-btn");
+    purchaseBtn.forEach(function (button) {
         var id = button.getAttribute('data-id'); //get the id(data-id) of each product
         var inCart = cart.some(function (item) { return item === id; }); //checks if id is in cart
         if (inCart) {
             button.textContent = "In Cart"; //change text for purchase button
             button.setAttribute('disabled', 'disabled'); //makes the button inactive
-            button.classList.add('puchased');
+            button.classList.add('purchased');
         }
         button.addEventListener('click', function () {
+            //change context of click button and disable button
             button.textContent = "In Cart";
             button.setAttribute('disabled', 'disabled');
             button.classList.add('puchased');
+            //add product id to cart
+            cart = __spreadArray(__spreadArray([], cart, true), ["".concat(id)], false);
+            console.log(cart);
+            //search for item that has id of click from object set "productlist"
+            ClickedproductAssest = productList.filter(function (items) { return items.id == button.getAttribute('data-id'); });
+            createCartItem(ClickedproductAssest);
         });
     });
-    // console.log(buttons);
 }
-function createCartItem() {
-    var cartItemContainer = "<div id=\"cart-item-holder\">"; //div
-    cartItemContainer += "<div class=\"quantity\"><p>1</p></div>"; //quantity
-    cartItemContainer += "<div class=\"name\"><p>object one</p></div>"; //name
-    cartItemContainer += "<div class=\"kill\"><button>remove</button></div>"; //remove button
-    cartItemContainer += "</div>"; //closing tag
-    return cartItemContainer;
+function createCartItem(items) {
+    var shoppingCartContainer = document.getElementById('cart-items');
+    console.log(items);
+    var cartItemContainer = "<div id=\"cart-item-holder\">\n        <div class=\"quantity\">\n            <p>1</p>\n        </div>\n        <div>\n            <h3 class=\"cartProductName\">".concat(items[0].name, "</h3>\n            <div class=\"priceContainer\">\n                <span class=\"cartProductPrice\">R ").concat(items[0].price, "</span>\n                <button class=\"kill\" data-id=\"").concat(items[0].id, "\">remove</button>\n            </div>\n        </div>\n        <div>\n            <p>1</p>\n        </div>\n    </div>");
+    shoppingCartContainer.innerHTML = cartItemContainer;
 }
 function removeCartItem() {
-    var _loop_1 = function (i) {
-        var button = removeCartItemButtons[i]; //button of selected loop element
-        button.addEventListener('click', function () {
-            var _a;
-            (_a = button.parentElement) === null || _a === void 0 ? void 0 : _a.remove(); //if selected loop element has a parent, remove it
-        });
-    };
-    for (var i = 0; i < removeCartItemButtons.length; i++) {
-        _loop_1(i);
-    }
+    var removeCartItemButtons = document.querySelectorAll('.kill');
+    removeCartItemButtons.forEach(function (killBtn) { return killBtn.addEventListener('click', function () {
+        var _a, _b, _c;
+        //get remove btn id and filter to show elements that doesnt have it and updates cart
+        cart = cart.filter(function (product) { return product != killBtn.getAttribute('data-id'); });
+        console.log(cart);
+        (_c = (_b = (_a = killBtn.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement) === null || _c === void 0 ? void 0 : _c.remove(); //if selected element has parent parent, remove it)
+    }); });
 }
 ;
 function loadBannerAds() {
@@ -99,9 +108,12 @@ function loadBannerAds() {
         bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[1].image, "\"/>"); //add 2nd image to banner
     if (seconds == 9)
         bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[2].image, "\"/>"); //add 3 image to banner
-    // let activeImagesHolder="";
-    // bannerImages.map(item =>{               /*loops through array and takes element and add to img element*/
-    //     activeImagesHolder+=`<img class="bannerImg" src="${item.image}"/>`
-    // });
 }
 ;
+document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length);
+document.getElementById('cartImage').addEventListener('click', function () {
+    document.getElementById('shopping-cart').style.display = "block";
+});
+document.getElementById('axis').addEventListener('click', function () {
+    document.getElementById('shopping-cart').style.display = "none";
+});
