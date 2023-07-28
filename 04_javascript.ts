@@ -35,6 +35,9 @@ let bannerImages=[{image:`./src/images/banner/01-Shop-Products-Banner-Design.jpg
 {image:`./src/images/banner/03-Shop-Products-Banner-Design.jpg`},];
 
 let cart=[""];
+let totalprice = 0;
+//price for total less than R500
+let deliveryPrice = 50;
 
 const productDOM = document.getElementById('productItemsDisplay');
 
@@ -45,7 +48,7 @@ loadProducts();
 setTimeout(buyButton,1000);
 //loadsbannerads
 setInterval(loadBannerAds,1000);
-setInterval(removeCartItem,1000);
+// setInterval(removeCartItem,1000);
 
 function loadProducts():void{                            //function to initialise the page of items
     let pageForItems:string = '';
@@ -105,6 +108,7 @@ function buyButton(){
             cart = [...cart,`${id}`];
             // ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
             createCartItem();
+            removeCartItem();
         })
     })
 }
@@ -112,6 +116,8 @@ function buyButton(){
 function createCartItem(){
     const shoppingCartContainer = document.getElementById('cart-items');
     shoppingCartContainer!.innerText='';
+    let variableHoldingPrice=0;
+
     let cartItemContainer:string;
     
     //get id name in cart and search for item from object"productlist"
@@ -119,7 +125,6 @@ function createCartItem(){
         /*filer productlist to only show elements that have ids corresponding with cart*/
         productList.filter(item=>item.id==productId).forEach(product=>{
             /*for each item enter infomation to HTML template and save in variable*/
-            //console.log(product);
             cartItemContainer+= 
             `<div id="cart-item-holder">
                 <div>
@@ -137,10 +142,12 @@ function createCartItem(){
                 </div>
             </div>`;
             
+            variableHoldingPrice=product.price;
             shoppingCartContainer!.innerHTML=cartItemContainer;
             document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
         })
     });
+    getPriceTotals(variableHoldingPrice);
 }
 
 function removeCartItem():void{
@@ -159,6 +166,12 @@ function removeCartItem():void{
                 button.removeAttribute('disabled');
                 button.classList.add('purchase-btn');
                 button.textContent='PURCHASE';
+                //filter by product id, get price and remove from totalprice
+                productList.filter(productid=>{
+                    if (productid.id==killBtn.getAttribute('data-id')){
+                        getPriceTotals(-Math.abs(productid.price));
+                    };
+                });
             }
         });
         // console.log(cart)
@@ -180,6 +193,30 @@ function loadBannerAds(){
     if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
 };
 
+function getPriceTotals(price:number){
+    totalprice+=price;
+
+    let SubTotalDom = document.querySelector('#sub-total-price');
+    let deliveryPriceDom = document.querySelector('#delivery-price');
+    let totalPriceDom = document.querySelector('#total-price');
+
+    if (totalprice<500){
+        SubTotalDom!.innerHTML=`R ${totalprice}`
+        if (totalprice==0){
+            deliveryPriceDom!.innerHTML= `0`;
+            totalPriceDom!.innerHTML=`0`;
+        }
+        else {deliveryPriceDom!.innerHTML=`${deliveryPrice}`;
+            totalPriceDom!.innerHTML=`R ${totalprice+deliveryPrice}`;
+        };
+    }else{
+        SubTotalDom!.innerHTML=`R ${totalprice}`
+        deliveryPriceDom!.innerHTML=`FREE`
+        totalPriceDom!.innerHTML=`R ${totalprice}`
+    };
+};
+
+//control for cart menu appearing and disappearing
 document.getElementById('cartImage')!.addEventListener('click',()=>{
     document.getElementById('shopping-cart')!.style.display="block";
 });

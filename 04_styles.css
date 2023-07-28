@@ -159,15 +159,6 @@ nav{
     /* height: auto; */
 }
 
-/* .cartProductImage{
-    height: minmax(1fr,75px);
-    width: 100%;
-    object-fit: cover;
-} */
-#cart-item-holder p{
-    text-align: center;
-}
-
 .priceContainer{
     display: flex;
     justify-content: space-between;
@@ -184,6 +175,17 @@ nav{
 .cartProductPrice{
     font-size: large;
 }
+
+#cart-total-session{
+    width: 95%;
+    position: absolute;
+    bottom: 0;
+}
+.element-section{
+    display: grid;
+    grid-template-columns: 6fr 2fr;
+    margin: var(--box-margin);
+}
 /*------END OF SHOPPING CART------*/
 
 /* laptop */
@@ -197,7 +199,7 @@ nav{
     #shopping-cart{
         display: block;
         position: relative;
-        width: 100%;
+        /* width: 100%; */
     }
     #cartItemAmount,#cartImage{
         display: none;

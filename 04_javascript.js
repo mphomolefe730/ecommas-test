@@ -18,6 +18,9 @@ var bannerImages = [{ image: "./src/images/banner/01-Shop-Products-Banner-Design
     { image: "./src/images/banner/02-Shop-Products-Banner-Design.jpg" },
     { image: "./src/images/banner/03-Shop-Products-Banner-Design.jpg" },];
 var cart = [""];
+var totalprice = 0;
+//price for total less than R500
+var deliveryPrice = 50;
 var productDOM = document.getElementById('productItemsDisplay');
 //loads products on the page
 loadProducts();
@@ -25,7 +28,7 @@ loadProducts();
 setTimeout(buyButton, 1000);
 //loadsbannerads
 setInterval(loadBannerAds, 1000);
-setInterval(removeCartItem, 1000);
+// setInterval(removeCartItem,1000);
 function loadProducts() {
     var pageForItems = '';
     for (var i = 0; i < productList.length; i++) {
@@ -74,25 +77,28 @@ function buyButton() {
             cart = __spreadArray(__spreadArray([], cart, true), ["".concat(id)], false);
             // ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
             createCartItem();
+            removeCartItem();
         });
     });
 }
 function createCartItem() {
     var shoppingCartContainer = document.getElementById('cart-items');
     shoppingCartContainer.innerText = '';
+    var variableHoldingPrice = 0;
     var cartItemContainer;
     //get id name in cart and search for item from object"productlist"
     cart.forEach(function (productId) {
         /*filer productlist to only show elements that have ids corresponding with cart*/
         productList.filter(function (item) { return item.id == productId; }).forEach(function (product) {
             /*for each item enter infomation to HTML template and save in variable*/
-            //console.log(product);
             cartItemContainer +=
                 "<div id=\"cart-item-holder\">\n                <div>\n                    <p>".concat(cart.indexOf(product.id), "</p>\n                </div>\n                <div>\n                    <h3 class=\"cartProductName\">").concat(product.name, "</h3>\n                    <div class=\"priceContainer\">\n                        <span class=\"cartProductPrice\">R ").concat(product.price, "</span>\n                        <span class=\"kill\" data-id=\"").concat(product.id, "\">remove</span>\n                    </div>\n                </div>\n                <div class=\"quantity\">\n                    <input value=\"1\" type=\"number\" max=\"9\" style=\"max-width: 30px;margin-left:50%;\"/>\n                </div>\n            </div>");
+            variableHoldingPrice = product.price;
             shoppingCartContainer.innerHTML = cartItemContainer;
             document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
         });
     });
+    getPriceTotals(variableHoldingPrice);
 }
 function removeCartItem() {
     //list all purchase button| is a Nodelist
@@ -110,6 +116,13 @@ function removeCartItem() {
                 button.removeAttribute('disabled');
                 button.classList.add('purchase-btn');
                 button.textContent = 'PURCHASE';
+                //filter by product id, get price and remove from totalprice
+                productList.filter(function (productid) {
+                    if (productid.id == killBtn.getAttribute('data-id')) {
+                        getPriceTotals(-Math.abs(productid.price));
+                    }
+                    ;
+                });
             }
         });
         // console.log(cart)
@@ -131,6 +144,32 @@ function loadBannerAds() {
         bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[2].image, "\"/>"); //add 3 image to banner
 }
 ;
+function getPriceTotals(price) {
+    totalprice += price;
+    var SubTotalDom = document.querySelector('#sub-total-price');
+    var deliveryPriceDom = document.querySelector('#delivery-price');
+    var totalPriceDom = document.querySelector('#total-price');
+    if (totalprice < 500) {
+        SubTotalDom.innerHTML = "R ".concat(totalprice);
+        if (totalprice == 0) {
+            deliveryPriceDom.innerHTML = "0";
+            totalPriceDom.innerHTML = "0";
+        }
+        else {
+            deliveryPriceDom.innerHTML = "".concat(deliveryPrice);
+            totalPriceDom.innerHTML = "R ".concat(totalprice + deliveryPrice);
+        }
+        ;
+    }
+    else {
+        SubTotalDom.innerHTML = "R ".concat(totalprice);
+        deliveryPriceDom.innerHTML = "FREE";
+        totalPriceDom.innerHTML = "R ".concat(totalprice);
+    }
+    ;
+}
+;
+//control for cart menu appearing and disappearing
 document.getElementById('cartImage').addEventListener('click', function () {
     document.getElementById('shopping-cart').style.display = "block";
 });
