@@ -133,7 +133,7 @@ function createCartItem(){
                     </div>
                 </div>
                 <div class="quantity">
-                    <p>1</p>
+                    <input value="1" type="number" max="9" style="max-width: 30px;margin-left:50%;"/>
                 </div>
             </div>`;
             

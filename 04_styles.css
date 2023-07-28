@@ -70,14 +70,15 @@ nav{
     background-color: var(--secondaryColor);
     top: 0;
     right: 0;
-    width: 75%;
+    width: 95%;
     height: 100vh;
+    z-index: 3;
 }
 #cartHeader{
     position: relative;
     display: flex;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between;
+    /* width: 100%; */
 }
 .kill{
     color: red;
@@ -147,14 +148,15 @@ nav{
     padding: 0px 10px;
 }
 #cart-item-holder{
-    max-width: 400px;
+    /* max-width: 400px; */
     border: 2px solid var(--accent-color);
     margin: var(--box-margin);
     display: grid;
-    grid-template-columns:0.5fr 5fr 1fr;
+    grid-template-columns:0.5fr 5fr 3fr;
     align-items: center;
-    width: 100%;
-    height: auto;
+    width: 95%;
+    border-radius: var(--border-10);
+    /* height: auto; */
 }
 
 /* .cartProductImage{
