@@ -141,10 +141,9 @@ function createCartItem(){
                     <input value="1" type="number" max="9" style="max-width: 30px;margin-left:50%;"/>
                 </div>
             </div>`;
-            
+
             variableHoldingPrice=product.price;
             shoppingCartContainer!.innerHTML=cartItemContainer;
-            document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
         })
     });
     getPriceTotals(variableHoldingPrice);
@@ -214,6 +213,7 @@ function getPriceTotals(price:number){
         deliveryPriceDom!.innerHTML=`FREE`
         totalPriceDom!.innerHTML=`R ${totalprice}`
     };
+    document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
 };
 
 //control for cart menu appearing and disappearing

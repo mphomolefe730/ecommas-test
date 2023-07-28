@@ -95,7 +95,6 @@ function createCartItem() {
                 "<div id=\"cart-item-holder\">\n                <div>\n                    <p>".concat(cart.indexOf(product.id), "</p>\n                </div>\n                <div>\n                    <h3 class=\"cartProductName\">").concat(product.name, "</h3>\n                    <div class=\"priceContainer\">\n                        <span class=\"cartProductPrice\">R ").concat(product.price, "</span>\n                        <span class=\"kill\" data-id=\"").concat(product.id, "\">remove</span>\n                    </div>\n                </div>\n                <div class=\"quantity\">\n                    <input value=\"1\" type=\"number\" max=\"9\" style=\"max-width: 30px;margin-left:50%;\"/>\n                </div>\n            </div>");
             variableHoldingPrice = product.price;
             shoppingCartContainer.innerHTML = cartItemContainer;
-            document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
         });
     });
     getPriceTotals(variableHoldingPrice);
@@ -167,6 +166,7 @@ function getPriceTotals(price) {
         totalPriceDom.innerHTML = "R ".concat(totalprice);
     }
     ;
+    document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
 }
 ;
 //control for cart menu appearing and disappearing
