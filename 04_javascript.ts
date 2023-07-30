@@ -202,10 +202,10 @@ function getPriceTotals(price:number){
     if (totalprice<500){
         SubTotalDom!.innerHTML=`R ${totalprice}`
         if (totalprice==0){
-            deliveryPriceDom!.innerHTML= `0`;
-            totalPriceDom!.innerHTML=`0`;
+            deliveryPriceDom!.innerHTML= `R 0`;
+            totalPriceDom!.innerHTML=`R 0`;
         }
-        else {deliveryPriceDom!.innerHTML=`${deliveryPrice}`;
+        else {deliveryPriceDom!.innerHTML=`R ${deliveryPrice}`;
             totalPriceDom!.innerHTML=`R ${totalprice+deliveryPrice}`;
         };
     }else{
@@ -261,10 +261,12 @@ function addProductMenu(){
         setTimeout(()=>{
             const cancelBTN = document.getElementById('cancelProduct');
             const popUpMenu = document.getElementById('blackBG');
-            cancelBTN?.addEventListener('click',()=> {popUpMenu?.remove();});
-            const fMenu = document.getElementById("floatingMenu");
+            cancelBTN?.addEventListener('click',()=> {popUpMenu?.remove();});       //remove html of popupmenu
+            const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
             fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
             actionButtion();
+            loadProducts();                                                         //reload all products
+            buyButton();
         },1000)
     });
     

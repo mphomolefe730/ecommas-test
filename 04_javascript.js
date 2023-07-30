@@ -151,11 +151,11 @@ function getPriceTotals(price) {
     if (totalprice < 500) {
         SubTotalDom.innerHTML = "R ".concat(totalprice);
         if (totalprice == 0) {
-            deliveryPriceDom.innerHTML = "0";
-            totalPriceDom.innerHTML = "0";
+            deliveryPriceDom.innerHTML = "R 0";
+            totalPriceDom.innerHTML = "R 0";
         }
         else {
-            deliveryPriceDom.innerHTML = "".concat(deliveryPrice);
+            deliveryPriceDom.innerHTML = "R ".concat(deliveryPrice);
             totalPriceDom.innerHTML = "R ".concat(totalprice + deliveryPrice);
         }
         ;
@@ -189,10 +189,12 @@ function addProductMenu() {
         setTimeout(function () {
             var cancelBTN = document.getElementById('cancelProduct');
             var popUpMenu = document.getElementById('blackBG');
-            cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () { popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove(); });
-            var fMenu = document.getElementById("floatingMenu");
+            cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () { popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove(); }); //remove html of popupmenu
+            var fMenu = document.getElementById("floatingMenu"); //update action buttion code
             fMenu.innerHTML = "<p id=\"actionButton\">MORE</p>";
             actionButtion();
+            loadProducts(); //reload all products
+            buyButton();
         }, 1000);
     });
 }
