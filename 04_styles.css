@@ -1,6 +1,6 @@
 :root {
-    --primaryColor:rgba(128, 128, 128,0.05);
-    --secondaryColor:rgb(255, 255, 255);
+    --primaryColor:rgb(255, 255, 255);
+    --secondaryColor: rgba(0,0,0,0.05);
     --accent-color:rgb(0,0,0);
     --box-margin: 10px 0;
     --border-10: 10px;
@@ -46,7 +46,7 @@ nav{
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--secondaryColor);
+    /* background-color: var(--primaryColor); */
     margin: var(--box-margin);
 }
 
@@ -67,12 +67,12 @@ nav{
     overflow: hidden;
     display: none;
     position: absolute;
-    background-color: var(--secondaryColor);
+    background-color: var(--primaryColor);
     top: 0;
     right: 0;
     width: 95%;
     height: 100vh;
-    z-index: 3;
+    z-index: 2;
 }
 #cartHeader{
     position: relative;
@@ -84,7 +84,20 @@ nav{
     color: red;
 }
 /*------ END OF NAV------*/
+/*------ Floating Menu------*/
+#floatingMenu{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border: 0;
+    background-color: orange;
+    color: var(--accent-color);
+    padding: 5px 20px;
+    border-radius: var(--border-10);
+    z-index: 3;
+}
 
+/*------END OF ACTION BUTTON------*/
 /*------STORE ITEMS------*/
 #productItemsDisplay{
     display: grid;
@@ -96,6 +109,7 @@ nav{
 .item{
     padding: var(--border-10);
     background-color: var(--secondaryColor);
+    border-radius: var(--border-10);
 }
 .item:hover{
     cursor: pointer;
@@ -128,7 +142,7 @@ nav{
 .purchase-btn{
     border: 0;
     background-color: var(--accent-color);
-    color: var(--secondaryColor);
+    color: white;
     height: 40px;
     border-radius: var(--border-10);
 }
@@ -149,7 +163,8 @@ nav{
 }
 #cart-item-holder{
     /* max-width: 400px; */
-    border: 2px solid var(--accent-color);
+    /* border: 0.5px solid var(--accent-color); */
+    background-color: var(--secondaryColor);
     margin: var(--box-margin);
     display: grid;
     grid-template-columns:0.5fr 5fr 3fr;
@@ -169,7 +184,7 @@ nav{
     text-overflow: ellipsis;
     white-space: nowrap;
     max-width: 200px;
-    margin: 0;
+    margin: var(--box-margin);
     padding: 0;
 }
 .cartProductPrice{
@@ -212,13 +227,34 @@ nav{
     } */
 }
 
-/* phone 
-@media (max-width: 551px){
-    #productItemsDisplay{
-        grid-template-columns: 1fr;
-    }    
-    #product-image{
-        background-color: blue;
-        height: 350px;
-    }
-}*/
+#blackBG{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* display: none; */
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0,0,0,0.75);
+    z-index: 3;
+}
+#whiteContainer{
+    position: relative;
+    background-color: white;
+    width: 80%;
+    height: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#whiteContainer input{
+    background-color: rgba(0,0,0,0.05);
+    border: 0; 
+    padding: 0px 5px; 
+    height: 35px; 
+    border-radius: 10px;
+    margin: 5px 0;
+    width: 97%
+}

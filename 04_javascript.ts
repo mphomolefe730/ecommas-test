@@ -48,7 +48,6 @@ loadProducts();
 setTimeout(buyButton,1000);
 //loadsbannerads
 setInterval(loadBannerAds,1000);
-// setInterval(removeCartItem,1000);
 
 function loadProducts():void{                            //function to initialise the page of items
     let pageForItems:string = '';
@@ -56,6 +55,7 @@ function loadProducts():void{                            //function to initialis
         pageForItems+=(createItem(i));
     }                                               
     productDOM!.innerHTML=pageForItems;
+    actionButtion()
 };
 
 function createItem(indexOfProduct:number):string{
@@ -215,6 +215,60 @@ function getPriceTotals(price:number){
     };
     document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
 };
+
+function actionButtion(){
+    const actionBTN = document.getElementById("actionButton");
+
+    actionBTN!.addEventListener('click',()=>{
+        actionBTN?.toggleAttribute('open')
+        if(actionBTN?.hasAttribute('open')){
+            actionBTN!.innerHTML=`
+            <p id="addMoreProducts">ADD PRODUCT</p>
+            <p id="actionButton">CLOSE</p>
+            `;
+            addProductMenu();
+        }else{
+            actionBTN!.innerHTML=`<p id="actionButton">MORE</p>`;
+        }
+    });
+
+}
+
+function addProductMenu(){
+    const addProductBTN = document.getElementById('addMoreProducts');
+
+    addProductBTN?.addEventListener('click',()=>{
+        document.body.innerHTML+=`
+            <div id="blackBG">
+                <div id="whiteContainer">
+                    <input id="newProductImage" style="height: 200px;" type="file"/>
+                    <div style="display:flex; width: 100%;flex-wrap: wrap;">
+
+                        <input id="newProductName" type="text" placeholder="Product Name" style="width:100%"/>
+                        <textarea style="border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;"></textarea>
+
+                        <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
+                            <input id="newProductPrice" type="number" placeholder="Product Price"/>
+                            <input id="newProductId" type="text" placeholder="Product ID"/>
+                        </div>
+                        <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
+                            <button id="cancelProduct" type="reset" style="border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;">CANCEL</button>
+                            <button id="submitProduct" type="submit" style="border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;">SUBMIT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`
+        setTimeout(()=>{
+            const cancelBTN = document.getElementById('cancelProduct');
+            const popUpMenu = document.getElementById('blackBG');
+            cancelBTN?.addEventListener('click',()=> {popUpMenu?.remove();});
+            const fMenu = document.getElementById("floatingMenu");
+            fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
+            actionButtion();
+        },1000)
+    });
+    
+}
 
 //control for cart menu appearing and disappearing
 document.getElementById('cartImage')!.addEventListener('click',()=>{

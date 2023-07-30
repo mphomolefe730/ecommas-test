@@ -28,13 +28,13 @@ loadProducts();
 setTimeout(buyButton, 1000);
 //loadsbannerads
 setInterval(loadBannerAds, 1000);
-// setInterval(removeCartItem,1000);
 function loadProducts() {
     var pageForItems = '';
     for (var i = 0; i < productList.length; i++) {
         pageForItems += (createItem(i));
     }
     productDOM.innerHTML = pageForItems;
+    actionButtion();
 }
 ;
 function createItem(indexOfProduct) {
@@ -169,6 +169,33 @@ function getPriceTotals(price) {
     document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
 }
 ;
+function actionButtion() {
+    var actionBTN = document.getElementById("actionButton");
+    actionBTN.addEventListener('click', function () {
+        actionBTN === null || actionBTN === void 0 ? void 0 : actionBTN.toggleAttribute('open');
+        if (actionBTN === null || actionBTN === void 0 ? void 0 : actionBTN.hasAttribute('open')) {
+            actionBTN.innerHTML = "\n            <p id=\"addMoreProducts\">ADD PRODUCT</p>\n            <p id=\"actionButton\">CLOSE</p>\n            ";
+            addProductMenu();
+        }
+        else {
+            actionBTN.innerHTML = "<p id=\"actionButton\">MORE</p>";
+        }
+    });
+}
+function addProductMenu() {
+    var addProductBTN = document.getElementById('addMoreProducts');
+    addProductBTN === null || addProductBTN === void 0 ? void 0 : addProductBTN.addEventListener('click', function () {
+        document.body.innerHTML += "\n            <div id=\"blackBG\">\n                <div id=\"whiteContainer\">\n                    <input id=\"newProductImage\" style=\"height: 200px;\" type=\"file\"/>\n                    <div style=\"display:flex; width: 100%;flex-wrap: wrap;\">\n\n                        <input id=\"newProductName\" type=\"text\" placeholder=\"Product Name\" style=\"width:100%\"/>\n                        <textarea style=\"border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;\"></textarea>\n\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <input id=\"newProductPrice\" type=\"number\" placeholder=\"Product Price\"/>\n                            <input id=\"newProductId\" type=\"text\" placeholder=\"Product ID\"/>\n                        </div>\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <button id=\"cancelProduct\" type=\"reset\" style=\"border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;\">CANCEL</button>\n                            <button id=\"submitProduct\" type=\"submit\" style=\"border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;\">SUBMIT</button>\n                        </div>\n                    </div>\n                </div>\n            </div>";
+        setTimeout(function () {
+            var cancelBTN = document.getElementById('cancelProduct');
+            var popUpMenu = document.getElementById('blackBG');
+            cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () { popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove(); });
+            var fMenu = document.getElementById("floatingMenu");
+            fMenu.innerHTML = "<p id=\"actionButton\">MORE</p>";
+            actionButtion();
+        }, 1000);
+    });
+}
 //control for cart menu appearing and disappearing
 document.getElementById('cartImage').addEventListener('click', function () {
     document.getElementById('shopping-cart').style.display = "block";
