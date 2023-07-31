@@ -266,7 +266,7 @@ function addProductMenu(){
             fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
             actionButtion();
             loadProducts();                                                         //reload all products
-            buyButton();
+            setTimeout(buyButton,1000);
         },1000)
     });
     
