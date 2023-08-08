@@ -66,7 +66,7 @@ function buyButton() {
             button.textContent = "In Cart"; //change text for purchase button
             button.setAttribute('disabled', 'disabled'); //makes the button inactive
             button.classList.add('purchased');
-            createCartItem();
+            // createCartItem();
         }
         button.addEventListener('click', function () {
             //change context of click button and disable button
@@ -185,18 +185,60 @@ function actionButtion() {
 function addProductMenu() {
     var addProductBTN = document.getElementById('addMoreProducts');
     addProductBTN === null || addProductBTN === void 0 ? void 0 : addProductBTN.addEventListener('click', function () {
-        document.body.innerHTML += "\n            <div id=\"blackBG\">\n                <div id=\"whiteContainer\">\n                    <input id=\"newProductImage\" style=\"height: 200px;\" type=\"file\"/>\n                    <div style=\"display:flex; width: 100%;flex-wrap: wrap;\">\n\n                        <input id=\"newProductName\" type=\"text\" placeholder=\"Product Name\" style=\"width:100%\"/>\n                        <textarea style=\"border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;\"></textarea>\n\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <input id=\"newProductPrice\" type=\"number\" placeholder=\"Product Price\"/>\n                            <input id=\"newProductId\" type=\"text\" placeholder=\"Product ID\"/>\n                        </div>\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <button id=\"cancelProduct\" type=\"reset\" style=\"border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;\">CANCEL</button>\n                            <button id=\"submitProduct\" type=\"submit\" style=\"border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;\">SUBMIT</button>\n                        </div>\n                    </div>\n                </div>\n            </div>";
-        setTimeout(function () {
-            var cancelBTN = document.getElementById('cancelProduct');
-            var popUpMenu = document.getElementById('blackBG');
-            cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () { popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove(); }); //remove html of popupmenu
-            var fMenu = document.getElementById("floatingMenu"); //update action buttion code
-            fMenu.innerHTML = "<p id=\"actionButton\">MORE</p>";
-            actionButtion();
-            loadProducts(); //reload all products
-            setTimeout(buyButton, 1000);
-        }, 1000);
+        document.body.innerHTML += "\n            <div id=\"blackBG\">\n                <div id=\"whiteContainer\">\n                    <input id=\"newProductImage\" style=\"height: 200px;\" type=\"file\" accept=\"image/jpeg, image/png, image/jpg\"/>\n                    <div style=\"display:flex; width: 100%;flex-wrap: wrap;\">\n\n                        <input id=\"newProductName\" type=\"text\" placeholder=\"Product Name\" style=\"width:100%\"/>\n                        <textarea style=\"border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;\"></textarea>\n\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <input id=\"newProductPrice\" type=\"number\" placeholder=\"Product Price\"/>\n                            <input id=\"newProductId\" type=\"text\" placeholder=\"Product ID\"/>\n                        </div>\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <button id=\"cancelProduct\" type=\"reset\" style=\"border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;\">CANCEL</button>\n                            <button id=\"submitProduct\" type=\"submit\" style=\"border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;\">SUBMIT</button>\n                        </div>\n                    </div>\n                </div>\n            </div>";
+        addProductMenuButtons();
     });
+}
+function addProductMenuButtons() {
+    //cancel button
+    var cancelBTN = document.getElementById('cancelProduct');
+    var popUpMenu = document.getElementById('blackBG');
+    cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () {
+        console.log('cancel button');
+        popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove();
+        var fMenu = document.getElementById("floatingMenu"); //update action buttion code
+        fMenu.innerHTML = "<p id=\"actionButton\">MORE</p>";
+        actionButtion();
+        //loadProducts();                                                         //reload all products
+        setTimeout(buyButton, 1000);
+    }); //remove html of popupmenu
+    //submit botton
+    var submitBTN = document.getElementById('submitProduct');
+    submitBTN === null || submitBTN === void 0 ? void 0 : submitBTN.addEventListener('click', addNewProduct);
+}
+//function that adds new product to productlist and page
+function addNewProduct() {
+    console.log('running addnewproduct');
+    var NewProductImg = document.getElementById('newProductImage');
+    var NewProductName = document.getElementById('newProductName');
+    var NewProductDescription = document.getElementById('');
+    var NewProductPrice = document.getElementById('newProductPrice');
+    var NewProductID = document.getElementById('newProductId');
+    var stringForProduct = { name: String(NewProductName === null || NewProductName === void 0 ? void 0 : NewProductName.value),
+        Description: String(NewProductDescription === null || NewProductDescription === void 0 ? void 0 : NewProductDescription.value),
+        price: Number(NewProductPrice === null || NewProductPrice === void 0 ? void 0 : NewProductPrice.value),
+        id: String(NewProductID === null || NewProductID === void 0 ? void 0 : NewProductID.value),
+        img: String(NewProductImg === null || NewProductImg === void 0 ? void 0 : NewProductImg.value),
+    };
+    var ValidImg = ((NewProductImg === null || NewProductImg === void 0 ? void 0 : NewProductImg.value) == '') ? false : true;
+    var ValidName = ((NewProductName === null || NewProductName === void 0 ? void 0 : NewProductName.value) == '') ? false : true;
+    var ValidDes = ((NewProductDescription === null || NewProductDescription === void 0 ? void 0 : NewProductDescription.value) == '') ? false : true;
+    var ValidPrice = ((NewProductPrice === null || NewProductPrice === void 0 ? void 0 : NewProductPrice.value) == '') ? false : true;
+    var ValidID = ((NewProductID === null || NewProductID === void 0 ? void 0 : NewProductID.value) == '') ? false : true;
+    if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID) == true) {
+        console.log('product pass');
+        productList.push(stringForProduct);
+        var popUpMenu = document.getElementById('blackBG');
+        popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove();
+        setTimeout(loadProducts, 10);
+        // actionButtion;
+        setTimeout(buyButton, 1000);
+    }
+    else {
+        console.log('product false');
+        console.log("img ".concat(ValidImg, ", name ").concat(ValidName, ", des ").concat(ValidDes, ", price").concat(ValidPrice, ", id").concat(ValidID));
+        alert("There's an empty field in your form");
+    }
 }
 //control for cart menu appearing and disappearing
 document.getElementById('cartImage').addEventListener('click', function () {

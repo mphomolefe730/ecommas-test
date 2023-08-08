@@ -96,7 +96,7 @@ function buyButton(){
             button.textContent="In Cart";                   //change text for purchase button
             button.setAttribute('disabled','disabled');     //makes the button inactive
             button.classList.add('purchased');
-            createCartItem();
+            // createCartItem();
         }
 
         button.addEventListener('click', () => {
@@ -241,7 +241,7 @@ function addProductMenu(){
         document.body.innerHTML+=`
             <div id="blackBG">
                 <div id="whiteContainer">
-                    <input id="newProductImage" style="height: 200px;" type="file"/>
+                    <input id="newProductImage" style="height: 200px;" type="file" accept="image/jpeg, image/png, image/jpg"/>
                     <div style="display:flex; width: 100%;flex-wrap: wrap;">
 
                         <input id="newProductName" type="text" placeholder="Product Name" style="width:100%"/>
@@ -257,19 +257,66 @@ function addProductMenu(){
                         </div>
                     </div>
                 </div>
-            </div>`
-        setTimeout(()=>{
-            const cancelBTN = document.getElementById('cancelProduct');
-            const popUpMenu = document.getElementById('blackBG');
-            cancelBTN?.addEventListener('click',()=> {popUpMenu?.remove();});       //remove html of popupmenu
-            const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
-            fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
-            actionButtion();
-            loadProducts();                                                         //reload all products
-            setTimeout(buyButton,1000);
-        },1000)
+            </div>`;
+        addProductMenuButtons();
     });
     
+}
+function addProductMenuButtons(){
+    //cancel button
+    const cancelBTN = document.getElementById('cancelProduct');
+    const popUpMenu = document.getElementById('blackBG');
+    cancelBTN?.addEventListener('click',()=> {
+        console.log('cancel button');
+        popUpMenu?.remove()
+        const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
+        fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
+        actionButtion();
+        //loadProducts();                                                         //reload all products
+        setTimeout(buyButton,1000);
+    });       //remove html of popupmenu
+
+    //submit botton
+    const submitBTN = document.getElementById('submitProduct');
+    submitBTN?.addEventListener('click',addNewProduct);
+    
+}
+
+//function that adds new product to productlist and page
+function addNewProduct(){
+    console.log('running addnewproduct');
+    let NewProductImg = document.getElementById('newProductImage');
+    let NewProductName = document.getElementById('newProductName');
+    let NewProductDescription = document.getElementById('');
+    let NewProductPrice = document.getElementById('newProductPrice');
+    let NewProductID = document.getElementById('newProductId');
+
+    let stringForProduct ={name: String(NewProductName?.value),
+        Description: String(NewProductDescription?.value),
+        price: Number(NewProductPrice?.value),
+        id: String(NewProductID?.value),
+        img: String(NewProductImg?.value),
+    };
+
+    let ValidImg = (NewProductImg?.value=='')? false : true;
+    let ValidName = (NewProductName?.value=='')? false : true;
+    let ValidDes = (NewProductDescription?.value=='')? false : true;
+    let ValidPrice = (NewProductPrice?.value=='')? false : true;
+    let ValidID = (NewProductID?.value=='')? false : true;
+
+    if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID)==true){
+        console.log('product pass');
+        productList.push(stringForProduct);
+        const popUpMenu = document.getElementById('blackBG');
+        popUpMenu?.remove();
+        setTimeout(loadProducts,10);
+        // actionButtion;
+        setTimeout(buyButton,1000);
+    }else{
+        console.log('product false');
+        console.log(`img ${ValidImg}, name ${ValidName}, des ${ValidDes}, price${ValidPrice}, id${ValidID}`);
+        alert(`There's an empty field in your form`);
+    }
 }
 
 //control for cart menu appearing and disappearing
