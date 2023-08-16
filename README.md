@@ -4,3 +4,5 @@ OBJECTIVE:
 * use typescript
 * functional "add to cart" and "remove from cart"
 * make it mobile resposive by using media query
+
+https://mphomolefe730.github.io/ecommerce-test/04_index.html
