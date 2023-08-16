@@ -19,227 +19,241 @@ var bannerImages = [{ image: "./src/images/banner/01-Shop-Products-Banner-Design
     { image: "./src/images/banner/03-Shop-Products-Banner-Design.jpg" },];
 var cart = [""];
 var totalprice = 0;
-//price for total less than R500
 var deliveryPrice = 50;
+//place for products to be placed
 var productDOM = document.getElementById('productItemsDisplay');
-//loads products on the page
-loadProducts();
-//detects product purchase button 2seconds after loading page
-setTimeout(buyButton, 1000);
-//loadsbannerads
-setInterval(loadBannerAds, 1000);
-function loadProducts() {
-    var pageForItems = '';
-    for (var i = 0; i < productList.length; i++) {
-        pageForItems += (createItem(i));
+/*------START OF ALL REGARDING PRODUCT DISPLAY------*/
+var ShoreShowcaseProducts = /** @class */ (function () {
+    function ShoreShowcaseProducts() {
     }
-    productDOM.innerHTML = pageForItems;
-    actionButtion();
-}
-;
-function createItem(indexOfProduct) {
-    var itemcontainer = '<div class="item">';
-    itemcontainer += "<img src=\"".concat(productList[indexOfProduct].img, "\" class=\"product-image\" alt=\"Product Image\"/>");
-    itemcontainer += createItemDescription(indexOfProduct);
-    itemcontainer += '</div>';
-    return itemcontainer;
-}
-;
-function createItemDescription(indexOfProduct) {
-    var itemDescriptionContainer = '<div class="ItemDescription">'; //div
-    itemDescriptionContainer += "<h1 title=\"".concat(productList[indexOfProduct].name, "\" class=\"productname\"> ").concat(productList[indexOfProduct].name, " </h1>");
-    //name is the 1st element in productlist array
-    itemDescriptionContainer += "<p class=\"productdescription\"> ".concat(productList[indexOfProduct].Description, " </p>"); //description
-    var priceAndPurchase = "<div class=\"productprice\">\n    <div><span>R ".concat(productList[indexOfProduct].price, "<br/>Rating</span></div>\n    <button class=\"purchase-btn\" data-id=\"").concat(productList[indexOfProduct].id, "\">PURCHASE</button>\n    </div>");
-    itemDescriptionContainer += priceAndPurchase;
-    itemDescriptionContainer += '</div>'; //div
-    return itemDescriptionContainer;
-}
-;
-function buyButton() {
-    //list all purchase button| is a Nodelist
-    var purchaseBtn = document.querySelectorAll(".purchase-btn");
-    purchaseBtn.forEach(function (button) {
-        var id = button.getAttribute('data-id'); //get the id(data-id) of each product
-        var inCart = cart.some(function (item) { return item === id; }); //checks if id is in cart
-        if (inCart) {
-            button.textContent = "In Cart"; //change text for purchase button
-            button.setAttribute('disabled', 'disabled'); //makes the button inactive
-            button.classList.add('purchased');
-            // createCartItem();
-        }
-        button.addEventListener('click', function () {
-            //change context of click button and disable button
-            button.textContent = "In Cart";
-            button.setAttribute('disabled', 'disabled');
-            button.classList.add('puchased');
-            //add product id to cart
-            cart = __spreadArray(__spreadArray([], cart, true), ["".concat(id)], false);
-            // ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
-            createCartItem();
-            removeCartItem();
-        });
-    });
-}
-function createCartItem() {
-    var shoppingCartContainer = document.getElementById('cart-items');
-    shoppingCartContainer.innerText = '';
-    var variableHoldingPrice = 0;
-    var cartItemContainer;
-    //get id name in cart and search for item from object"productlist"
-    cart.forEach(function (productId) {
-        /*filer productlist to only show elements that have ids corresponding with cart*/
-        productList.filter(function (item) { return item.id == productId; }).forEach(function (product) {
-            /*for each item enter infomation to HTML template and save in variable*/
-            cartItemContainer +=
-                "<div id=\"cart-item-holder\">\n                <div>\n                    <p>".concat(cart.indexOf(product.id), "</p>\n                </div>\n                <div>\n                    <h3 class=\"cartProductName\">").concat(product.name, "</h3>\n                    <div class=\"priceContainer\">\n                        <span class=\"cartProductPrice\">R ").concat(product.price, "</span>\n                        <span class=\"kill\" data-id=\"").concat(product.id, "\">remove</span>\n                    </div>\n                </div>\n                <div class=\"quantity\">\n                    <input value=\"1\" type=\"number\" max=\"9\" style=\"max-width: 30px;margin-left:50%;\"/>\n                </div>\n            </div>");
-            variableHoldingPrice = product.price;
-            shoppingCartContainer.innerHTML = cartItemContainer;
-        });
-    });
-    getPriceTotals(variableHoldingPrice);
-}
-function removeCartItem() {
-    //list all purchase button| is a Nodelist
-    var purchaseBtn = document.querySelectorAll(".purchase-btn");
-    var removeCartItemButtons = document.querySelectorAll('.kill');
-    removeCartItemButtons.forEach(function (killBtn) { return killBtn.addEventListener('click', function () {
-        var _a, _b, _c;
-        //get remove btn id and filter cart to show elements that doesnt have it and updates cart to that
-        cart = cart.filter(function (product) { return product != killBtn.getAttribute('data-id'); });
-        //scan all button id elements and if id==killedId | remove class, disable and add purchase-btn class and purchase as text
+    ShoreShowcaseProducts.prototype.createProduct = function (name, image, price, id, description) {
+        var itemcontainer = '';
+        itemcontainer += "\n        <div class=\"item\">\n            <img src=\"".concat(image, "\" class=\"product-image\" alt=\"Product Image\"/>\n            <div class=\"ItemDescription\">\n                <h1 title=\"").concat(name, "\" class=\"productname\"> ").concat(name, " </h1>\n                <p class=\"productdescription\"> ").concat(description, " </p>\n                <div class=\"productprice\">\n                    <div><span>R ").concat(price, "<br/>Rating</span></div>\n                    <button class=\"purchase-btn\" data-id=\"").concat(id, "\">PURCHASE</button>\n                </div>\n            </div>\n        </div>\n        ");
+        productDOM.innerHTML += itemcontainer;
+        this.buyButton();
+    };
+    ShoreShowcaseProducts.prototype.buyButton = function () {
+        //list all purchase button| is a Nodelist
+        var purchaseBtn = document.querySelectorAll(".purchase-btn");
         purchaseBtn.forEach(function (button) {
-            var checkId = button.getAttribute('data-id') == killBtn.getAttribute('data-id');
-            if (checkId) {
-                button.removeAttribute('class');
-                button.removeAttribute('disabled');
-                button.classList.add('purchase-btn');
-                button.textContent = 'PURCHASE';
-                //filter by product id, get price and remove from totalprice
-                productList.filter(function (productid) {
-                    if (productid.id == killBtn.getAttribute('data-id')) {
-                        getPriceTotals(-Math.abs(productid.price));
-                    }
-                    ;
-                });
+            var id = button.getAttribute('data-id'); //get the id(data-id) of each product
+            var inCart = cart.some(function (item) { return item === id; }); //checks if id is in cart
+            if (inCart) {
+                button.textContent = "In Cart"; //change text for purchase button
+                button.setAttribute('disabled', 'disabled'); //makes the button inactive
+                button.classList.remove('purchase-btn');
+                button.classList.add('purchased');
             }
+            button.addEventListener('click', function () {
+                button.textContent = "In Cart";
+                button.setAttribute('disabled', 'disabled');
+                button.classList.remove('purchase-btn');
+                button.classList.add('purchased');
+                //add product id to cart
+                cart = __spreadArray(__spreadArray([], cart, true), ["".concat(id)], false);
+                shopCart.createCartItem();
+            });
         });
-        // console.log(cart)
-        (_c = (_b = (_a = killBtn.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement) === null || _c === void 0 ? void 0 : _c.remove(); //if selected element has parent parent, remove it)
-    }); });
-}
-;
-function loadBannerAds() {
-    var currentDay = new Date();
-    //convert into seconds and those seconds - dont go above 15sec
-    var seconds = Math.floor(((currentDay / (1000)) % 60) % 15);
-    var bannerCotainer = document.getElementById('bannerAds'); //where they'll be loaded
-    // console.log(seconds);
-    if (seconds == 0)
-        bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[0].image, "\"/>"); //add 1st image to banner
-    if (seconds == 4)
-        bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[1].image, "\"/>"); //add 2nd image to banner
-    if (seconds == 9)
-        bannerCotainer.innerHTML = "<img class=\"bannerImg\" src=\"".concat(bannerImages[2].image, "\"/>"); //add 3 image to banner
-}
-;
-function getPriceTotals(price) {
-    totalprice += price;
-    var SubTotalDom = document.querySelector('#sub-total-price');
-    var deliveryPriceDom = document.querySelector('#delivery-price');
-    var totalPriceDom = document.querySelector('#total-price');
-    if (totalprice < 500) {
-        SubTotalDom.innerHTML = "R ".concat(totalprice);
-        if (totalprice == 0) {
-            deliveryPriceDom.innerHTML = "R 0";
-            totalPriceDom.innerHTML = "R 0";
+    };
+    return ShoreShowcaseProducts;
+}());
+/*------END OF ALL REGARDING PRODUCT DISPLAY------*/
+/*------START OF ALL REGARDING CART------*/
+var ShoreShowcaseCart = /** @class */ (function () {
+    function ShoreShowcaseCart() {
+    }
+    ShoreShowcaseCart.prototype.createCartItem = function () {
+        var _this = this;
+        var shoppingCartContainer = document.getElementById('cart-items');
+        var variableHoldingPrice = 0;
+        var cartItemContainer;
+        cart.forEach(function (productId) {
+            productList.filter(function (item) { return item.id == productId; }).forEach(function (product) {
+                cartItemContainer +=
+                    "<div id=\"cart-item-holder\">\n                    <div>\n                        <p class=\"cartProductIndex\">".concat(cart.indexOf(product.id), "</p>\n                    </div>\n                    <div>\n                        <h3 class=\"cartProductName\">").concat(product.name, "</h3>\n                        <div class=\"priceContainer\">\n                            <span class=\"cartProductPrice\">R ").concat(product.price, "</span>\n                            <span class=\"kill\" data-id=\"").concat(product.id, "\">remove</span>\n                        </div>\n                    </div>\n                    <div class=\"quantity\">\n                        <input value=\"1\" type=\"number\" max=\"9\" style=\"max-width: 30px;margin-left:50%;\"/>\n                    </div>\n                </div>");
+                shoppingCartContainer.innerHTML = cartItemContainer;
+                _this.removeCartItem();
+                variableHoldingPrice = product.price;
+            });
+        });
+        this.getPriceTotals(variableHoldingPrice);
+    };
+    ShoreShowcaseCart.prototype.removeCartItem = function () {
+        var _this = this;
+        var purchasedBtn = document.querySelectorAll('.purchased');
+        var cartProductIndex = document.querySelectorAll('.cartProductIndex');
+        var removeCartItemButtons = document.querySelectorAll('.kill');
+        removeCartItemButtons.forEach(function (killBtn) { return killBtn.addEventListener('click', function () {
+            var _a, _b, _c, _d, _e, _f;
+            cart = cart.filter(function (product) { return product != killBtn.getAttribute('data-id'); }); //get remove btn id and filter cart to show elements that doesnt have it and updates cart to that
+            //scan all button id elements and if id==killedId | remove class, disable and add purchase-btn class and purchase as text
+            purchasedBtn.forEach(function (button) {
+                var checkId = button.getAttribute('data-id') == killBtn.getAttribute('data-id');
+                if (checkId) {
+                    button.removeAttribute('class');
+                    button.removeAttribute('disabled');
+                    button.classList.add('purchase-btn');
+                    button.textContent = 'PURCHASE';
+                    //filter by product id, get price and remove from totalprice
+                    productList.filter(function (productid) {
+                        if (productid.id == killBtn.getAttribute('data-id')) {
+                            _this.getPriceTotals(-Math.abs(productid.price));
+                        }
+                        ;
+                    });
+                }
+            });
+            (_c = (_b = (_a = killBtn.parentElement) === null || _a === void 0 ? void 0 : _a.parentElement) === null || _b === void 0 ? void 0 : _b.parentElement) === null || _c === void 0 ? void 0 : _c.remove(); //if selected element has parent parent, remove it)
+            //get the index of the removedd item
+            var indexOfKillNode = (_f = (_e = (_d = killBtn.parentElement) === null || _d === void 0 ? void 0 : _d.parentNode) === null || _e === void 0 ? void 0 : _e.parentNode) === null || _f === void 0 ? void 0 : _f.childNodes[1].textContent;
+            //search each cart item and if its index is high that removed it, subtract 1 unit from it
+            cartProductIndex.forEach(function (item) {
+                if (Number(item.textContent) >= Number(indexOfKillNode)) {
+                    item.innerHTML = String(Number(item.textContent) - 1);
+                    //console.log('working')
+                }
+            });
+        }); });
+    };
+    ;
+    ShoreShowcaseCart.prototype.getPriceTotals = function (price) {
+        totalprice += price;
+        var SubTotalDom = document.querySelector('#sub-total-price');
+        var deliveryPriceDom = document.querySelector('#delivery-price');
+        var totalPriceDom = document.querySelector('#total-price');
+        if (totalprice < 500) {
+            SubTotalDom.innerHTML = "<span>R ".concat(totalprice, "</span>");
+            if (totalprice == 0) {
+                deliveryPriceDom.innerHTML = "R 0";
+                totalPriceDom.innerHTML = "R 0";
+            }
+            else {
+                deliveryPriceDom.innerHTML = "R ".concat(deliveryPrice);
+                totalPriceDom.innerHTML = "R ".concat(totalprice + deliveryPrice);
+            }
+            ;
         }
         else {
-            deliveryPriceDom.innerHTML = "R ".concat(deliveryPrice);
-            totalPriceDom.innerHTML = "R ".concat(totalprice + deliveryPrice);
+            SubTotalDom.innerHTML = "R ".concat(totalprice);
+            deliveryPriceDom.innerHTML = "FREE";
+            totalPriceDom.innerHTML = "R ".concat(totalprice);
         }
         ;
-    }
-    else {
-        SubTotalDom.innerHTML = "R ".concat(totalprice);
-        deliveryPriceDom.innerHTML = "FREE";
-        totalPriceDom.innerHTML = "R ".concat(totalprice);
-    }
-    ;
-    document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
-}
-;
-function actionButtion() {
-    var actionBTN = document.getElementById("actionButton");
-    actionBTN.addEventListener('click', function () {
-        actionBTN === null || actionBTN === void 0 ? void 0 : actionBTN.toggleAttribute('open');
-        if (actionBTN === null || actionBTN === void 0 ? void 0 : actionBTN.hasAttribute('open')) {
-            actionBTN.innerHTML = "\n            <p id=\"addMoreProducts\">ADD PRODUCT</p>\n            <p id=\"actionButton\">CLOSE</p>\n            ";
-            addProductMenu();
-        }
-        else {
-            actionBTN.innerHTML = "<p id=\"actionButton\">MORE</p>";
-        }
-    });
-}
-function addProductMenu() {
-    var addProductBTN = document.getElementById('addMoreProducts');
-    addProductBTN === null || addProductBTN === void 0 ? void 0 : addProductBTN.addEventListener('click', function () {
-        document.body.innerHTML += "\n            <div id=\"blackBG\">\n                <div id=\"whiteContainer\">\n                    <input id=\"newProductImage\" style=\"height: 200px;\" type=\"file\" accept=\"image/jpeg, image/png, image/jpg\"/>\n                    <div style=\"display:flex; width: 100%;flex-wrap: wrap;\">\n\n                        <input id=\"newProductName\" type=\"text\" placeholder=\"Product Name\" style=\"width:100%\"/>\n                        <textarea style=\"border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;\"></textarea>\n\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <input id=\"newProductPrice\" type=\"number\" placeholder=\"Product Price\"/>\n                            <input id=\"newProductId\" type=\"text\" placeholder=\"Product ID\"/>\n                        </div>\n                        <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                            <button id=\"cancelProduct\" type=\"reset\" style=\"border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;\">CANCEL</button>\n                            <button id=\"submitProduct\" type=\"submit\" style=\"border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;\">SUBMIT</button>\n                        </div>\n                    </div>\n                </div>\n            </div>";
-        addProductMenuButtons();
-    });
-}
-function addProductMenuButtons() {
-    //cancel button
-    var cancelBTN = document.getElementById('cancelProduct');
-    var popUpMenu = document.getElementById('blackBG');
-    cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () {
-        console.log('cancel button');
-        popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove();
-        var fMenu = document.getElementById("floatingMenu"); //update action buttion code
-        fMenu.innerHTML = "<p id=\"actionButton\">MORE</p>";
-        actionButtion();
-        //loadProducts();                                                         //reload all products
-        setTimeout(buyButton, 1000);
-    }); //remove html of popupmenu
-    //submit botton
-    var submitBTN = document.getElementById('submitProduct');
-    submitBTN === null || submitBTN === void 0 ? void 0 : submitBTN.addEventListener('click', addNewProduct);
-}
-//function that adds new product to productlist and page
-function addNewProduct() {
-    console.log('running addnewproduct');
-    var NewProductImg = document.getElementById('newProductImage');
-    var NewProductName = document.getElementById('newProductName');
-    var NewProductDescription = document.getElementById('');
-    var NewProductPrice = document.getElementById('newProductPrice');
-    var NewProductID = document.getElementById('newProductId');
-    var stringForProduct = { name: String(NewProductName === null || NewProductName === void 0 ? void 0 : NewProductName.value),
-        Description: String(NewProductDescription === null || NewProductDescription === void 0 ? void 0 : NewProductDescription.value),
-        price: Number(NewProductPrice === null || NewProductPrice === void 0 ? void 0 : NewProductPrice.value),
-        id: String(NewProductID === null || NewProductID === void 0 ? void 0 : NewProductID.value),
-        img: String(NewProductImg === null || NewProductImg === void 0 ? void 0 : NewProductImg.value),
+        document.getElementById('cartItemAmount').innerHTML = "".concat(cart.length - 1);
     };
-    var ValidImg = ((NewProductImg === null || NewProductImg === void 0 ? void 0 : NewProductImg.value) == '') ? false : true;
-    var ValidName = ((NewProductName === null || NewProductName === void 0 ? void 0 : NewProductName.value) == '') ? false : true;
-    var ValidDes = ((NewProductDescription === null || NewProductDescription === void 0 ? void 0 : NewProductDescription.value) == '') ? false : true;
-    var ValidPrice = ((NewProductPrice === null || NewProductPrice === void 0 ? void 0 : NewProductPrice.value) == '') ? false : true;
-    var ValidID = ((NewProductID === null || NewProductID === void 0 ? void 0 : NewProductID.value) == '') ? false : true;
-    if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID) == true) {
-        console.log('product pass');
-        productList.push(stringForProduct);
-        var popUpMenu = document.getElementById('blackBG');
-        popUpMenu === null || popUpMenu === void 0 ? void 0 : popUpMenu.remove();
-        setTimeout(loadProducts, 10);
-        // actionButtion;
-        setTimeout(buyButton, 1000);
-    }
-    else {
-        console.log('product false');
-        console.log("img ".concat(ValidImg, ", name ").concat(ValidName, ", des ").concat(ValidDes, ", price").concat(ValidPrice, ", id").concat(ValidID));
-        alert("There's an empty field in your form");
-    }
-}
+    ;
+    return ShoreShowcaseCart;
+}());
+/*------END OF ALL REGARDING CART------*/
+// function loadBannerAds(){
+//     let currentDay:any = new Date();
+//     //convert into seconds and those seconds - dont go above 15sec
+//     let seconds = Math.floor(((currentDay/(1000))%60)%15);
+//     const bannerCotainer = document.getElementById('bannerAds');//where they'll be loaded
+//     // console.log(seconds);
+//     if(seconds == 0)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[0].image}"/>`; //add 1st image to banner
+//     if(seconds == 4)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[1].image}"/>`; //add 2nd image to banner
+//     if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
+// };
+// function actionButtion(){
+//     const actionBTN = document.getElementById("actionButton");
+//     actionBTN!.addEventListener('click',()=>{
+//         actionBTN?.toggleAttribute('open')
+//         if(actionBTN?.hasAttribute('open')){
+//             actionBTN!.innerHTML=`
+//             <p id="addMoreProducts">ADD PRODUCT</p>
+//             <p id="actionButton">CLOSE</p>
+//             `;
+//             addProductMenu();
+//         }else{
+//             actionBTN!.innerHTML=`<p id="actionButton">MORE</p>`;
+//         }
+//     });
+// }
+// function addProductMenu(){
+//     // let NewProductImg = document.getElementById('newProductImage');
+//     const addProductBTN = document.getElementById('addMoreProducts');
+//     addProductBTN?.addEventListener('click',()=>{
+//         document.body.innerHTML+=`
+//             <div id="blackBG">
+//                 <div id="whiteContainer">
+//                     <input id="newProductImage" style="height: 200px;" type="file" accept="image/*"/>
+//                     <div style="display:flex; width: 100%;flex-wrap: wrap;">
+//                         <input id="newProductName" type="text" placeholder="Product Name" style="width:100%"/>
+//                         <textarea style="border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;"></textarea>
+//                         <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
+//                             <input id="newProductPrice" type="number" placeholder="Product Price"/>
+//                             <input id="newProductId" type="text" placeholder="Product ID"/>
+//                         </div>
+//                         <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
+//                             <button id="cancelProduct" type="reset" style="border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;">CANCEL</button>
+//                             <button id="submitProduct" type="submit" style="border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;">SUBMIT</button>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>`;
+//         addProductMenuButtons();
+//     });
+// }
+// function addProductMenuButtons(){
+//     //cancel button
+//     const cancelBTN = document.getElementById('cancelProduct');
+//     const popUpMenu = document.getElementById('blackBG');
+//     cancelBTN?.addEventListener('click',()=> {
+//         console.log('cancel button');
+//         popUpMenu?.remove()
+//         const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
+//         fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
+//         actionButtion();
+//         //loadProducts();                                                         //reload all products
+//         // setTimeout(buyButton,1000);
+//     });       //remove html of popupmenu
+//     //submit botton
+//     const submitBTN = document.getElementById('submitProduct');
+//     submitBTN?.addEventListener('click',addNewProduct);
+// }
+// //function that adds new product to productlist and page
+// function addNewProduct(){
+//     console.log('running addnewproduct');
+//     let NewProductImg = document.getElementById('newProductImage');
+//     let NewProductName = document.getElementById('newProductName');
+//     let NewProductDescription = document.getElementById('');
+//     let NewProductPrice = document.getElementById('newProductPrice');
+//     let NewProductID = document.getElementById('newProductId');
+//     let stringForProduct ={name: String(NewProductName?.value),
+//         Description: String(NewProductDescription?.value),
+//         price: Number(NewProductPrice?.value),
+//         id: String(NewProductID?.value),
+//         img: imgURL,
+//     };
+//     let ValidImg = (NewProductImg?.value=='')? false : true;
+//     let ValidName = (NewProductName?.value=='')? false : true;
+//     let ValidDes = (NewProductDescription?.value=='')? false : true;
+//     let ValidPrice = (NewProductPrice?.value=='')? false : true;
+//     let ValidID = (NewProductID?.value=='')? false : true;
+//     if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID)==true){
+//         console.log('product pass');
+//         productList.push(stringForProduct);
+//         // productDOM?.removeChild;
+//         const popUpMenu = document.getElementById('blackBG');
+//         popUpMenu?.remove();
+//         // console.log(productList);
+//         // actionButtion;
+//         // setTimeout(buyButton,10);
+//         // alert(`function currently inactive`);
+//     }else{
+//         console.log('product false');
+//         console.log(`img ${ValidImg}, name ${ValidName}, des ${ValidDes}, price${ValidPrice}, id${ValidID}`);
+//         alert(`There's an empty field in your form`);
+//     }
+// }
+//create an object for Start Product & Cart
+var firstLoad = new ShoreShowcaseProducts();
+var shopCart = new ShoreShowcaseCart();
+//loads all start products
+productList.forEach(function (item) {
+    firstLoad.createProduct(item.name, item.img, item.price, item.id, item.Description);
+});
 //control for cart menu appearing and disappearing
 document.getElementById('cartImage').addEventListener('click', function () {
     document.getElementById('shopping-cart').style.display = "block";

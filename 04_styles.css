@@ -156,7 +156,7 @@ nav{
     border-radius: var(--border-10);
 }
 
-.purchased, .purchase-btn:hover{
+.purchase-btn:hover{
     /* width: 60px; */
     cursor: pointer;
     background-color: transparent;

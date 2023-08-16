@@ -35,289 +35,292 @@ let bannerImages=[{image:`./src/images/banner/01-Shop-Products-Banner-Design.jpg
 {image:`./src/images/banner/03-Shop-Products-Banner-Design.jpg`},];
 
 let cart=[""];
-let totalprice = 0;
-//price for total less than R500
-let deliveryPrice = 50;
+let totalprice:number = 0;
+let deliveryPrice:number = 50;
 
+//place for products to be placed
 const productDOM = document.getElementById('productItemsDisplay');
 
 
-//loads products on the page
-loadProducts();
-//detects product purchase button 2seconds after loading page
-setTimeout(buyButton,1000);
-//loadsbannerads
-setInterval(loadBannerAds,1000);
-
-function loadProducts():void{                            //function to initialise the page of items
-    let pageForItems:string = '';
-    for(let i=0; i<productList.length;i++){
-        pageForItems+=(createItem(i));
-    }                                               
-    productDOM!.innerHTML=pageForItems;
-    actionButtion()
-};
-
-function createItem(indexOfProduct:number):string{
-    let itemcontainer:string = '<div class="item">';
-    itemcontainer+=`<img src="${productList[indexOfProduct].img}" class="product-image" alt="Product Image"/>`;
-    itemcontainer+=createItemDescription(indexOfProduct);
-    itemcontainer+='</div>'; 
-
-    return itemcontainer;
-};
-
-function createItemDescription(indexOfProduct):string{
-    let itemDescriptionContainer:string = '<div class="ItemDescription">';//div
-    itemDescriptionContainer+=`<h1 title="${productList[indexOfProduct].name}" class="productname"> ${productList[indexOfProduct].name} </h1>`;
-    //name is the 1st element in productlist array
-    itemDescriptionContainer+=`<p class="productdescription"> ${productList[indexOfProduct].Description} </p>`;//description
-    
-    let priceAndPurchase =`<div class="productprice">
-    <div><span>R ${productList[indexOfProduct].price}<br/>Rating</span></div>
-    <button class="purchase-btn" data-id="${productList[indexOfProduct].id}">PURCHASE</button>
-    </div>`
-    
-    itemDescriptionContainer+=priceAndPurchase;
-    itemDescriptionContainer+='</div>';//div
-
-    return itemDescriptionContainer;
-};
-
-function buyButton(){
-    //list all purchase button| is a Nodelist
-    const purchaseBtn = document.querySelectorAll(".purchase-btn");
-    
-    purchaseBtn.forEach(button=>{
-        let id = button.getAttribute('data-id');            //get the id(data-id) of each product
-        let inCart = cart.some(item=> item === id);         //checks if id is in cart
-
-        if (inCart){
-            button.textContent="In Cart";                   //change text for purchase button
-            button.setAttribute('disabled','disabled');     //makes the button inactive
-            button.classList.add('purchased');
-            // createCartItem();
-        }
-
-        button.addEventListener('click', () => {
-            //change context of click button and disable button
-            button.textContent="In Cart";
-            button.setAttribute('disabled','disabled');
-            button.classList.add('puchased')
-            //add product id to cart
-            cart = [...cart,`${id}`];
-            // ClickedproductAssest = productList.filter(items=>items.id==button.getAttribute('data-id'));
-            createCartItem();
-            removeCartItem();
-        })
-    })
-}
-
-function createCartItem(){
-    const shoppingCartContainer = document.getElementById('cart-items');
-    shoppingCartContainer!.innerText='';
-    let variableHoldingPrice=0;
-
-    let cartItemContainer:string;
-    
-    //get id name in cart and search for item from object"productlist"
-    cart.forEach(productId=>{
-        /*filer productlist to only show elements that have ids corresponding with cart*/
-        productList.filter(item=>item.id==productId).forEach(product=>{
-            /*for each item enter infomation to HTML template and save in variable*/
-            cartItemContainer+= 
-            `<div id="cart-item-holder">
-                <div>
-                    <p>${cart.indexOf(product.id)}</p>
+/*------START OF ALL REGARDING PRODUCT DISPLAY------*/
+class ShoreShowcaseProducts{
+    createProduct(name,image, price, id, description): void{
+        let itemcontainer:string ='';
+        itemcontainer+= `
+        <div class="item">
+            <img src="${image}" class="product-image" alt="Product Image"/>
+            <div class="ItemDescription">
+                <h1 title="${name}" class="productname"> ${name} </h1>
+                <p class="productdescription"> ${description} </p>
+                <div class="productprice">
+                    <div><span>R ${price}<br/>Rating</span></div>
+                    <button class="purchase-btn" data-id="${id}">PURCHASE</button>
                 </div>
-                <div>
-                    <h3 class="cartProductName">${product.name}</h3>
-                    <div class="priceContainer">
-                        <span class="cartProductPrice">R ${product.price}</span>
-                        <span class="kill" data-id="${product.id}">remove</span>
-                    </div>
-                </div>
-                <div class="quantity">
-                    <input value="1" type="number" max="9" style="max-width: 30px;margin-left:50%;"/>
-                </div>
-            </div>`;
+            </div>
+        </div>
+        `;
+        productDOM!.innerHTML+=itemcontainer;
+        this.buyButton();
+    }
 
-            variableHoldingPrice=product.price;
-            shoppingCartContainer!.innerHTML=cartItemContainer;
-        })
-    });
-    getPriceTotals(variableHoldingPrice);
-}
+    buyButton(){
+        //list all purchase button| is a Nodelist
+        const purchaseBtn = document.querySelectorAll(".purchase-btn");
 
-function removeCartItem():void{
-    //list all purchase button| is a Nodelist
-    const purchaseBtn = document.querySelectorAll(".purchase-btn");
-    let removeCartItemButtons = document.querySelectorAll('.kill');
-
-    removeCartItemButtons.forEach(killBtn=>killBtn.addEventListener('click', ()=>{
-        //get remove btn id and filter cart to show elements that doesnt have it and updates cart to that
-        cart = cart.filter(product=>product!=killBtn.getAttribute('data-id'));
-        //scan all button id elements and if id==killedId | remove class, disable and add purchase-btn class and purchase as text
         purchaseBtn.forEach(button=>{
-            let checkId = button.getAttribute('data-id')==killBtn.getAttribute('data-id');
-            if (checkId){
-                button.removeAttribute('class');
-                button.removeAttribute('disabled');
-                button.classList.add('purchase-btn');
-                button.textContent='PURCHASE';
-                //filter by product id, get price and remove from totalprice
-                productList.filter(productid=>{
-                    if (productid.id==killBtn.getAttribute('data-id')){
-                        getPriceTotals(-Math.abs(productid.price));
-                    };
-                });
+            let id = button.getAttribute('data-id');            //get the id(data-id) of each product
+            let inCart = cart.some(item=> item === id);         //checks if id is in cart
+
+            if (inCart){
+                button.textContent="In Cart";                   //change text for purchase button
+                button.setAttribute('disabled','disabled');     //makes the button inactive
+                button.classList.remove('purchase-btn');
+                button.classList.add('purchased');
             }
-        });
-        // console.log(cart)
-        killBtn.parentElement?.parentElement?.parentElement?.remove() //if selected element has parent parent, remove it)
-    }));
     
-};
+            button.addEventListener('click', () => {
+                button.textContent="In Cart";
+                button.setAttribute('disabled','disabled');
+                button.classList.remove('purchase-btn');
+                button.classList.add('purchased');
 
-function loadBannerAds(){
-    let currentDay:any = new Date();
-    //convert into seconds and those seconds - dont go above 15sec
-    let seconds = Math.floor(((currentDay/(1000))%60)%15);
-    
-    const bannerCotainer = document.getElementById('bannerAds');//where they'll be loaded
-    // console.log(seconds);
-    
-    if(seconds == 0)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[0].image}"/>`; //add 1st image to banner
-    if(seconds == 4)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[1].image}"/>`; //add 2nd image to banner
-    if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
-};
-
-function getPriceTotals(price:number){
-    totalprice+=price;
-
-    let SubTotalDom = document.querySelector('#sub-total-price');
-    let deliveryPriceDom = document.querySelector('#delivery-price');
-    let totalPriceDom = document.querySelector('#total-price');
-
-    if (totalprice<500){
-        SubTotalDom!.innerHTML=`R ${totalprice}`
-        if (totalprice==0){
-            deliveryPriceDom!.innerHTML= `R 0`;
-            totalPriceDom!.innerHTML=`R 0`;
-        }
-        else {deliveryPriceDom!.innerHTML=`R ${deliveryPrice}`;
-            totalPriceDom!.innerHTML=`R ${totalprice+deliveryPrice}`;
-        };
-    }else{
-        SubTotalDom!.innerHTML=`R ${totalprice}`
-        deliveryPriceDom!.innerHTML=`FREE`
-        totalPriceDom!.innerHTML=`R ${totalprice}`
-    };
-    document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
-};
-
-function actionButtion(){
-    const actionBTN = document.getElementById("actionButton");
-
-    actionBTN!.addEventListener('click',()=>{
-        actionBTN?.toggleAttribute('open')
-        if(actionBTN?.hasAttribute('open')){
-            actionBTN!.innerHTML=`
-            <p id="addMoreProducts">ADD PRODUCT</p>
-            <p id="actionButton">CLOSE</p>
-            `;
-            addProductMenu();
-        }else{
-            actionBTN!.innerHTML=`<p id="actionButton">MORE</p>`;
-        }
-    });
-
-}
-
-function addProductMenu(){
-    const addProductBTN = document.getElementById('addMoreProducts');
-
-    addProductBTN?.addEventListener('click',()=>{
-        document.body.innerHTML+=`
-            <div id="blackBG">
-                <div id="whiteContainer">
-                    <input id="newProductImage" style="height: 200px;" type="file" accept="image/jpeg, image/png, image/jpg"/>
-                    <div style="display:flex; width: 100%;flex-wrap: wrap;">
-
-                        <input id="newProductName" type="text" placeholder="Product Name" style="width:100%"/>
-                        <textarea style="border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;"></textarea>
-
-                        <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
-                            <input id="newProductPrice" type="number" placeholder="Product Price"/>
-                            <input id="newProductId" type="text" placeholder="Product ID"/>
-                        </div>
-                        <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
-                            <button id="cancelProduct" type="reset" style="border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;">CANCEL</button>
-                            <button id="submitProduct" type="submit" style="border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;">SUBMIT</button>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-        addProductMenuButtons();
-    });
-    
-}
-function addProductMenuButtons(){
-    //cancel button
-    const cancelBTN = document.getElementById('cancelProduct');
-    const popUpMenu = document.getElementById('blackBG');
-    cancelBTN?.addEventListener('click',()=> {
-        console.log('cancel button');
-        popUpMenu?.remove()
-        const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
-        fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
-        actionButtion();
-        //loadProducts();                                                         //reload all products
-        setTimeout(buyButton,1000);
-    });       //remove html of popupmenu
-
-    //submit botton
-    const submitBTN = document.getElementById('submitProduct');
-    submitBTN?.addEventListener('click',addNewProduct);
-    
-}
-
-//function that adds new product to productlist and page
-function addNewProduct(){
-    console.log('running addnewproduct');
-    let NewProductImg = document.getElementById('newProductImage');
-    let NewProductName = document.getElementById('newProductName');
-    let NewProductDescription = document.getElementById('');
-    let NewProductPrice = document.getElementById('newProductPrice');
-    let NewProductID = document.getElementById('newProductId');
-
-    let stringForProduct ={name: String(NewProductName?.value),
-        Description: String(NewProductDescription?.value),
-        price: Number(NewProductPrice?.value),
-        id: String(NewProductID?.value),
-        img: String(NewProductImg?.value),
-    };
-
-    let ValidImg = (NewProductImg?.value=='')? false : true;
-    let ValidName = (NewProductName?.value=='')? false : true;
-    let ValidDes = (NewProductDescription?.value=='')? false : true;
-    let ValidPrice = (NewProductPrice?.value=='')? false : true;
-    let ValidID = (NewProductID?.value=='')? false : true;
-
-    if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID)==true){
-        console.log('product pass');
-        productList.push(stringForProduct);
-        const popUpMenu = document.getElementById('blackBG');
-        popUpMenu?.remove();
-        setTimeout(loadProducts,10);
-        // actionButtion;
-        setTimeout(buyButton,1000);
-    }else{
-        console.log('product false');
-        console.log(`img ${ValidImg}, name ${ValidName}, des ${ValidDes}, price${ValidPrice}, id${ValidID}`);
-        alert(`There's an empty field in your form`);
+                //add product id to cart
+                cart=[...cart,`${id}`];
+                shopCart.createCartItem();
+            })
+        })
     }
 }
+/*------END OF ALL REGARDING PRODUCT DISPLAY------*/
+
+/*------START OF ALL REGARDING CART------*/
+class ShoreShowcaseCart{
+    createCartItem(){
+        const shoppingCartContainer = document.getElementById('cart-items');
+        let variableHoldingPrice=0;
+        let cartItemContainer:string;
+
+        cart.forEach(productId=>{
+            productList.filter(item=>item.id==productId).forEach(product=>{
+                cartItemContainer+= 
+                `<div id="cart-item-holder">
+                    <div>
+                        <p class="cartProductIndex">${cart.indexOf(product.id)}</p>
+                    </div>
+                    <div>
+                        <h3 class="cartProductName">${product.name}</h3>
+                        <div class="priceContainer">
+                            <span class="cartProductPrice">R ${product.price}</span>
+                            <span class="kill" data-id="${product.id}">remove</span>
+                        </div>
+                    </div>
+                    <div class="quantity">
+                        <input value="1" type="number" max="9" style="max-width: 30px;margin-left:50%;"/>
+                    </div>
+                </div>`;
+                shoppingCartContainer!.innerHTML=cartItemContainer;
+                this.removeCartItem();
+                variableHoldingPrice=product.price;
+            })
+        });
+        this.getPriceTotals(variableHoldingPrice);
+    }
+
+    removeCartItem():void{
+        const purchasedBtn = document.querySelectorAll('.purchased');
+        const cartProductIndex = document.querySelectorAll('.cartProductIndex');
+        let removeCartItemButtons = document.querySelectorAll('.kill');
+    
+        removeCartItemButtons.forEach(killBtn=>killBtn.addEventListener('click', ()=>{
+            cart = cart.filter(product=>product!=killBtn.getAttribute('data-id'));          //get remove btn id and filter cart to show elements that doesnt have it and updates cart to that
+            //scan all button id elements and if id==killedId | remove class, disable and add purchase-btn class and purchase as text
+            purchasedBtn.forEach(button=>{
+                let checkId = button.getAttribute('data-id')== killBtn.getAttribute('data-id');
+                if (checkId){
+                    button.removeAttribute('class');
+                    button.removeAttribute('disabled');
+                    button.classList.add('purchase-btn');
+                    button.textContent='PURCHASE';
+                    //filter by product id, get price and remove from totalprice
+                    productList.filter(productid=>{
+                        if (productid.id==killBtn.getAttribute('data-id')){
+                            this.getPriceTotals(-Math.abs(productid.price));
+                        };
+                    });
+                }
+            });
+            killBtn.parentElement?.parentElement?.parentElement?.remove() //if selected element has parent parent, remove it)
+            //get the index of the removedd item
+            let indexOfKillNode = killBtn.parentElement?.parentNode?.parentNode?.childNodes[1].textContent;
+            //search each cart item and if its index is high that removed it, subtract 1 unit from it
+            cartProductIndex.forEach(item=>{
+                if (Number(item.textContent)>=Number(indexOfKillNode)){
+                    item.innerHTML=String(Number(item.textContent)-1);
+                    //console.log('working')
+                }
+            })
+        }));
+        
+    };
+    getPriceTotals(price:number){
+        totalprice+=price;
+
+        let SubTotalDom = document.querySelector('#sub-total-price');
+        let deliveryPriceDom = document.querySelector('#delivery-price');
+        let totalPriceDom = document.querySelector('#total-price');
+
+        if (totalprice<500){
+            SubTotalDom!.innerHTML=`<span>R ${totalprice}</span>`
+            if (totalprice==0){
+                deliveryPriceDom!.innerHTML= `R 0`;
+                totalPriceDom!.innerHTML=`R 0`;
+            }
+            else {deliveryPriceDom!.innerHTML=`R ${deliveryPrice}`;
+                totalPriceDom!.innerHTML=`R ${totalprice+deliveryPrice}`;
+            };
+        }else{
+            SubTotalDom!.innerHTML=`R ${totalprice}`
+            deliveryPriceDom!.innerHTML=`FREE`
+            totalPriceDom!.innerHTML=`R ${totalprice}`
+        };
+        document.getElementById('cartItemAmount')!.innerHTML=`${cart.length-1}`;
+    };
+}
+/*------END OF ALL REGARDING CART------*/
+
+// function loadBannerAds(){
+//     let currentDay:any = new Date();
+//     //convert into seconds and those seconds - dont go above 15sec
+//     let seconds = Math.floor(((currentDay/(1000))%60)%15);
+    
+//     const bannerCotainer = document.getElementById('bannerAds');//where they'll be loaded
+//     // console.log(seconds);
+    
+//     if(seconds == 0)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[0].image}"/>`; //add 1st image to banner
+//     if(seconds == 4)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[1].image}"/>`; //add 2nd image to banner
+//     if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
+// };
+
+
+// function actionButtion(){
+//     const actionBTN = document.getElementById("actionButton");
+
+//     actionBTN!.addEventListener('click',()=>{
+//         actionBTN?.toggleAttribute('open')
+//         if(actionBTN?.hasAttribute('open')){
+//             actionBTN!.innerHTML=`
+//             <p id="addMoreProducts">ADD PRODUCT</p>
+//             <p id="actionButton">CLOSE</p>
+//             `;
+//             addProductMenu();
+//         }else{
+//             actionBTN!.innerHTML=`<p id="actionButton">MORE</p>`;
+//         }
+//     });
+
+// }
+
+// function addProductMenu(){
+//     // let NewProductImg = document.getElementById('newProductImage');
+//     const addProductBTN = document.getElementById('addMoreProducts');
+
+//     addProductBTN?.addEventListener('click',()=>{
+//         document.body.innerHTML+=`
+//             <div id="blackBG">
+//                 <div id="whiteContainer">
+//                     <input id="newProductImage" style="height: 200px;" type="file" accept="image/*"/>
+//                     <div style="display:flex; width: 100%;flex-wrap: wrap;">
+
+//                         <input id="newProductName" type="text" placeholder="Product Name" style="width:100%"/>
+//                         <textarea style="border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;"></textarea>
+
+//                         <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
+//                             <input id="newProductPrice" type="number" placeholder="Product Price"/>
+//                             <input id="newProductId" type="text" placeholder="Product ID"/>
+//                         </div>
+//                         <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
+//                             <button id="cancelProduct" type="reset" style="border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;">CANCEL</button>
+//                             <button id="submitProduct" type="submit" style="border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;">SUBMIT</button>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>`;
+//         addProductMenuButtons();
+//     });
+    
+// }
+// function addProductMenuButtons(){
+//     //cancel button
+//     const cancelBTN = document.getElementById('cancelProduct');
+//     const popUpMenu = document.getElementById('blackBG');
+//     cancelBTN?.addEventListener('click',()=> {
+//         console.log('cancel button');
+//         popUpMenu?.remove()
+//         const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
+//         fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
+//         actionButtion();
+//         //loadProducts();                                                         //reload all products
+//         // setTimeout(buyButton,1000);
+//     });       //remove html of popupmenu
+
+//     //submit botton
+//     const submitBTN = document.getElementById('submitProduct');
+//     submitBTN?.addEventListener('click',addNewProduct);
+    
+// }
+
+// //function that adds new product to productlist and page
+// function addNewProduct(){
+//     console.log('running addnewproduct');
+//     let NewProductImg = document.getElementById('newProductImage');
+//     let NewProductName = document.getElementById('newProductName');
+//     let NewProductDescription = document.getElementById('');
+//     let NewProductPrice = document.getElementById('newProductPrice');
+//     let NewProductID = document.getElementById('newProductId');
+ 
+//     let stringForProduct ={name: String(NewProductName?.value),
+//         Description: String(NewProductDescription?.value),
+//         price: Number(NewProductPrice?.value),
+//         id: String(NewProductID?.value),
+//         img: imgURL,
+//     };
+
+//     let ValidImg = (NewProductImg?.value=='')? false : true;
+//     let ValidName = (NewProductName?.value=='')? false : true;
+//     let ValidDes = (NewProductDescription?.value=='')? false : true;
+//     let ValidPrice = (NewProductPrice?.value=='')? false : true;
+//     let ValidID = (NewProductID?.value=='')? false : true;
+
+//     if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID)==true){
+//         console.log('product pass');
+//         productList.push(stringForProduct);
+//         // productDOM?.removeChild;
+//         const popUpMenu = document.getElementById('blackBG');
+//         popUpMenu?.remove();
+//         // console.log(productList);
+        
+//         // actionButtion;
+//         // setTimeout(buyButton,10);
+//         // alert(`function currently inactive`);
+//     }else{
+//         console.log('product false');
+//         console.log(`img ${ValidImg}, name ${ValidName}, des ${ValidDes}, price${ValidPrice}, id${ValidID}`);
+//         alert(`There's an empty field in your form`);
+//     }
+// }
+
+
+
+
+
+//create an object for Start Product & Cart
+let firstLoad = new ShoreShowcaseProducts();
+let shopCart = new ShoreShowcaseCart();
+
+//loads all start products
+productList.forEach(item=>{
+    firstLoad.createProduct(item.name, item.img, item.price, item.id, item.Description);
+})
 
 //control for cart menu appearing and disappearing
 document.getElementById('cartImage')!.addEventListener('click',()=>{
