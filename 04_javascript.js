@@ -224,6 +224,7 @@ var FloatingButton = /** @class */ (function () {
             //firstLoad.createProduct(stringForProduct.name, stringForProduct.img, stringForProduct.price, stringForProduct.id, stringForProduct.Description);
             productDOM.innerHTML += "\n            <div class=\"item\">\n                <img src=\"".concat(stringForProduct.img, "\" class=\"product-image\" alt=\"Product Image\"/>\n                <div class=\"ItemDescription\">\n                    <h1 title=\"").concat(stringForProduct.name, "\" class=\"productname\"> ").concat(stringForProduct.name, " </h1>\n                    <p class=\"productdescription\"> ").concat(stringForProduct.Description, " </p>\n                    <div class=\"productprice\">\n                        <div><span>R ").concat(stringForProduct.price, "<br/>Rating</span></div>\n                        <button class=\"purchase-btn\" data-id=\"").concat(stringForProduct.id, "\">PURCHASE</button>\n                    </div>\n                </div>\n            </div>\n            ");
             wholePopUpMenu.remove();
+            firstLoad.buyButton(); //reload the buy buttons
             Float.actionButton(); //reload the float button
         }
         else {

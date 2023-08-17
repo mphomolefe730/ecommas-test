@@ -304,6 +304,7 @@ class FloatingButton{
             </div>
             `;
             wholePopUpMenu!.remove();
+            firstLoad.buyButton();  //reload the buy buttons
             Float.actionButton();   //reload the float button
         } else{
             alert('Some fields are empty');
