@@ -155,105 +155,92 @@ var ShoreShowcaseCart = /** @class */ (function () {
 //     if(seconds == 4)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[1].image}"/>`; //add 2nd image to banner
 //     if(seconds == 9)bannerCotainer!.innerHTML=`<img class="bannerImg" src="${bannerImages[2].image}"/>`; //add 3 image to banner
 // };
-// function actionButtion(){
-//     const actionBTN = document.getElementById("actionButton");
-//     actionBTN!.addEventListener('click',()=>{
-//         actionBTN?.toggleAttribute('open')
-//         if(actionBTN?.hasAttribute('open')){
-//             actionBTN!.innerHTML=`
-//             <p id="addMoreProducts">ADD PRODUCT</p>
-//             <p id="actionButton">CLOSE</p>
-//             `;
-//             addProductMenu();
-//         }else{
-//             actionBTN!.innerHTML=`<p id="actionButton">MORE</p>`;
-//         }
-//     });
-// }
-// function addProductMenu(){
-//     // let NewProductImg = document.getElementById('newProductImage');
-//     const addProductBTN = document.getElementById('addMoreProducts');
-//     addProductBTN?.addEventListener('click',()=>{
-//         document.body.innerHTML+=`
-//             <div id="blackBG">
-//                 <div id="whiteContainer">
-//                     <input id="newProductImage" style="height: 200px;" type="file" accept="image/*"/>
-//                     <div style="display:flex; width: 100%;flex-wrap: wrap;">
-//                         <input id="newProductName" type="text" placeholder="Product Name" style="width:100%"/>
-//                         <textarea style="border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;"></textarea>
-//                         <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
-//                             <input id="newProductPrice" type="number" placeholder="Product Price"/>
-//                             <input id="newProductId" type="text" placeholder="Product ID"/>
-//                         </div>
-//                         <div style="margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;">
-//                             <button id="cancelProduct" type="reset" style="border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;">CANCEL</button>
-//                             <button id="submitProduct" type="submit" style="border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;">SUBMIT</button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>`;
-//         addProductMenuButtons();
-//     });
-// }
-// function addProductMenuButtons(){
-//     //cancel button
-//     const cancelBTN = document.getElementById('cancelProduct');
-//     const popUpMenu = document.getElementById('blackBG');
-//     cancelBTN?.addEventListener('click',()=> {
-//         console.log('cancel button');
-//         popUpMenu?.remove()
-//         const fMenu = document.getElementById("floatingMenu");                  //update action buttion code
-//         fMenu!.innerHTML=`<p id="actionButton">MORE</p>`;
-//         actionButtion();
-//         //loadProducts();                                                         //reload all products
-//         // setTimeout(buyButton,1000);
-//     });       //remove html of popupmenu
-//     //submit botton
-//     const submitBTN = document.getElementById('submitProduct');
-//     submitBTN?.addEventListener('click',addNewProduct);
-// }
-// //function that adds new product to productlist and page
-// function addNewProduct(){
-//     console.log('running addnewproduct');
-//     let NewProductImg = document.getElementById('newProductImage');
-//     let NewProductName = document.getElementById('newProductName');
-//     let NewProductDescription = document.getElementById('');
-//     let NewProductPrice = document.getElementById('newProductPrice');
-//     let NewProductID = document.getElementById('newProductId');
-//     let stringForProduct ={name: String(NewProductName?.value),
-//         Description: String(NewProductDescription?.value),
-//         price: Number(NewProductPrice?.value),
-//         id: String(NewProductID?.value),
-//         img: imgURL,
-//     };
-//     let ValidImg = (NewProductImg?.value=='')? false : true;
-//     let ValidName = (NewProductName?.value=='')? false : true;
-//     let ValidDes = (NewProductDescription?.value=='')? false : true;
-//     let ValidPrice = (NewProductPrice?.value=='')? false : true;
-//     let ValidID = (NewProductID?.value=='')? false : true;
-//     if ((ValidImg && ValidName && ValidDes && ValidPrice && ValidID)==true){
-//         console.log('product pass');
-//         productList.push(stringForProduct);
-//         // productDOM?.removeChild;
-//         const popUpMenu = document.getElementById('blackBG');
-//         popUpMenu?.remove();
-//         // console.log(productList);
-//         // actionButtion;
-//         // setTimeout(buyButton,10);
-//         // alert(`function currently inactive`);
-//     }else{
-//         console.log('product false');
-//         console.log(`img ${ValidImg}, name ${ValidName}, des ${ValidDes}, price${ValidPrice}, id${ValidID}`);
-//         alert(`There's an empty field in your form`);
-//     }
-// }
+var FloatingButton = /** @class */ (function () {
+    function FloatingButton() {
+    }
+    FloatingButton.prototype.actionButton = function () {
+        var _this = this;
+        var popOptions = document.getElementById('actionButtionAdditions');
+        var moreCloseBTN = document.getElementById('actionButton');
+        var addMoreProducts = document.getElementById('addMoreProducts');
+        moreCloseBTN === null || moreCloseBTN === void 0 ? void 0 : moreCloseBTN.addEventListener('click', function () {
+            popOptions === null || popOptions === void 0 ? void 0 : popOptions.classList.toggle('Invisible');
+            if (popOptions === null || popOptions === void 0 ? void 0 : popOptions.classList.contains('Invisible')) {
+                moreCloseBTN.innerText = 'MORE';
+            }
+            else {
+                moreCloseBTN.innerText = 'CLOSE';
+                addMoreProducts === null || addMoreProducts === void 0 ? void 0 : addMoreProducts.addEventListener('click', function () {
+                    document.body.innerHTML += "\n                    <div id=\"blackBG\">\n                        <div id=\"whiteContainer\">\n                            <input id=\"newProductImage\" style=\"height: 200px;\" type=\"file\" accept=\"image/*\"/>\n                            <div style=\"display:flex; width: 100%;flex-wrap: wrap;\">\n\n                                <input id=\"newProductName\" type=\"text\" placeholder=\"Product Name\" style=\"width:100%\"/>\n                                <textarea id=\"NewProductDescription\" style=\"border-radius: 10px;width:100%;margin:5px 0px; min-height: 200px;\"></textarea>\n\n                                <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                                    <input id=\"newProductPrice\" type=\"number\" placeholder=\"Product Price\"/>\n                                    <input id=\"newProductId\" type=\"text\" placeholder=\"Product ID\"/>\n                                </div>\n                                <div style=\"margin: 5px 0px; display: grid; grid-template-columns: repeat(2, 1fr); gap:10px; width: 100%;\">\n                                    <button id=\"cancelProduct\" type=\"reset\" style=\"border-radius: 5px;width: 100%; border: 0;color: white;background-color: black;height: 50px;\">CANCEL</button>\n                                    <button id=\"submitProduct\" type=\"submit\" style=\"border-radius: 5px;width: 100%; border: 0;background-color: orange;height: 50px;\">SUBMIT</button>\n                                </div>\n                            </div>\n                        </div>\n                    </div>";
+                    setTimeout(_this.addProductMenu, 500);
+                });
+            }
+        });
+    };
+    FloatingButton.prototype.addProductMenu = function () {
+        var submitBTN = document.getElementById('submitProduct');
+        var cancelBTN = document.getElementById('cancelProduct');
+        var wholePopUpMenu = document.getElementById('blackBG');
+        cancelBTN === null || cancelBTN === void 0 ? void 0 : cancelBTN.addEventListener('click', function () {
+            ;
+            wholePopUpMenu.remove();
+            firstLoad.buyButton(); //reload the buy buttons
+            Float.actionButton(); //reload the float button
+        });
+        submitBTN === null || submitBTN === void 0 ? void 0 : submitBTN.addEventListener('click', Float.submitProduct);
+    };
+    FloatingButton.prototype.submitProduct = function () {
+        var productDOM = document.getElementById('productItemsDisplay');
+        var wholePopUpMenu = document.getElementById('blackBG');
+        var NewProductImg = document.getElementById('newProductImage');
+        var NewProductName = document.getElementById('newProductName');
+        var NewProductDescription = document.getElementById('NewProductDescription');
+        var NewProductPrice = document.getElementById('newProductPrice');
+        var NewProductID = document.getElementById('newProductId');
+        var imgUrl = NewProductImg === null || NewProductImg === void 0 ? void 0 : NewProductImg.addEventListener('load', function () {
+            console.log('function active');
+            var reader = new FileReader;
+            return reader.result;
+        });
+        console.log(imgUrl);
+        var stringForProduct = {
+            name: NewProductName.value,
+            Description: NewProductDescription.value,
+            price: Number(NewProductPrice.value),
+            id: NewProductID.value,
+            img: String(imgUrl),
+        };
+        firstLoad.createProduct(stringForProduct.name, productList[0].img, stringForProduct.price, stringForProduct.id, stringForProduct.Description);
+        // const ValidImg = (NewProductImg?.value)? false : true;
+        var ValidName = (NewProductName === null || NewProductName === void 0 ? void 0 : NewProductName.value) ? true : false;
+        var ValidDes = (NewProductDescription === null || NewProductDescription === void 0 ? void 0 : NewProductDescription.value) ? true : false;
+        var ValidPrice = (NewProductPrice === null || NewProductPrice === void 0 ? void 0 : NewProductPrice.value) ? true : false;
+        var ValidID = (NewProductID === null || NewProductID === void 0 ? void 0 : NewProductID.value) ? true : false;
+        console.log(stringForProduct);
+        console.log('button clicked');
+        if (ValidName && ValidDes && ValidPrice && ValidID) {
+            console.log('product pass');
+            productList.push(stringForProduct);
+            //firstLoad.createProduct(stringForProduct.name, stringForProduct.img, stringForProduct.price, stringForProduct.id, stringForProduct.Description);
+            productDOM.innerHTML += "\n            <div class=\"item\">\n                <img src=\"".concat(stringForProduct.img, "\" class=\"product-image\" alt=\"Product Image\"/>\n                <div class=\"ItemDescription\">\n                    <h1 title=\"").concat(stringForProduct.name, "\" class=\"productname\"> ").concat(stringForProduct.name, " </h1>\n                    <p class=\"productdescription\"> ").concat(stringForProduct.Description, " </p>\n                    <div class=\"productprice\">\n                        <div><span>R ").concat(stringForProduct.price, "<br/>Rating</span></div>\n                        <button class=\"purchase-btn\" data-id=\"").concat(stringForProduct.id, "\">PURCHASE</button>\n                    </div>\n                </div>\n            </div>\n            ");
+            wholePopUpMenu.remove();
+            Float.actionButton(); //reload the float button
+        }
+        else {
+            alert('Some fields are empty');
+        }
+    };
+    return FloatingButton;
+}());
 //create an object for Start Product & Cart
 var firstLoad = new ShoreShowcaseProducts();
 var shopCart = new ShoreShowcaseCart();
+var Float = new FloatingButton();
 //loads all start products
 productList.forEach(function (item) {
     firstLoad.createProduct(item.name, item.img, item.price, item.id, item.Description);
 });
+Float.actionButton();
 //control for cart menu appearing and disappearing
 document.getElementById('cartImage').addEventListener('click', function () {
     document.getElementById('shopping-cart').style.display = "block";
