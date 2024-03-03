@@ -1,0 +1,53 @@
+:root{
+    --radiusForButtons:12px;
+}
+.splitByTwo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logo{
+        max-height: 25px;
+    }
+    .buttonSection{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // padding: 0 2%;
+        p{
+            margin:0;
+        }
+        .actionButton{
+            border: 0;
+            background-color: rgba(0,0,0,1);
+            margin-left: 2%;
+            padding: 5px 15px;
+            border-radius: var(--radiusForButtons);
+            color: white;
+            img{
+                max-height: 10px;
+            }
+        }
+
+    }
+}
+nav{
+    margin: 2% 0;
+}
+#searchBar{
+    width: 99%;
+    background-color: rgba(217,217,217,1);
+    border-radius: var(--radiusForButtons);
+    border: 1px solid black;
+    min-height: 25px;
+    position: relative;
+}
+.searchIcon{
+    background-color: rgba(67,93,80,1);
+    padding: 5px;
+    min-width: 20px;
+    border-radius: var(--radiusForButtons);
+    img{
+        max-height: 10px;
+    }
+}
