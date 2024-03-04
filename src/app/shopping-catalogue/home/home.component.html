@@ -1,5 +1,35 @@
+<!-- ######################### RECENTLY VIEWED ITEMS ############################# -->
+<div id="productItemCatergoryBar"><div><h3>Recently Viewed</h3></div> <div><button class="seeMore">MORE</button></div></div>
+<div id="recentsVisits" *ngIf="recentVisited.length!=0">
+    <div *ngFor="let i of recentVisited" class="item">
+        <!-- <img src="${{i.image}}" class="product-image" alt="Product Image"/> -->
+        <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+        <div class="ItemDescription">
+            <h1 title="${{i.name}}" class="productname"> {{i.name}} </h1>
+            <p class="productdescription"> {{i.description}} </p>
+            <div class="productprice">
+                <div><span>R {{i.price}}<br/>Rating</span></div>
+                <button class="purchase-btn" data-id="{{i.id}}">PURCHASE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ######################################################################### -->
+<!-- ###################### DYNAMICLY PUT ITEMS   ############################ -->
 <div>
-    <div *ngFor="let i of items">
-
+    <div id="productItemCatergoryBar"><div><h3>catergory</h3></div> <div><button class="seeMore">MORE</button></div></div>
+    <div id="productItemsDisplay">
+        <div *ngFor="let i of products" class="item">
+            <!-- <img src="${{i.image}}" class="product-image" alt="Product Image"/> -->
+            <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+            <div class="ItemDescription">
+                <h1 title="${{i.name}}" class="productname"> {{i.name}} </h1>
+                <p class="productdescription"> {{i.description}} </p>
+                <div class="productprice">
+                    <div><span>R {{i.price}}<br/>Rating</span></div>
+                    <button class="purchase-btn" data-id="{{i.id}}">PURCHASE</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

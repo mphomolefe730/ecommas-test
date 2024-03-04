@@ -1,4 +1,4 @@
-<div>
+<div style="margin-top:35px;">
     <nav class="splitByTwo">
         <div>
             <img class="logo" src="{{logoOfCompany}}" alt="logo">
@@ -8,11 +8,9 @@
             <button class="actionButton"><img src="{{shoppingCartImage}}" alt="shopping cart"></button>
         </div>
     </nav>
-    <div>
-        <input type="text" placeholder="Type Here..." name="searchBar" id="searchBar"/>
-        <!-- <span class="searchIcon">
-            <img src="{{searchicon}}" alt="searchButton">
-        </span> -->
+    <div id="searchBarHolding">
+        <div><input type="text" placeholder="Type Here..." name="searchBar" id="searchBar"/></div>
+        <div><button type="submit"><img src="{{searchicon}}" alt="searchIcon"></button></div>
     </div>
 </div>
 <router-outlet></router-outlet>

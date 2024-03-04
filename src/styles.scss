@@ -1,6 +1,25 @@
-:root{
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+:root {
+    --primaryColor:rgb(255, 255, 255);
+    --secondaryColor: rgba(255,138,0,1);
+    --accent-color:rgb(67,93,80);
+    --box-margin: 10px 0;
+    --border-10: 10px;
     --radiusForButtons:12px;
 }
+@keyframes rightTransition{
+    from{
+        background-color: transparent;
+        color: var(--accent-color);
+    }
+    to{
+        background-color: black;
+        color: white;
+        font-weight: 500;
+    }
+}
+
 .splitByTwo{
     display: flex;
     justify-content: space-between;
@@ -22,6 +41,7 @@
             background-color: rgba(0,0,0,1);
             margin-left: 2%;
             padding: 5px 15px;
+            height: 100%;
             border-radius: var(--radiusForButtons);
             color: white;
             img{
@@ -33,21 +53,29 @@
 }
 nav{
     margin: 2% 0;
+    height: 40px;
 }
-#searchBar{
-    width: 99%;
-    background-color: rgba(217,217,217,1);
-    border-radius: var(--radiusForButtons);
-    border: 1px solid black;
-    min-height: 25px;
-    position: relative;
-}
-.searchIcon{
-    background-color: rgba(67,93,80,1);
-    padding: 5px;
-    min-width: 20px;
-    border-radius: var(--radiusForButtons);
-    img{
-        max-height: 10px;
+#searchBarHolding{
+    display: grid;
+    grid-template-columns: 5fr 0.75fr;
+    gap: 10px;
+    margin: var(--box-margin);
+    input{
+        width: 100%;
+        background-color: rgba(217,217,217,1);
+        border-radius: var(--radiusForButtons);
+        border: 1px solid black;
+        min-height: 40px;
+        // padding: 5px;
+    }
+    button{
+        background-color: var(--accent-color);
+        height: 100%;
+        width: 100%;
+        border-radius: var(--radiusForButtons);
+        border: 0;
+        img{
+            max-height: 10px;
+        }
     }
 }
