@@ -5,6 +5,9 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: ()=> import('./shopping-catalogue/shopping-catalogue.module').then(m => m.ShoppingCatalogueModule)
+  },{
+    path: 'seller',
+    loadChildren: ()=> import('./seller-portal/seller-portal.module').then(m=>m.SellerPortalModule)
   }
 ];
 

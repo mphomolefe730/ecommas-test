@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './services/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,13 @@ import { ProductService } from './services/product.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  shoppingCartImage = '../assets/icons/cart-shopping-solid.png';
-  logoOfCompany = '../assets/icons/logo.png';
-  searchicon = '../assets/icons/searchIcon.png';
   
-  constructor(private productService:ProductService){}
+  constructor(
+    private productService:ProductService,
+  ){}
 
   ngOnInit(): void {
-    this.productService.ngOnInit(); 
+    this.productService.ngOnInit();
   }
 
 }
