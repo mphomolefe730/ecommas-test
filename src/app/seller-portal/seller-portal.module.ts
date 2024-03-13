@@ -4,12 +4,16 @@ import { CommonModule } from '@angular/common';
 import { SellerPortalRoutingModule } from './seller-portal-routing.module';
 import { HomepageComponent } from './homepage/homepage.component';
 import { InsightsComponent } from './insights/insights.component';
+import { OrdersComponent } from './orders/orders.component';
+import { ProductsComponent } from './products/products.component';
 
 
 @NgModule({
   declarations: [
     HomepageComponent,
-    InsightsComponent
+    InsightsComponent,
+    OrdersComponent,
+    ProductsComponent
   ],
   imports: [
     CommonModule,

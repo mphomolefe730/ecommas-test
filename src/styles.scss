@@ -19,7 +19,13 @@
         font-weight: 500;
     }
 }
-
+.welcome{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}
 .splitByTwo{
     display: flex;
     justify-content: space-between;

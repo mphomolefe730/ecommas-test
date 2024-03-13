@@ -16,7 +16,6 @@ export class ProductService implements OnInit {
   ngOnInit(): void {
     this.recentlyViewed = localStorage.getItem("smartOne_recentlyViewed");
     this.recentlySearched = localStorage.getItem("smartOne_recentlySearched");
-    console.log(this.recentlySearched,this.recentlyViewed);
     if (this.recentlyViewed == null) localStorage.setItem("smartOne_recentlyViewed","[]");
     if (this.recentlySearched == null) localStorage.setItem("smartOne_recentlySearched","[]");
   }
@@ -34,9 +33,13 @@ export class ProductService implements OnInit {
     return this.http.get(`${environment.renderApiLink}/api/products/`);
   }
   getProductById(id:string){
-    return this.http.get(`${environment.renderApiLink}/api/products/${id}`)
+    return this.http.get(`${environment.renderApiLink}/api/products/${id}`);
   }
   getProductByCategory(category:string){
-    return this.http.get(`${environment.renderApiLink}/api/category/}`)
+    return this.http.get(`${environment.renderApiLink}/api/category/}`);
+  }
+
+  getAllSellerProducts(sellerId:string){
+    return this.http.get(`${environment.renderApiLink}/api/products/seller/${sellerId}`);
   }
 }

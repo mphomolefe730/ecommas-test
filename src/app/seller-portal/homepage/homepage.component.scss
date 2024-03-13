@@ -1,14 +1,17 @@
 #master{
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 1fr 5fr;
 }
 
 .actionButton{
-    display: grid;
-    grid-template-columns: 2fr 5fr;
     padding: 15px 20px;
 }
 .active{
     color: black;
     background-color: var(--secondaryColor);
+}
+@media (min-width: 988px) {
+    #master{
+        grid-template-columns: 1fr 5fr;
+    }
 }

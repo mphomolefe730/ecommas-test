@@ -8,22 +8,21 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomepageComponent implements OnInit{
   sideLinks:{name:string,link:string,image:string}[]=[{
-    name:"Home",link:"/seller",image:""
+    name:"Home",link:"/seller/home",image:""
   },{
-    name:"Orders",link:"/orders",image:""
+    name:"Orders",link:"/seller/orders",image:""
   },{
-    name:"Products",link:"/products",image:""
+    name:"Products",link:"/seller/products",image:""
   },{
-    name:"Customers",link:"/customer",image:""
+    name:"Customers",link:"/seller/customer",image:""
   },{
-    name:"Finances",link:"/finances",image:""
+    name:"Finances",link:"/seller/finances",image:""
   },{
-    name:"Marketing",link:"/marketing",image:""
+    name:"Marketing",link:"/seller/marketing",image:""
   },]
   constructor(
     private router:ActivatedRoute
   ){}
   ngOnInit(): void {
-    console.log(this.router.url);
   }
 }

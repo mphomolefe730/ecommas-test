@@ -1,0 +1,28 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 5px 0;
+    border-radius: 11.5px 11.5px 0 0;
+}
+.body{
+    display: grid;
+    grid-template-columns: 0.5fr 4fr 1fr 2fr;
+    text-transform: uppercase;
+}
+.splitByTwo{
+    margin-top: 5px;
+    border-top: 1px solid rgb(167, 167, 167);
+    padding: 5px 10px;
+    .actionButton{
+        padding: 15px 45px;
+        text-transform: uppercase;
+    }
+}
+.mainOrder{
+    margin: 5px 5px;
+    border: 1px solid rgb(167, 167, 167);
+    border-radius: 12px;
+}

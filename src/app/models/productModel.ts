@@ -3,7 +3,7 @@ import { userModel } from "./userModel";
 
 export interface productModel{
     name:string,
-    id:string,
+    _id:string,
     price:number,
     image:string,
     description:string,

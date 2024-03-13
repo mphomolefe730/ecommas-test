@@ -1,0 +1,17 @@
+#productItemsDisplay{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin: 5px 5px;
+}
+.addItem{
+    border-radius: var(--border-10);
+    min-height: 250px;
+    background-color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+        max-width: 100px;
+    }
+}
