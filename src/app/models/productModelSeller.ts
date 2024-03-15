@@ -1,7 +1,6 @@
-import { categoryModel } from "./categoryModel";
 import { userModel } from "./userModel";
 
-export interface productModel{
+export interface productModelSeller{
     name:string,
     _id:string,
     price:number,
@@ -9,5 +8,5 @@ export interface productModel{
     description:string,
     stock:number,
     seller:userModel["name"],
-    categories:categoryModel[]
+    categories:string[]
 }

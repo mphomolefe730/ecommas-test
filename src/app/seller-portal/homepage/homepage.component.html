@@ -1,5 +1,6 @@
+<app-seller-desktop-nav></app-seller-desktop-nav>
 <div id="master">
-    <div>
+    <div class="sideMenu">
         <p *ngFor="let i of sideLinks" [routerLink]="i.link" routerLinkActive="active" class="actionButton">{{ i.name }}</p>
     </div>
     <div>

@@ -13,7 +13,7 @@ import { categoryModel } from 'src/app/models/categoryModel';
 export class HomeComponent implements OnInit {
   products:productModel[] = [];
   recentVisited:productModel[]=[];
-  activeCategory:categoryModel[]=[];
+  activeCategory:any[]=[];
   productsToShow:productModel[]=[];
   
   demoImage = '../../../assets/images/air-force-1.webp';

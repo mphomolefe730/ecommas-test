@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environment/environment';
+import { productModel } from '../models/productModel';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,9 @@ export class ProductService implements OnInit {
 
   getAllSellerProducts(sellerId:string){
     return this.http.get(`${environment.renderApiLink}/api/products/seller/${sellerId}`);
+  }
+
+  updateproductById(productId:string, product:productModel){
+    return this.http.put(`${environment.renderApiLink}/api/products/${productId}`,product);
   }
 }

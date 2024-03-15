@@ -2,7 +2,17 @@
     <div class="addItem">
         <img [src]="addIconImage" alt="add item icon"/>
     </div>
-    <div class="item">
-        <p>add</p>
-    </div>
+    <ng-container *ngFor="let product of sellerProducts">
+        <div class="item1" (click)="viewProduct(product._id)">
+            <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+            <div class="ItemDescription">
+                <h1 title="${{product.name}}" class="productname"> {{product.name}} </h1>
+                <p class="productdescription"> {{product.description}} </p>
+                <div class="productprice">
+                    <div><span>Price: R {{product.price}}<br/>stock: {{product.stock}}</span></div>
+                    <button class="purchase-btn" data-id="{{product._id}}"><img [src]="editIconImage">EDIT</button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
 </div>

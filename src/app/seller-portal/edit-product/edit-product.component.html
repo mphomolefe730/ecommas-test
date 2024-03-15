@@ -1,0 +1,33 @@
+<div class="alert" *ngIf="notification">
+    <p><b>Success!</b> Your product was updated</p>
+</div>
+<div id="image">
+    <img [src]="demoImage" alt="">
+</div>
+<form [formGroup]="productForm">
+    <div>
+        <label for="name">Product Name:</label>
+        <input type="text" formControlName="name" [(ngModel)]="productDetails.name"/>
+    </div>
+    <div>
+        <label for="description">Product Description:</label>
+        <textarea type="" formControlName="description" [(ngModel)]="productDetails.description"></textarea>
+    </div>
+    <div>
+        <label for="price">Product Price:</label>
+        <input type="text" formControlName="price" [(ngModel)]="productDetails.price"/>
+    </div>
+    <div>
+        <label for="stock">Product Stock:</label>
+        <input type="text" formControlName="stock" [(ngModel)]="productDetails.stock"/>
+    </div>
+    <div class="categoriesHolder">
+        <div *ngFor="let cat of productDetails.categories" class="categories">
+            <span>{{cat.name}} <img (click)="removeCategory(cat._id)" [src]="closeIcon"/></span>
+        </div>
+    </div>
+    <div class="buttonSection">
+        <button class="actionButton" (click)="goBack()">CANCEL</button>
+        <button class="actionButton" (click)="updateProduct()"> SAVE<img [src]="progressLoader" *ngIf="sending"></button>
+    </div>
+</form>

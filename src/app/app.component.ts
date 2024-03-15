@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  notSeller:boolean=false;
+  deviceWidth=screen.width;
   
   constructor(
     private productService:ProductService,

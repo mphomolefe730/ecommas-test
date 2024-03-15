@@ -6,18 +6,23 @@ import { HomepageComponent } from './homepage/homepage.component';
 import { InsightsComponent } from './insights/insights.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
-
+import { EditProductComponent } from './edit-product/edit-product.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SellerDesktopNavComponent } from '../core/seller-desktop-nav/seller-desktop-nav.component';
 
 @NgModule({
   declarations: [
     HomepageComponent,
     InsightsComponent,
     OrdersComponent,
-    ProductsComponent
+    ProductsComponent,
+    EditProductComponent,
+    SellerDesktopNavComponent
   ],
   imports: [
     CommonModule,
-    SellerPortalRoutingModule
+    SellerPortalRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class SellerPortalModule { }

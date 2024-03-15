@@ -1,11 +1,20 @@
 <div style="margin-top:35px;">
     <nav class="splitByTwo">
-        <div routerLink="/seller">
+        <div routerLink="/seller" [ngClass]="{dontShow: app.deviceWidth<810}">
             <img class="logo" src="{{logoOfCompany}}" alt="logo">
+        </div>
+        <div [ngClass]="{dontShow: app.deviceWidth>810}">
+            <button class="menu" (click)="showMenu()"><i class="fa-solid fa-bars"></i></button>
         </div>
         <div class="buttonSection">
             <button class="actionButton"><p>notifications</p></button>
             <button class="actionButton"><p>account</p></button>
         </div>
     </nav>
+    <div class="sideMenuContainer" *ngIf="menuShowing && app.deviceWidth<810">
+        <div class="sideMenu">
+            <p *ngFor="let i of homePage.sideLinks" (click)="showMenu()" [routerLink]="i.link" routerLinkActive="active">{{ i.name }}</p>
+        </div>
+        <div class="sideMenuBlank" (click)="showMenu()"></div>
+    </div>
 </div>
