@@ -8,6 +8,6 @@ export interface productModel{
     image:string,
     description:string,
     stock:number,
-    seller:userModel["name"],
+    seller:userModel,
     categories:categoryModel[]
 }
