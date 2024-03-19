@@ -11,6 +11,7 @@ import { RoleService } from './role.service';
 export class AuthService {
   public user = new BehaviorSubject<any>(null);
   public loggedInUser = this.user.asObservable();
+  public isSeller = false;
 
   constructor(
     private router:Router,
@@ -33,11 +34,19 @@ export class AuthService {
   logIn(values:{email:string,hashedPassword:string}):void{
     this.logginService.login(values).subscribe((data:any)=>{
       if(data.message == 'login successful') {
+        sessionStorage.removeItem("smartOne_User");
+        sessionStorage.removeItem("smartOne_token");
         const userDetail = JSON.parse(atob(data.token.split('.')[1]));
         sessionStorage.setItem("smartOne_token",JSON.stringify(data.token));
         sessionStorage.setItem("smartOne_User", JSON.stringify({name: userDetail.name, role:userDetail.role}));
         const userRole:any = this.roleService.role.filter((a)=> a._id == userDetail.role);
-        userRole.role == "seller" ? this.router.navigate(['/seller']) :  this.router.navigate(['/']);
+        if (userRole[0].role == "seller"){
+          this.isSeller = true;
+          this.router.navigate(['/seller']);
+        }else{
+          this.isSeller = false;
+          this.router.navigate(['/']);
+        }
       }
       window.alert(data.message);
     })

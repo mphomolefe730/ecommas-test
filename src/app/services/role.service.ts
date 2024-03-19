@@ -18,7 +18,6 @@ export class RoleService implements OnInit{
     });
   }
 
-
   getAllRole(){
     return this.http.get(`${environment.renderApiLink}/api/role`)
   }

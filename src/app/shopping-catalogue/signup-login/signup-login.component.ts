@@ -13,7 +13,9 @@ export class SignupLoginComponent implements OnInit {
     hashedPassword: new FormControl('')
   })
   buttonText:string='SIGN-IN';
-  
+  progressLoader = '../../../assets/icons/loader.gif';
+  sending:boolean=false
+
   constructor(
     private authService:AuthService,
   ){}

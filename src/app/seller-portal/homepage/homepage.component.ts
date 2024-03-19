@@ -27,6 +27,6 @@ export class HomepageComponent implements OnInit{
     private app:AppComponent
   ){}
   ngOnInit(): void {
-      setTimeout(()=>this.app.notSeller=true,500);
+    setTimeout(()=>this.app.notSeller=true,500);
   }
 }

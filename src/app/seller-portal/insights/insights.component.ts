@@ -36,6 +36,7 @@ export class InsightsComponent implements OnInit{
   ){}
   
   ngOnInit(): void {
+    console.log('insight started');
     this.authService.loggedInUser.subscribe((data)=>{
       this.user=data.name;
       this.userId=data.UserId;

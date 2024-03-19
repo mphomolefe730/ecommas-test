@@ -36,7 +36,6 @@ export class CartComponent implements OnInit{
     private router:Router,
   ){}
   ngOnInit(): void {
-    console.log(this.shoppingCart.items)
     if (this.authService.isLoggedIn() == null) this.router.navigate(['/sign-in']);
     this.authService.loggedInUser.subscribe((data:any)=>{
       this.shoppingCart.userId=data.UserId;
@@ -59,6 +58,5 @@ export class CartComponent implements OnInit{
         this.cartTotalPrice += item.price
       })
     }
-    console.log(this.cartTotalPrice);
   }
 }

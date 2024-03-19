@@ -28,7 +28,7 @@
         <p class="productdescription2">{{productDetails.description}}</p>
 
         <div>
-            <button id="purchase-btn" *ngIf="purchasing == 'addToCart'">ADD TO CART</button>
+            <button id="purchase-btn" *ngIf="purchasing == 'addToCart'" (click)="addItemToCart()">ADD TO CART</button>
             <button id="purchase-btn" *ngIf="purchasing == 'loading'">loading</button>
             <button id="purchase-btn" *ngIf="purchasing == 'removeFromCart'">remove from CART</button>
         </div>

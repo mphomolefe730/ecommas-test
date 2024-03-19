@@ -50,17 +50,20 @@ export class ViewProductComponent implements OnInit{
 
   ngOnInit(): void {
     this.activeRouter.params.subscribe((data:any)=>{
-      this.productService.getProductById(data.productid).subscribe(async (item:any)=>{
-        this.productDetails =item;
+      this.productService.getProductById(data.productid).subscribe((item:any)=>{
+        this.productDetails = item;
         this.productDetails.seller.email='';
         this.productDetails.seller.surname='';
         this.productDetails.seller.number=0;
       })
-    })
+    });
   }
   copyToClipBoard(){
     this.clipboard.copy(this.router.url);
     this.notification=!this.notification;
     setTimeout(()=>this.notification=!this.notification,1000);
+  }
+  addItemToCart(){
+    this.purchasing= 'loading';
   }
 }

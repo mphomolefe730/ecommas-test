@@ -21,7 +21,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.productService.ngOnInit();
-    this.roleService.ngOnInit
+    this.roleService.ngOnInit();
     if (this.authService.isLoggedIn()){
       const token = this.authService.getToken();
       const tempUser = JSON.parse(atob(token!.split('.')[1]));

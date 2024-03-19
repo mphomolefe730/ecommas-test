@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { CartComponent } from './cart/cart.component';
 import { SignupLoginComponent } from './signup-login/signup-login.component';
+import { userGuard } from '../auth/user.guard';
 
 const routes: Routes = [
   {
@@ -12,13 +13,14 @@ const routes: Routes = [
   },
   {
     path: 'product/:productname/pd/:productid',
-    component: ViewProductComponent
+    component: ViewProductComponent,
   },{
     path: 'cart',
-    component: CartComponent
+    component: CartComponent,
+    canActivate:[userGuard]
   },{
     path: 'sign-in',
-    component: SignupLoginComponent
+    component: SignupLoginComponent,
   }
 ];
 
