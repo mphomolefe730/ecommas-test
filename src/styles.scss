@@ -156,3 +156,27 @@ h1{
 .dontShow{
     display: none;
 }
+
+/* Notification style */
+.alert {
+    position: fixed;
+    width: 100%;
+    padding: 20px;
+    background-color: #36f46c;
+    color: white;
+    left: 0;
+    bottom: 0;
+    text-transform: uppercase;
+}
+
+/* end of Notification style */
+
+.action2{
+    border: 0;
+    background-color: rgba(0,0,0,1);
+    margin-left: 2%;
+    padding: 5px 15px;
+    height: 100%;
+    border-radius: var(--radiusForButtons);
+    color: white;
+}

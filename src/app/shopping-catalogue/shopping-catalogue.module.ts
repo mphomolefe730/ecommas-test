@@ -5,17 +5,23 @@ import { ShoppingCatalogueRoutingModule } from './shopping-catalogue-routing.mod
 import { HomeComponent } from './home/home.component';
 import { SignupLoginComponent } from './signup-login/signup-login.component';
 import { ViewProductComponent } from './view-product/view-product.component';
+import { RecommandationsComponent } from './recommandations/recommandations.component';
+import { CartComponent } from './cart/cart.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     SignupLoginComponent,
-    ViewProductComponent
+    ViewProductComponent,
+    RecommandationsComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
-    ShoppingCatalogueRoutingModule
+    ShoppingCatalogueRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ShoppingCatalogueModule { }

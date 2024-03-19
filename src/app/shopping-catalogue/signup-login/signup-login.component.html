@@ -1,1 +1,21 @@
-<p>signup-login works!</p>
+<div class='master'>
+    <div class="container">
+        <form action="" [formGroup]="loginForm" (ngSubmit)="signInUser()">
+            <h1>
+                WELCOME
+            </h1>
+            <p style="color: rgba(0,0,0,0.5);margin: 2px; text-align: center;">sign in for a better experience</p>
+            <div>
+                <label for="email"><h3 style="margin: 2px;">EMAIL: </h3></label>
+                <input type="text" formControlName="email">
+            </div>
+            <div>
+                <label for="password"><h3 style="margin: 2px;">PASSWORD: </h3></label>
+                <input type="password" formControlName="hashedPassword">
+            </div>
+            <div>
+                <button class="action2">{{buttonText}}</button>
+            </div>
+        </form>
+    </div>
+</div>

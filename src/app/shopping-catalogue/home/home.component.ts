@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit {
     private router:Router,
     ){}
     
-    ngOnInit(){
-      //get all the recent viewed items ##################################
+  ngOnInit(){
+    //get all the recent viewed items ##################################
     let tempRecentlyViewedString:string = String(this.productService.recentlyViewed);
     if (tempRecentlyViewedString.length!=0){
       JSON.parse(tempRecentlyViewedString).forEach((productId:string)=>{

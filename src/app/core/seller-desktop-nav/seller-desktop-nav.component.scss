@@ -8,18 +8,22 @@
     height: 100%;
     font-size: larger;
 }
+#container{
+    margin-top:35px;
+}
 nav{
     position: relative;
 }
 .sideMenuContainer{
-    position: absolute;
+    position: fixed;
+    left: 0;
+    top: 0;
     display: grid;
     grid-template-columns: 5fr 2fr;
-    left: 0;
     width: 100%;
     height: 100vh; 
-    overflow: hidden;
     .sideMenu{
+        padding-top:35px;
         background-color: rgba(255,255,255,1);
         p{
             padding: 20px;

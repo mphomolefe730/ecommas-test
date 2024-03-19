@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { productModel } from 'src/app/models/productModel';
 import { ProductService } from 'src/app/services/product.service';
+import {Clipboard} from '@angular/cdk/clipboard';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-view-product',
@@ -9,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./view-product.component.scss']
 })
 export class ViewProductComponent implements OnInit{
-  purchasing:string='loading';
+  purchasing:string='addToCart';
   demoImage = '../../../assets/images/air-force-1.webp';
   productDetails:productModel={
     name: '',
@@ -35,11 +37,15 @@ export class ViewProductComponent implements OnInit{
     "two",
     "three"
   ];
+  notification:boolean=false;
+  notficationMessage:string = "link copied to clipboard";
 
   constructor(
     private activeRouter:ActivatedRoute,
     private router:Router,
-    private productService:ProductService
+    private productService:ProductService,
+    private clipboard:Clipboard,
+    public app:AppComponent
   ){}
 
   ngOnInit(): void {
@@ -51,5 +57,10 @@ export class ViewProductComponent implements OnInit{
         this.productDetails.seller.number=0;
       })
     })
+  }
+  copyToClipBoard(){
+    this.clipboard.copy(this.router.url);
+    this.notification=!this.notification;
+    setTimeout(()=>this.notification=!this.notification,1000);
   }
 }

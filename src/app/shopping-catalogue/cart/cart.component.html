@@ -1,0 +1,38 @@
+<div class="checkout-container" *ngIf="shoppingCart.items[0].price!=0">
+    <div class="checkout">
+        <div>
+            <div><p>Total: {{shoppingCart.items.length}} items</p></div>
+        </div>
+        <div>
+            R {{cartTotalPrice}}
+        </div>
+    </div>
+    <div>
+        <button class="checkout-btn">checkout</button>
+    </div>
+</div>
+<div *ngIf="shoppingCart.items[0].price!=0">
+    <div *ngFor="let item of shoppingCart.items" class="main">
+        <div class="image">
+            <img [src]="demoImage" alt="">
+        </div>
+        <div class="primary">
+            <div class="second">
+                <div>
+                    <p>{{item.productId.name}}</p>
+                    <p>R {{item.price}}</p>
+                </div>
+                <div class="bin">
+                    <i class="fa-solid fa-trash"></i>
+                </div>
+            </div>
+            <p class="productdescription">{{item.productId.description}}</p>
+            <div class="second">
+                <p>Quantity:</p>
+                <div>
+                    <input type="number" [placeholder]="item.quantity" (change)="changeValue($event,item.productId._id)"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

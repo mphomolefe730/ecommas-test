@@ -1,6 +1,12 @@
-<div>
+<div class="alert" *ngIf="notification">
+    <p><b>{{notficationMessage}}</b></p>
+</div>
+<div id="main">
+    <div class="main-image" [ngClass]="{dontShow: app.deviceWidth<810}">
+        <img [src]="demoImage" alt="">
+    </div>
     <div class="mobile">
-        <div class="main-image">
+        <div class="main-image" [ngClass]="{dontShow: app.deviceWidth>809}">
             <img [src]="demoImage" alt="">
         </div>
         <div class="splitByTwo ">
@@ -18,11 +24,16 @@
             <div><h3>{{productDetails.name}}</h3></div>
             <div><h3>R {{productDetails.price}}</h3></div>
         </div>
+
         <p class="productdescription2">{{productDetails.description}}</p>
+
         <div>
             <button id="purchase-btn" *ngIf="purchasing == 'addToCart'">ADD TO CART</button>
             <button id="purchase-btn" *ngIf="purchasing == 'loading'">loading</button>
             <button id="purchase-btn" *ngIf="purchasing == 'removeFromCart'">remove from CART</button>
         </div>
-    </div>
+        <div>
+            <button id="purchase-btn" style="background-color: transparent;border: 2px solid black;color: black;" (click)="copyToClipBoard()">share item</button>
+        </div>
+        <app-recommandations></app-recommandations>
 </div>
