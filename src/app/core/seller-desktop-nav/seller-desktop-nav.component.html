@@ -13,7 +13,7 @@
     </nav>
     <div class="sideMenuContainer" *ngIf="menuShowing && app.deviceWidth<810">
         <div class="sideMenu">
-            <p *ngFor="let i of homePage.sideLinks" (click)="showMenu()" [routerLink]="i.link" routerLinkActive="active">{{ i.name }}</p>
+            <p *ngFor="let i of homePage.sideLinks" (click)="showMenu()" [routerLink]="i.link" routerLinkActive="active1">{{ i.name }}</p>
         </div>
         <div class="sideMenuBlank" (click)="showMenu()"></div>
     </div>

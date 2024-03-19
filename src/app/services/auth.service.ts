@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogginService } from './loggin.service';
-import { AppComponent } from '../app.component';
 import { BehaviorSubject } from 'rxjs';
 import { RoleService } from './role.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,8 @@ export class AuthService {
   constructor(
     private router:Router,
     private logginService:LogginService,
-    private roleService:RoleService
+    private roleService:RoleService,
+    private toaster: NgToastService
   ) { }
 
 
@@ -43,12 +44,15 @@ export class AuthService {
         if (userRole[0].role == "seller"){
           this.isSeller = true;
           this.router.navigate(['/seller']);
+          this.toaster.success({detail:"SUCCESS",summary:data.message,duration:2000,position:"topCenter"});
         }else{
           this.isSeller = false;
           this.router.navigate(['/']);
+          this.toaster.success({detail:"SUCCESS",summary:data.message,duration:2000,position:"topCenter"});
         }
+      }else{
+        this.toaster.error({detail:"ERROR",summary:data.message,duration:20000,position:"topCenter"});
       }
-      window.alert(data.message);
     })
   }
 }
