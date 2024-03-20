@@ -75,8 +75,8 @@ export class SignupLoginComponent implements OnInit {
     this.formSubmitted = true;
 
     const userModel: userModel = {
-      businessName: this.signupForm.value.businessName,
-      businessDescription: this.signupForm.value.businessDescription,
+      // businessName: this.signupForm.value.businessName,
+      // businessDescription: this.signupForm.value.businessDescription,
       hashedPassword: this.signupForm.value.password,
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,

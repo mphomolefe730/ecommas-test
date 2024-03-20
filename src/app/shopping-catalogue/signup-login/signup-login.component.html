@@ -22,6 +22,7 @@
                 <label>Email</label>
                 <input type="text" formControlName="email" placeholder="Email">
                 <p *ngIf="email.touched && email.errors?.required">Email is a required field</p>
+                <p *ngIf="email.touched && email.errors?.email">Enter a valid email</p>
             </div>
             <div class = "error-display">
                 <label>Phone number</label>
