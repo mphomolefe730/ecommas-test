@@ -4,6 +4,7 @@ import { HomeService } from 'src/app/services/home.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { categoryModel } from 'src/app/models/categoryModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,10 +22,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private homeService:HomeService,
     private productService:ProductService,
-    private categoryService:CategoryService,){}
+    private categoryService:CategoryService,
+    private router:Router,
+    ){}
     
-    ngOnInit(){
-      //get all the recent viewed items ##################################
+  ngOnInit(){
+    //get all the recent viewed items ##################################
     let tempRecentlyViewedString:string = String(this.productService.recentlyViewed);
     if (tempRecentlyViewedString.length!=0){
       JSON.parse(tempRecentlyViewedString).forEach((productId:string)=>{
@@ -47,7 +50,10 @@ export class HomeComponent implements OnInit {
         })
       });
     });
-
-    // this.productService.addToRecentlyViewedProduct("65d728e085c14d3f64eb4685");
+  }
+  async viewProduct(productId:string,productName:string){
+    this.productService.addToRecentlyViewedProduct(productId);
+    const productNameFormated = productName.split(' ').join('-');
+    this.router.navigate([`product/${productNameFormated}/pd/${productId}`]);
   }
 }

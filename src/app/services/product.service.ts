@@ -23,6 +23,12 @@ export class ProductService implements OnInit {
 
   addToRecentlyViewedProduct(id:string){
     let temprecentlyViewed:string[] = JSON.parse(String(this.recentlyViewed));
+    //check if element was already in array, if true - remove it
+    const checker = temprecentlyViewed.includes(id);
+    if (checker == true) {
+      const index = temprecentlyViewed.indexOf(id);
+      temprecentlyViewed.splice(index,1);
+    }//add the element to the beginning of the array
     temprecentlyViewed.unshift(id);
     localStorage.clear();
     localStorage.setItem("smartOne_recentlyViewed",JSON.stringify(temprecentlyViewed));

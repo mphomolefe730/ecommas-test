@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DesktopNavComponent } from './core/desktop-nav/desktop-nav.component';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DesktopNavComponent } from './core/desktop-nav/desktop-nav.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgToastModule
   ],
   providers: [],
   bootstrap: [AppComponent]

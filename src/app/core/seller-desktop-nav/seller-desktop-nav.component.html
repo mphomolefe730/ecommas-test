@@ -1,4 +1,4 @@
-<div style="margin-top:35px;">
+<div id="container">
     <nav class="splitByTwo">
         <div routerLink="/seller" [ngClass]="{dontShow: app.deviceWidth<810}">
             <img class="logo" src="{{logoOfCompany}}" alt="logo">
@@ -13,7 +13,7 @@
     </nav>
     <div class="sideMenuContainer" *ngIf="menuShowing && app.deviceWidth<810">
         <div class="sideMenu">
-            <p *ngFor="let i of homePage.sideLinks" (click)="showMenu()" [routerLink]="i.link" routerLinkActive="active">{{ i.name }}</p>
+            <p *ngFor="let i of homePage.sideLinks" (click)="showMenu()" [routerLink]="i.link" routerLinkActive="active1">{{ i.name }}</p>
         </div>
         <div class="sideMenuBlank" (click)="showMenu()"></div>
     </div>

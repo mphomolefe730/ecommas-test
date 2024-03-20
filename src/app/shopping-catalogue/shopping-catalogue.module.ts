@@ -8,7 +8,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     HomeComponent,
-    SignupLoginComponent
+    SignupLoginComponent,
+    ViewProductComponent,
+    RecommandationsComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,

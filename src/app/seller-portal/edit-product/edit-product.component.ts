@@ -17,14 +17,23 @@ export class EditProductComponent implements OnInit {
   closeIcon = '../../../assets/icons/closeicon.png';
   demoImage = '../../../assets/images/air-force-1.webp';
   productDetails:productModel={
-    name:'',
-    _id:'',
-    price:0,
-    image:'',
-    description:'',
-    stock:0,
-    seller:'',
-    categories:[]
+    name: '',
+    _id: '',
+    price: 0,
+    image: '',
+    description: '',
+    stock: 0,
+    categories: [],
+    seller: {
+      name: '',
+      surname: '',
+      email: '',
+      number: 0,
+      role: {
+        id: '',
+        name: ''
+      }
+    }
   };
   productForm:FormGroup= new FormGroup({
     name: new FormControl(this.productDetails.name),

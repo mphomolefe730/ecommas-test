@@ -1,6 +1,8 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-homepage',
@@ -22,10 +24,9 @@ export class HomepageComponent implements OnInit{
     name:"Marketing",link:"/seller/marketing",image:""
   },]
   constructor(
-    private router:ActivatedRoute,
-    private home:AppComponent
+    private app:AppComponent
   ){}
   ngOnInit(): void {
-    setTimeout(()=>this.home.notSeller=true,500);
+    setTimeout(()=>this.app.notSeller=true,500);
   }
 }
