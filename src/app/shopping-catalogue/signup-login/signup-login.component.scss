@@ -18,16 +18,15 @@
     .signup-form {
         display: flex;
         flex-direction: column;
-        width: $form-width-desktop;
+       
         max-width: 1000px; 
-        border: 1px solid #272727;
+
         border-radius: 12px;
-        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
         text-align: center;
         gap: 1.875rem;
         padding: 10px;   
         place-items: center;    
-         
     }
 
     .social-login {
@@ -39,7 +38,7 @@
             display: grid;
             place-items: center;
             border: none;
-            box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(255, 129, 23, 0.1) 0px 2px 3px 0px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(255, 129, 23, 0.1) 0px 2px 3px 0px; 
             border-radius: 50%;
             width: 1.75rem;
             height: 1.75rem;
@@ -59,23 +58,13 @@
             border-radius: 5px;
             border: 1px solid;
             border-color: #444;
+
             &:not(select) {
-                width: $input-width-desktop;
                 outline: none;
                 height: 2.5rem;
             }
-
-
             &:active {
                 border: 1px solid #ee7817;
-            }
-
-            @media (max-width: 768px) {
-                width: $input-width-tablet; 
-            }
-
-            @media (max-width: 480px) {
-                width: $input-width-mobile; 
             }
         }
 
@@ -96,7 +85,7 @@
         font-weight: 700;
         text-transform: uppercase;
         width: 0 auto;
-        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
         transition: background-color 0.2s ease-out ;
         &:active {
             box-shadow: none;
@@ -123,16 +112,57 @@
         select, .role-label{
             justify-self: center;
         }
-    }
-
-    
+    } 
 }
 
-  
-  @media (max-width: 480px) {
-      .header h2 {
-          font-size: 40px; /* Reduce header text size */
-      }
+@media only screen and (max-width: 480px) {
+
+
+    .header h2 {
+        font-size: 40px;
+    }
+
+    .user-input-section {
+        padding: 20px;
+        input {
+            width: $input-width-mobile;
+        }
+    } 
   }
   
-    
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    .user-input-section {
+
+        input {
+         width: $input-width-desktop; 
+        }
+
+    }
+  }
+  
+
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .user-input-section {
+
+        input, select {
+         width: $input-width-desktop; 
+        }
+
+        
+    }
+  }
+  
+
+  @media only screen and (min-width: 1025px) {
+    .user-input-section {
+
+        input, select {
+         width: $input-width-desktop; 
+        }
+
+    }
+
+  }
+  
+

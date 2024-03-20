@@ -77,7 +77,7 @@ export class SignupLoginComponent implements OnInit {
     const userModel: userModel = {
       businessName: this.signupForm.value.businessName,
       businessDescription: this.signupForm.value.businessDescription,
-      password: this.signupForm.value.password,
+      hashedPassword: this.signupForm.value.password,
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,
       email: this.signupForm.value.email,
@@ -85,7 +85,7 @@ export class SignupLoginComponent implements OnInit {
       role: this.signupForm.value.role,
     };
 
-    if (this.signupForm.v) {
+    if (this.signupForm.valid) {
       this.userService.createUser(userModel).subscribe((data: any) => {
         this.toastAlert("Account successfully created");
         console.log(data);
