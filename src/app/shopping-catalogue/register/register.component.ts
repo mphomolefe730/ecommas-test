@@ -72,6 +72,7 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit() {
+    this.toastAlert("Adding new user");
     this.formSubmitted = true;
 
     const userModel: userModel = {

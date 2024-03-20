@@ -29,6 +29,7 @@ export class EditProductComponent implements OnInit {
       surname: '',
       email: '',
       number: 0,
+      hashedPassword: '',
       role: {
         id: '',
         name: ''
