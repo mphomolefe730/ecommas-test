@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
-import { SignupLoginComponent } from './signup-login/signup-login.component';
+import { LoginComponent } from './login/login.component';
 import { RecommandationsComponent } from './recommandations/recommandations.component';
 import { CartComponent } from './cart/cart.component';
 
@@ -17,7 +17,7 @@ import { CartComponent } from './cart/cart.component';
     RecommandationsComponent,
     CartComponent,
     RegisterComponent,
-    SignupLoginComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,

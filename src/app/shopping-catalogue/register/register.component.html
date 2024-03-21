@@ -11,9 +11,9 @@
             <div class = "error-display select-wrapper">
                 <label class="role-label">Select role</label>
                 <select aria-label="role" formControlName="role">
-                    <option selected disabled>Select a role</option>
-                    <option value="Seller">65df70a448622e6eef537521</option>
-                    <option value="Customer">65df70a448622e6eef537521</option>
+                    <option disabled selected>Select a role</option>
+                    <option value="65df70a448622e6eef537521">Service provider</option>
+                    <option value="65df70a448622e6eef537521">Seller</option>
                 </select>
                 <p *ngIf="role.touched && role.errors?.required">Role is a required field</p>
             </div>    

@@ -3,11 +3,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-signup-login',
-  templateUrl: './signup-login.component.html',
-  styleUrls: ['./signup-login.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SignupLoginComponent implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm:FormGroup=new FormGroup({
     email: new FormControl(''),
     hashedPassword: new FormControl('')
