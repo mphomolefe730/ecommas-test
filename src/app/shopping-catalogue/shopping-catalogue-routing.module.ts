@@ -17,7 +17,6 @@ const routes: Routes = [
   },{
     path: 'cart',
     component: CartComponent,
-    canActivate:[userGuard]
   },{
     path: 'sign-in',
     component: SignupLoginComponent,
