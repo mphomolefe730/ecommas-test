@@ -11,7 +11,6 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit{
-  demoImage = '../../../assets/images/air-force-1.webp';
   cartTotalPrice:number = 0; 
   shoppingCart: cartModel={
     _id:'',
@@ -38,7 +37,7 @@ export class CartComponent implements OnInit{
   ngOnInit(): void {
     if (this.authService.isLoggedIn() == null) this.router.navigate(['/sign-in']);
     this.authService.loggedInUser.subscribe((data:any)=>{
-      this.shoppingCart.userId=data.UserId;
+      this.shoppingCart.userId=data.userId;
       this.cartService.getCartByUserId(data.userId).subscribe((data:any)=>{
         this.shoppingCart=data;
         this.shoppingCart.items.forEach((item)=>{

@@ -16,9 +16,7 @@ export class HomeComponent implements OnInit {
   recentVisited:productModel[]=[];
   activeCategory:any[]=[];
   productsToShow:productModel[]=[];
-  
-  demoImage = '../../../assets/images/air-force-1.webp';
-  
+    
   constructor(
     private homeService:HomeService,
     private productService:ProductService,

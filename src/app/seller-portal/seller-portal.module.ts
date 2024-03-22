@@ -9,6 +9,7 @@ import { ProductsComponent } from './products/products.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SellerDesktopNavComponent } from '../core/seller-desktop-nav/seller-desktop-nav.component';
+import { UploadProductComponent } from './upload-product/upload-product.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { SellerDesktopNavComponent } from '../core/seller-desktop-nav/seller-des
     OrdersComponent,
     ProductsComponent,
     EditProductComponent,
-    SellerDesktopNavComponent
+    SellerDesktopNavComponent,
+    UploadProductComponent
   ],
   imports: [
     CommonModule,

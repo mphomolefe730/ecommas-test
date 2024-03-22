@@ -14,7 +14,7 @@
 <div *ngIf="shoppingCart.items[0].price!=0">
     <div *ngFor="let item of shoppingCart.items" class="main">
         <div class="image">
-            <img [src]="demoImage" alt="">
+            <img [src]="item.productId.image" alt="">
         </div>
         <div class="primary">
             <div class="second">

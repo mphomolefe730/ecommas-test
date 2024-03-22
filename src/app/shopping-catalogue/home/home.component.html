@@ -3,7 +3,7 @@
 <div id="recentsVisits" *ngIf="recentVisited.length!=0">
     <div *ngFor="let i of recentVisited" class="item" (click)="viewProduct(i._id,i.name)">
         <!-- <img src="${{i.image}}" class="product-image" alt="Product Image"/> -->
-        <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+        <img [src]="i.image" class="product-image" alt="Product Image"/>
         <div class="ItemDescription">
             <h1 title="${{i.name}}" class="productname"> {{i.name}} </h1>
             <p class="productdescription"> {{i.description}} </p>
@@ -21,7 +21,7 @@
     <div id="productItemsDisplay">
         <ng-container *ngFor="let product of productsToShow">
             <div *ngIf="product.categories.includes(i._id)" class="item" (click)="viewProduct(product._id,product.name)">
-                <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+                <img [src]="product.image" class="product-image" alt="Product Image"/>
                 <div class="ItemDescription">
                     <h1 title="${{product.name}}" class="productname"> {{product.name}} </h1>
                     <p class="productdescription"> {{product.description}} </p>

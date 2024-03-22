@@ -1,21 +1,17 @@
-<div class="alert" *ngIf="notification">
-    <p><b>{{notficationMessage}}</b></p>
-</div>
 <div id="main">
     <div class="main-image" [ngClass]="{dontShow: app.deviceWidth<810}">
-        <img [src]="demoImage" alt="">
+        <img [src]="productDetails.image" alt="">
     </div>
     <div class="mobile">
         <div class="main-image" [ngClass]="{dontShow: app.deviceWidth>809}">
-            <img [src]="demoImage" alt="">
+            <img [src]="productDetails.image" alt="">
         </div>
         <div class="splitByTwo ">
             <div class="second">
                 <p>Seller: <span>{{productDetails.seller.name}}</span></p>
             </div>
             <div class="second" *ngIf="productOptions.length!=null">
-                <select>
-                    <option default value="choose option">-- choose option --</option>
+                <select  (change)="updateNumber($event)">
                     <option *ngFor="let i of productOptions" [value]="i">{{i}}</option>
                 </select>
             </div>
@@ -30,7 +26,7 @@
         <div>
             <button id="purchase-btn" *ngIf="purchasing == 'addToCart'" (click)="addItemToCart()">ADD TO CART</button>
             <button id="purchase-btn" *ngIf="purchasing == 'loading'">loading</button>
-            <button id="purchase-btn" *ngIf="purchasing == 'removeFromCart'">remove from CART</button>
+            <button id="purchase-btn" *ngIf="purchasing == 'removeFromCart'">REMOVE FROM CART</button>
         </div>
         <div>
             <button id="purchase-btn" style="background-color: transparent;border: 2px solid black;color: black;" (click)="copyToClipBoard()">share item</button>

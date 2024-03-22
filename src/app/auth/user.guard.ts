@@ -9,10 +9,10 @@ export const userGuard: CanActivateFn = (route, state) => {
   let userRole:any = authService.isSeller;
 
   if (isLoggedIn == false) {
-    console.log('checking if logged in');
     router.navigate(['/sign-in']);
     return false;
   }
+  console.log(userRole);
   if (userRole == false){
     router.navigate(['/seller']);
     return false;

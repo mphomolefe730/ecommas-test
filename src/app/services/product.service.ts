@@ -42,6 +42,9 @@ export class ProductService implements OnInit {
   getProductById(id:string){
     return this.http.get(`${environment.renderApiLink}/api/products/${id}`);
   }
+  addNewProduct(productInformation:productModel){
+    return this.http.post(`${environment.renderApiLink}/api/products/add`, productInformation);
+  }
   getProductByCategory(category:string){
     return this.http.get(`${environment.renderApiLink}/api/category/}`);
   }

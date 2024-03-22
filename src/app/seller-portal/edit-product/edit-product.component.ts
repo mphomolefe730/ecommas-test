@@ -15,7 +15,6 @@ export class EditProductComponent implements OnInit {
   sending:boolean=false
   progressLoader = '../../../assets/icons/loader.gif';
   closeIcon = '../../../assets/icons/closeicon.png';
-  demoImage = '../../../assets/images/air-force-1.webp';
   productDetails:productModel={
     name: '',
     _id: '',

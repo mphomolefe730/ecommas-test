@@ -5,6 +5,7 @@ import { InsightsComponent } from './insights/insights.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { UploadProductComponent } from './upload-product/upload-product.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
       },{
         path:'products/edit/:id',
         component:EditProductComponent
+      },
+      {
+        path:'products/upload',
+        component:UploadProductComponent
       }
     ]
   }
