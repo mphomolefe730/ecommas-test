@@ -7,13 +7,13 @@
             <div><img src="../../assets/icons/logo-google.svg" alt="signin with google"/></div>
         </div>
         <div><p>Please fill in all the fields</p></div>
-        <form  [formGroup]="signupForm" (ngSubmit)="onSubmit" class="user-input-section">
+        <form  [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="user-input-section">
             <div class = "error-display select-wrapper">
                 <label class="role-label">Select role</label>
                 <select aria-label="role" formControlName="role">
                     <option disabled selected>Select a role</option>
                     <option value="65df70a448622e6eef537521">Service provider</option>
-                    <option value="65df70a448622e6eef537521">Seller</option>
+                    <option value="65df70a448622e6eef537521">Customer</option>
                 </select>
                 <p *ngIf="role.touched && role.errors?.required">Role is a required field</p>
             </div>    

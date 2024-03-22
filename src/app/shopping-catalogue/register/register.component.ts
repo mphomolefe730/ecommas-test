@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { confirmPasswordValidator } from './confirmPassword';
 import { UserService } from 'src/app/services/user.service';
-import { ToastController } from '@ionic/angular';
+// import { ToastController } from '@ionic/angular';
 import { userModel } from 'src/app/models/userModel';
 
 @Component({
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private userService: UserService,
-    private toastcontroller: ToastController,
+    // private toastcontroller: ToastController,
   ){}
 
   ngOnInit(): void {
@@ -61,13 +61,13 @@ export class RegisterComponent implements OnInit {
   }
 
   async toastAlert(message: string) {
-     const toast =  await this.toastcontroller.create({
-        message: message,
-        duration: 4500,
-        position: 'bottom'
-     });
+    //  const toast =  await this.toastcontroller.create({
+    //     message: message,
+    //     duration: 4500,
+    //     position: 'bottom'
+    //  });
 
-     await toast.present();
+    //  await toast.present();
   }
 
 
@@ -76,8 +76,8 @@ export class RegisterComponent implements OnInit {
     this.formSubmitted = true;
 
     const userModel: userModel = {
-      // businessName: this.signupForm.value.businessName,
-      // businessDescription: this.signupForm.value.businessDescription,
+      businessName: this.signupForm.value.businessName,
+      businessDescription: this.signupForm.value.businessDescription,
       hashedPassword: this.signupForm.value.password,
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,
