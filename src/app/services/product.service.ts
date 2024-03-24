@@ -56,4 +56,7 @@ export class ProductService implements OnInit {
   updateproductById(productId:string, product:productModel){
     return this.http.put(`${environment.renderApiLink}/api/products/${productId}`,product);
   }
+  getProductBySearch(query:{search:string}){
+    return this.http.post(`${environment.renderApiLink}/api/products/items/search`,query);
+  }
 }

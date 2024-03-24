@@ -27,6 +27,7 @@ export class AppComponent implements OnInit{
       if (this.authService.isLoggedIn()){
         const token = this.authService.getToken();
         const tempUser = JSON.parse(atob(token!.split('.')[1]));
+        console.log(tempUser);
         const role = await this.roleService.getUserRole(tempUser.role);
         if (role[0].role == 'seller') {
           this.authService.isSeller = true;
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit{
         }
         this.authService.user.next(tempUser);
       }
-    },3000)
+    },5000);
   }
 
 }

@@ -9,6 +9,7 @@ import { NgToastModule } from 'ng-angular-popup';
 import { environment } from 'src/environment/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,8 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage'
     AppRoutingModule,
     HttpClientModule,
     NgToastModule,
+    ReactiveFormsModule,
+    FormsModule,
     AngularFireModule.initializeApp(
       environment.firebaseConfig
     ),

@@ -41,6 +41,7 @@ export class ViewProductComponent implements OnInit{
   productOptions:number[]=[
     1,2,3,4,5,6
   ];
+  cartId:string='';
   user:string='';
   userId:string='';
   selectedOption:number=1;
@@ -79,6 +80,7 @@ export class ViewProductComponent implements OnInit{
       this.user = await data.name;
       this.userId = await data.userId;
       this.shoppingCart.userId=this.userId;
+      this.cartId = data.cartId;
 
       this.cartService.getCartByUserId(this.userId).subscribe(async (data2:any)=>{
         this.shoppingCart= await data2;
@@ -108,10 +110,12 @@ export class ViewProductComponent implements OnInit{
       this.router.navigate(['/sign-in']);
       return ;
     }
+
     if (this.inCartSellerName != this.productDetails.seller['name'] && this.shoppingCart.items.length != 0){
       this.toaster.error({detail:"ERROR",summary: "can only buy from one seller at a time",duration:3000});
       return ;
     }
+    
     this.purchasing= 'loading';
     const item =await {
       productId:{

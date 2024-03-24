@@ -15,4 +15,7 @@ export class UserService {
   createUser(user: userModel){
     return this.http.post(`${environment.renderApiLink}/api/user/add`, user);
   }
+  searchForUser(query:{search:string}){
+    return this.http.post(`${environment.renderApiLink}/api/user/search`,query);
+  }
 }

@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { CartComponent } from './cart/cart.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -21,8 +22,11 @@ const routes: Routes = [
     path: 'sign-in',
     component: LoginComponent
   },{
-    path: 'signup',
+    path: 'sign-up',
     component: RegisterComponent
+  },{
+    path:'search/:query',
+    component:SearchComponent
   }
 ];
 

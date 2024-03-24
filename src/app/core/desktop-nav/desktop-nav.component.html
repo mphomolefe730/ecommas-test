@@ -9,7 +9,11 @@
         </div>
     </nav>
     <div id="searchBarHolding">
-        <div><input type="text" placeholder="Type Here..." name="searchBar" id="searchBar"/></div>
-        <div><button type="submit"><img src="{{searchicon}}" alt="searchIcon"></button></div>
+        <div>
+            <form [formGroup]="searchForm" (ngSubmit)="searchForProduct()">
+                <input formControlName="search" type="text" placeholder="Type Here..." name="searchBar" id="searchBar"/>
+            </form>
+        </div>
+        <div><button type="submit" (click)="searchForProduct()"><img src="{{searchicon}}" alt="searchIcon"></button></div>
     </div>
 </div>

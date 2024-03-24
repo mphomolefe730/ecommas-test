@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { Guid } from 'guid-typescript';
 import { confirmPasswordValidator } from './confirmPassword';
 import { UserService } from 'src/app/services/user.service';
-// import { ToastController } from '@ionic/angular';
+import { NgToastService } from 'ng-angular-popup';
 import { userModel } from 'src/app/models/userModel';
 
 @Component({
@@ -22,11 +22,10 @@ export class RegisterComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private userService: UserService,
-    // private toastcontroller: ToastController,
+    private toastcontroller: NgToastService,
   ){}
 
   ngOnInit(): void {
-
     this.signupForm = new FormGroup({
       id: new FormControl(Guid.create().toString()),
       role: new FormControl('', Validators.required),
@@ -61,13 +60,11 @@ export class RegisterComponent implements OnInit {
   }
 
   async toastAlert(message: string) {
-    //  const toast =  await this.toastcontroller.create({
-    //     message: message,
-    //     duration: 4500,
-    //     position: 'bottom'
-    //  });
-
-    //  await toast.present();
+    this.toastcontroller.success({
+      detail: "SUCCESS",
+      summary: message,
+      duration: 2000
+    });
   }
 
 

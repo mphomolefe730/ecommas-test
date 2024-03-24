@@ -1,0 +1,35 @@
+<div id="productItemsDisplay" *ngIf="seller.length!=0">
+    <div *ngFor="let s of seller" class="item">
+        <img [src]=""/>
+        <div class="ItemDescription">
+            <p class="productname">{{s.name}}</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="productsToShow.length!=0">
+    <div id="productItemCatergoryBar"><div><h3>PRODUCTS</h3></div> </div>
+    <div id="productItemsDisplay2">
+        <ng-container *ngFor="let product of productsToShow">
+            <div class="item1" (click)="viewProduct(product._id,product.name)">
+                <img [src]="product.image" class="product-image" alt="Product Image"/>
+                <div class="ItemDescription">
+                    <h1 title="${{product.name}}" class="productname"> {{product.name}} </h1>
+                    <p class="productdescription"> {{product.description}} </p>
+                    <div class="productprice">
+                        <div><span>Price: R {{product.price}}<br/>rating</span></div>
+                        <button class="purchase-btn" data-id="{{product._id}}">VIEW</button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div *ngIf="productsToShow.length==0">
+    <div class="holderImages" *ngIf="!searching">
+        <h1>opps</h1>
+        <p>looks like no product matches your description</p>
+    </div>
+    <div class="holderImages" *ngIf="searching">
+        <img [src]="progressLoader" alt="">
+    </div>
+</div>
