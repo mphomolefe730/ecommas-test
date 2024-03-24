@@ -6,9 +6,9 @@
     </div>
     <div class="body">
         <div></div>
-        <div>name</div>
-        <div>quantity</div>
-        <div>price</div>
+        <div>Name</div>
+        <div>Quantity</div>
+        <div>Price</div>
     </div>
     <div *ngFor="let j of i.items; let k = index" class="body">
         <div>{{ k+1 }}</div>
@@ -17,7 +17,7 @@
         <div>{{ j.price }}</div>
     </div>
     <div *ngIf="i.status=='UNFURFILLED'" class="splitByTwo">
-        <div>do you take this order</div>
+        <div>Accept order</div>
         <div class="buttonSection">
             <button class="actionButton">no</button>
             <button class="actionButton">yes</button>

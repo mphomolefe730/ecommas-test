@@ -1,0 +1,85 @@
+<div class = "page-content">
+    <div class="signup-form">
+       <div class = "header"><h2>Sign up</h2></div>
+        <div class = "social-login">
+            <div><img src="../../assets/icons/logo-facebook.svg" alt="signin with facebook"/></div>
+            <div><img src="../../assets/icons/logo-linkedin.svg" alt="signin with Linkedin"/></div>
+            <div><img src="../../assets/icons/logo-google.svg" alt="signin with google"/></div>
+        </div>
+        <div><p>Please fill in all the fields</p></div>
+        <form  [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="user-input-section">
+            <div class = "error-display select-wrapper">
+                <label class="role-label">Select role</label>
+                <select aria-label="role" formControlName="role">
+                    <option disabled selected>Select a role</option>
+                    <option value="65df70a448622e6eef537521">Service provider</option>
+                    <option value="65df70a448622e6eef537521">Customer</option>
+                </select>
+                <p *ngIf="role.touched && role.errors?.required">Role is a required field</p>
+            </div>    
+            
+            <div class = "error-display">
+                <label>Email</label>
+                <input type="text" formControlName="email" placeholder="Email">
+                <p *ngIf="email.touched && email.errors?.required">Email is a required field</p>
+                <p *ngIf="email.touched && email.errors?.email">Enter a valid email</p>
+            </div>
+            <div class = "error-display">
+                <label>Phone number</label>
+                <input type="text" formControlName="number" placeholder="Phone number">
+                <p *ngIf="number.touched && number.errors?.required">Phone number is a required field</p>
+                <p *ngIf="!signupForm.get('number').hasError('required') && !signupForm.get('number').hasError('pattern') && (signupForm.get('number').hasError('maxlength') || signupForm.get('number').hasError('minlength'))">Contact number should be 10 numerical characters</p>
+            </div> 
+           <div class = "error-display">
+            <label>Business name</label>
+            <input type="text" formControlName="businessName" placeholder="Business name">
+             <p *ngIf="businessName.touched && businessName.errors?.required">Business name is a required field</p>
+           </div>
+
+            <div class = "error-display">
+                <label>Business description</label>
+                <input type="text" formControlName="businessDescription" placeholder="Business description">
+                <p *ngIf="businessDescription.touched && businessDescription.errors?.required">Business description field is a required field</p>
+
+            </div>
+
+            <div class = "error-display">
+                <label>Name</label>
+                <input type="text" formControlName="name" placeholder="Name">
+                <p *ngIf="name.touched && name.errors?.required">Name is a required field</p>
+            </div>
+
+            <div class = "error-display">
+                <label>Surname</label>
+                <input type="text" formControlName="surname" placeholder="Surname">
+                <p *ngIf="surname.touched && surname.errors?.required">Surname is a required field</p>
+            </div>
+
+            
+           
+            <div class = "error-display">
+
+                <label>Password</label>
+                <input  [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Password">
+                <p *ngIf="password.touched && password.errors?.required">Password field is required</p>
+                <p *ngIf="password.errors?.minlength"> - Must be at least 8 characters long.</p>
+                <div *ngIf="password.errors?.pattern">
+                 <p> - Must include at least one lowercase.</p>
+                 <p> - Must include at least one uppercase.</p> 
+                 <p> - Must include at least one digit.</p>
+                 <p> - Must include at least one special character</p>
+                 <p> - List of special characters <span>! @ # $ % ^ & ? </span></p>
+                </div>
+
+            </div> 
+
+            <div class = "error-display">
+                <label>Confirm password</label>
+                <input type="password" formControlName="confirmPassword" placeholder="Retype password">
+                <p *ngIf="confirmPassword.errors?.required">Retype password is a required field</p>
+                <p *ngIf="confirmPassword.errors?.mismatch">Passwords don't match</p>
+            </div> 
+        </form>
+        <button type="submit" class="submit-btn"(click)="onSubmit()">Submit</button>
+    </div>
+</div>

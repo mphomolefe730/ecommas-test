@@ -1,0 +1,191 @@
+@import '../../../assets/scss/themes';
+
+.page-content {
+    display: grid;
+    place-content: center;
+    color: #444;
+    margin: 1.725rem;
+    .header {
+        h2 {
+            font-size: 60px;
+        }
+    }
+
+    p, h1, h2, h3, h4, h5 {
+        margin: 0;
+    }
+
+    .signup-form {
+        display: flex;
+        flex-direction: column;
+       
+        max-width: 1000px; 
+
+        border-radius: 12px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
+        text-align: center;
+        gap: 1.875rem;
+        padding: 10px;   
+        place-items: center;    
+    }
+
+    .social-login {
+        display: flex;
+        gap: 1.25rem;
+        margin-block: 0.940rem;
+
+        div {
+            display: grid;
+            place-items: center;
+            border: none;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(255, 129, 23, 0.1) 0px 2px 3px 0px; 
+            border-radius: 50%;
+            width: 1.75rem;
+            height: 1.75rem;
+            padding: 0.940rem;
+
+        }
+    }
+
+    .user-input-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem;
+        font-size: 1.25rem;
+        justify-content: center;
+        input, select {
+            padding: 0.5em;
+            border-radius: 5px;
+            border: 1px solid;
+            border-color: #444;
+
+            &:not(select) {
+                outline: none;
+                height: 2.5rem;
+            }
+            &:active {
+                border: 1px solid #ee7817;
+            }
+        }
+
+    }
+
+    .select-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+    }
+
+    .submit-btn {
+        padding: 1em 3em;
+        border: 1px solid #272727;
+        border-radius: 25px;
+        background-color: transparent;
+        font-size: $base-font-size;
+        font-weight: 700;
+        text-transform: uppercase;
+        width: 0 auto;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 2px 3px 0px;
+        transition: background-color 0.2s ease-out ;
+        &:active {
+            box-shadow: none;
+            background-color: #f5f1ef;
+            outline: none;
+        }
+
+        &:hover {
+            background-color: #f5f1ef;
+            outline: none;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 480px) { 
+        font-size: $base-font-size - 0.125rem; 
+        }
+    }
+
+    .error-display {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-items: start;
+        gap: 8px;   
+        p {
+            color: rgb(231, 31, 31);
+            text-align: left;
+            font-size: 0.625rem;
+        }
+
+        select, .role-label{
+            justify-self: center;
+        }
+    } 
+}
+
+@media only screen and (max-width: 480px) {
+
+
+    .header h2 {
+        font-size: 40px;
+    }
+
+    .user-input-section {
+        padding: 20px;
+        input {
+            width: $input-width-mobile;
+        }
+    } 
+  }
+  
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    .user-input-section {
+
+        input {
+         width: $input-width-desktop; 
+        }
+
+    }
+  }
+  
+
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .user-input-section {
+
+        input, select {
+         width: $input-width-desktop; 
+        }        
+    }
+
+    .social-login {
+        gap: 1.50rem;
+        margin-block: 0.950rem;
+
+        div {
+
+            width: 1.95rem;
+            height: 1.95rem;
+            padding: 0.950rem;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+
+        }
+    }
+
+  }
+  
+
+  @media only screen and (min-width: 1025px) {
+    .user-input-section {
+
+        input, select {
+         width: $input-width-desktop; 
+        }
+
+    }
+
+  }
+  
+
