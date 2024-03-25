@@ -39,7 +39,6 @@ export class CartComponent implements OnInit{
     if (this.authService.isLoggedIn() == null) this.router.navigate(['/sign-in']);
     this.authService.loggedInUser.subscribe(async (data:any)=>{
       this.shoppingCart.userId=await data.userId;
-      console.log(this.shoppingCart.userId);
       this.cartService.getCartByUserId(data.userId).subscribe(async (data:any)=>{
         this.shoppingCart=await data;
         this.shoppingCart.items.forEach((item)=>{

@@ -50,7 +50,6 @@ export class UploadProductComponent implements OnInit{
     this.categoryservice.getAllCategory().subscribe((categories:any)=>{
       this.categories = categories;
     })
-    console.log(this.uploadProductForm);
   }
   async upload($event:any){
     this.filePath = $event?.target?.files[0];

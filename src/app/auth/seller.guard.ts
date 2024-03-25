@@ -15,6 +15,6 @@ export const sellerGuard: CanActivateFn = (route, state) => {
   if (userRole){
     return true;
   }
-  router.navigate(['/']);
+  router.navigate(['/sign-in']);
   return false;
 };

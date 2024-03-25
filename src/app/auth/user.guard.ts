@@ -12,7 +12,6 @@ export const userGuard: CanActivateFn = (route, state) => {
     router.navigate(['/sign-in']);
     return false;
   }
-  console.log(userRole);
   if (userRole == false){
     router.navigate(['/seller']);
     return false;

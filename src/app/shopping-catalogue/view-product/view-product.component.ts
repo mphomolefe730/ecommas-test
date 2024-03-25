@@ -16,6 +16,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class ViewProductComponent implements OnInit{
   purchasing:string='addToCart';
+  productSellerId:string='';
   productDetails:productModel={
     name: '',
     _id: '',
@@ -82,37 +83,33 @@ export class ViewProductComponent implements OnInit{
       this.shoppingCart.userId=this.userId;
       this.cartId = data.cartId;
 
-      this.cartService.getCartByUserId(this.userId).subscribe(async (data2:any)=>{
-        this.shoppingCart= await data2;
-        this.shoppingCart.items.forEach(async (item)=>{
-          this.inCartSellerName = await item.productId.seller;
-        })
+      this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
+        this.shoppingCart= await cart;
       })
-      // this.cartService.getCartByUserId(this.userId).subscribe((data)=>{
 
-      // })
-    });
-    this.activeRouter.params.subscribe((data:any)=>{
-      this.productService.getProductById(data.productid).subscribe((item:any)=>{
-        this.productDetails = item;
-        this.productDetails.seller.email='';
-        this.productDetails.seller.surname='';
-        this.productDetails.seller.number=0;
-      })
+      this.activeRouter.params.subscribe((data:any)=>{
+        this.productService.getProductById(data.productid).subscribe((item:any)=>{
+          this.productSellerId = item.seller._id
+          this.productDetails = item;
+          this.productDetails.seller.email='';
+          this.productDetails.seller.surname='';
+          this.productDetails.seller.number=0;
+          this.shoppingCart.items.forEach((productItem:any)=>{
+            if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
+          })
+        })
+      });
     });
   }
+
   copyToClipBoard(){
     this.clipboard.copy(this.router.url);
     this.toaster.success({detail: "SUCCESS",summary:'link copied to clipboard',duration:2000});
   }
+
   async addItemToCart(){
     if (this.userId===''){
       this.router.navigate(['/sign-in']);
-      return ;
-    }
-
-    if (this.inCartSellerName != this.productDetails.seller['name'] && this.shoppingCart.items.length != 0){
-      this.toaster.error({detail:"ERROR",summary: "can only buy from one seller at a time",duration:3000});
       return ;
     }
     
@@ -124,15 +121,27 @@ export class ViewProductComponent implements OnInit{
         price: this.productDetails.price,
         image: this.productDetails.image,
         description: this.productDetails.description,
-        seller: this.productDetails.seller['name']
+        seller: this.productSellerId
       },
       quantity:this.selectedOption,
       price:this.productDetails.price*this.selectedOption
     }
+
     await this.shoppingCart.items.push(item);
-    this.cartService.updateUserCart(this.userId,this.shoppingCart).subscribe((data)=>{
-      this.purchasing= 'removeFromCart';
-      console.log(data);
+    this.cartService.updateUserCart(this.userId,this.shoppingCart).subscribe((data:any)=>{
+      if (data.status == "SUCCESS"){
+        this.toaster.success({
+          detail:data.status,
+          summary: data.message
+        });
+        this.purchasing= 'removeFromCart';
+      }else{
+        this.toaster.error({
+          detail:data.status,
+          summary: data.message
+        });
+        this.purchasing= 'addToCart';
+      }
     });
   }
 

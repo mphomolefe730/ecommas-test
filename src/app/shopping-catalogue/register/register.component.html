@@ -12,8 +12,9 @@
                 <label class="role-label">Select role</label>
                 <select aria-label="role" formControlName="role">
                     <option disabled selected>Select a role</option>
-                    <option value="65df70a448622e6eef537521">Service provider</option>
-                    <option value="65df70a448622e6eef537521">Customer</option>
+                    <option *ngFor="let role of rolesSelector" [value]="role._id">{{ role.role }}</option>
+                    <!-- <option value="65df70a448622e6eef537521">Service provider</option>
+                    <option value="65df70a448622e6eef537521">Customer</option> -->
                 </select>
                 <p *ngIf="role.touched && role.errors?.required">Role is a required field</p>
             </div>    
@@ -80,6 +81,7 @@
                 <p *ngIf="confirmPassword.errors?.mismatch">Passwords don't match</p>
             </div> 
         </form>
+        <p>Already got an acount? <a routerLink="/sign-in">sign-in</a> </p>
         <button type="submit" class="submit-btn"(click)="onSubmit()">Submit</button>
     </div>
 </div>
