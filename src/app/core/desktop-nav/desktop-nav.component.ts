@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./desktop-nav.component.scss']
 })
 export class DesktopNavComponent {
-  shoppingCartImage = '../../assets/icons/cart-shopping-solid.png';
-  logoOfCompany = '../../assets/icons/logo.png';
-  searchicon = '../../assets/icons/searchIcon.png';
+  shoppingCartImage = '~/assets/icons/cart-shopping-solid.png';
+  logoOfCompany = '~/assets/icons/logo.png';
+  searchicon = '~/assets/icons/searchIcon.png';
   searchForm:FormGroup = new FormGroup({
     search: new FormControl(''),
   })

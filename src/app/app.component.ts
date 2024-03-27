@@ -13,7 +13,7 @@ import { AnnouncementsService } from './services/announcements.service';
 export class AppComponent implements OnInit{
   notSeller:boolean=false;
   deviceWidth=screen.width;
-  logo:string='../assets/icons/logo.png';
+  logo:string='~/assets/icons/logo.png';
   featureSection:{name:string,link:string}[]=[
     {name:'For Sellers', link:"/seller"},
     {name: "For Support", link: "/"}
