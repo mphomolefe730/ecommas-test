@@ -14,6 +14,7 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './view-product.component.html',
   styleUrls: ['./view-product.component.scss']
 })
+
 export class ViewProductComponent implements OnInit{
   purchasing:string='addToCart';
   productSellerId:string='';
@@ -88,7 +89,9 @@ export class ViewProductComponent implements OnInit{
       })
 
       this.activeRouter.params.subscribe((data:any)=>{
+        console.log(data);
         this.productService.getProductById(data.productid).subscribe((item:any)=>{
+          console.log(item);
           this.productSellerId = item.seller._id
           this.productDetails = item;
           this.productDetails.seller.email='';
