@@ -1,8 +1,5 @@
-After create the calendar app, i decided to make a app that auto generates content based on an array containing information (wanted to use classes at first but ran into problems using typescript, the goal is to use classes on the final product).
+After create the calendar app, i decided to make a app that auto generates content based on an array containing information. If you go to the main branch you will see the original project and will be able to run it on your local machine. This one is a restructured version of the app that uses:
 
-OBJECTIVE:
-* use typescript
-* functional "add to cart" and "remove from cart"
-* make it mobile resposive by using media query
+ANGULAR, TAILWIND, MONGODB, EXPRESSJS, SCSS, RENDER, DOCKER, NGINX, ChartJs
 
-https://mphomolefe730.github.io/ecommerce-test/04_index.html
+Ecommerce test is a platform as a service app (PAAS). Where buyers and sells can come to an agreement and have a digital recept and contract of their purchase. Customer can order any product and seller will recieve notification of it where they choose if they wanted to accept the order or not. Seller have a seller portal and analytics of all there sells, inventory and customer purchase history. People can only buy form one seller at a time, and each person has a cart unique to them, so your cart is the same regardless of what device your using.
