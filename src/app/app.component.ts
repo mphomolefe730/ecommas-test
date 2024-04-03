@@ -13,7 +13,7 @@ import { AnnouncementsService } from './services/announcements.service';
 export class AppComponent implements OnInit{
   notSeller:boolean=false;
   deviceWidth=screen.width;
-  logo:string='~/assets/icons/logo.png';
+  logo:string='../../assets/icons/logo.png';
   featureSection:{name:string,link:string}[]=[
     {name:'For Sellers', link:"/seller"},
     {name: "For Support", link: "/"}
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit{
         }
         this.authService.user.next(tempUser);
       }
-    },5000);
+    }, 5000);
 
     await this.announcementService.getMessage().subscribe((message:any)=>{
       message.forEach((object:any)=>this.announcementMessage=object);

@@ -22,9 +22,9 @@
         <input type="text" formControlName="stock" [(ngModel)]="productDetails.stock"/>
     </div>
     <div class="categoriesHolder">
-        <div *ngFor="let cat of productDetails.categories" class="categories">
+        <span *ngFor="let cat of productDetails.categories" class="categories">
             <span>{{cat.name}} <img (click)="removeCategory(cat._id)" [src]="closeIcon"/></span>
-        </div>
+        </span>
     </div>
     <div class="buttonSection">
         <button class="actionButton" (click)="goBack()">CANCEL</button>

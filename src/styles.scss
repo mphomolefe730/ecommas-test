@@ -108,7 +108,8 @@ nav{
 }
 .product-image{
     width: 100%;
-    max-height: 300px;
+    height:100%;
+    max-height: 250px;
     object-fit: cover;
     border-radius: var(--border-10);
 }

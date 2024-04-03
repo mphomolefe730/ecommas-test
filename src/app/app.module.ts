@@ -10,6 +10,7 @@ import { environment } from 'src/environment/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ),
     AngularFireStorageModule
   ],
-  providers: [],
+  providers: [
+    {provide: LocationStrategy,useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

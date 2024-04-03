@@ -78,15 +78,18 @@ export class ViewProductComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.loggedInUser.subscribe(async (data)=>{
-      if (data==null)return;
-      this.user = await data.name;
-      this.userId = await data.userId;
-      this.shoppingCart.userId=this.userId;
-      this.cartId = data.cartId;
-
-      this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
-        this.shoppingCart= await cart;
-      })
+      if (data!=null){
+        console.log(data);
+        this.user = await data.name;
+        this.userId = await data.userId;
+        this.shoppingCart.userId=this.userId;
+        this.cartId = data.cartId;
+  
+        this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
+          this.shoppingCart= await cart;
+          console.log(cart);
+        })
+      }
 
       this.activeRouter.params.subscribe((data:any)=>{
         console.log(data);
