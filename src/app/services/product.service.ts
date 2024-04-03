@@ -21,7 +21,7 @@ export class ProductService implements OnInit {
     if (this.recentlySearched == null) localStorage.setItem("smartOne_recentlySearched","[]");
   }
 
-  addToRecentlyViewedProduct(id:string){
+  addToRecentlyViewedProduct(id:string):void{
     let temprecentlyViewed:string[] = JSON.parse(String(this.recentlyViewed));
     //check if element was already in array, if true - remove it
     const checker = temprecentlyViewed.includes(id);
