@@ -8,13 +8,13 @@ export const sellerGuard: CanActivateFn = (route, state) => {
   let isLoggedIn = authService.isLoggedIn();
   let userRole:boolean = authService.isSeller;
 
-  if (isLoggedIn == false) {
+  if (isLoggedIn == null || isLoggedIn == false) {
     router.navigate(['/sign-in']);
     return false;
   }
   if (userRole){
     return true;
   }
-  router.navigate(['/']);
+  router.navigate(['/sign-in']);
   return false;
 };

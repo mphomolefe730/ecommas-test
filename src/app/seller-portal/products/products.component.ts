@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { productModelSeller } from "../../models/productModelSeller";
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -9,22 +10,28 @@ import { Router } from '@angular/router';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit{
+  user:string='';
+  userId:string='';
   addIconImage = '../../assets/icons/addicon.png';
   sellerProducts:productModelSeller[]=[];
-  demoImage = '../../assets/images/air-force-1.webp';
   editIconImage = '../../assets/icons/editicon.png';
 
   constructor(
     private productService:ProductService,
-    private route:Router
+    private route:Router,
+    private authService:AuthService
   ){}
 
   ngOnInit(): void {
-    this.productService.getAllSellerProducts('65d7386a18700152531d0220').subscribe((products)=>{
-      let sellerItem:any = products;
-      sellerItem.forEach((item:productModelSeller)=>{
-        this.sellerProducts.push(item);
-      });
+    this.authService.loggedInUser.subscribe(async (data)=>{
+      this.user = await data.name;
+      this.userId = await data.userId;
+      this.productService.getAllSellerProducts(this.userId).subscribe((products)=>{
+        let sellerItem:any = products;
+        sellerItem.forEach((item:productModelSeller)=>{
+          this.sellerProducts.push(item);
+        });
+      })
     })
   }
   viewProduct(id:any){

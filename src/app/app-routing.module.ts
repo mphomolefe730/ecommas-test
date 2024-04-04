@@ -4,7 +4,7 @@ import { sellerGuard } from './auth/seller.guard';
 
 const routes: Routes = [
   {
-    path: 'shopping-catalogue',
+    path: '',
     loadChildren: ()=> import('./shopping-catalogue/shopping-catalogue.module').then(m => m.ShoppingCatalogueModule)
   },{
     path: 'seller',

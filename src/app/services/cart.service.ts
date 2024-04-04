@@ -17,4 +17,7 @@ export class CartService implements OnInit{
   getCartByUserId(id:string){
     return this.http.get(`${environment.renderApiLink}/api/cart/${id}`);
   }
+  updateUserCart(userId:string,object:any){
+    return this.http.put(`${environment.renderApiLink}/api/cart/${userId}`,object);
+  }
 }

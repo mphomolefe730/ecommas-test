@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
@@ -8,15 +9,19 @@ import { InventoryService } from 'src/app/services/inventory.service';
 })
 export class OrdersComponent implements OnInit{
   product:any;
-
+  userId:string='';
+  
   constructor(
-    private inventoryService:InventoryService
+    private inventoryService:InventoryService,
+    private authService:AuthService,
   ){}
 
   ngOnInit(): void {
-    this.inventoryService.getAllSellerOrders('65d7386a18700152531d0220').subscribe((data)=>{
-      this.product= data;
-      console.log(data);
-    });
+    this.authService.loggedInUser.subscribe(async (data)=>{
+      this.userId= await data.userId;
+      this.inventoryService.getAllSellerOrders(this.userId).subscribe((data)=>{
+        this.product= data;
+      });
+    })
   }
 }

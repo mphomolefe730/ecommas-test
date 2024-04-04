@@ -36,10 +36,9 @@ export class InsightsComponent implements OnInit{
   ){}
   
   ngOnInit(): void {
-    console.log('insight started');
-    this.authService.loggedInUser.subscribe((data)=>{
-      this.user=data.name;
-      this.userId=data.UserId;
+    this.authService.loggedInUser.subscribe(async (data)=>{
+      this.user= await data.name;
+      this.userId= await data.userId;
     })
     this.authService.loggedInUser.subscribe((userInformation)=>{
       const userRole:any = this.roleService.role.filter((a)=> a._id == userInformation.role);

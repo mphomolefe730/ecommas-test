@@ -1,10 +1,10 @@
 <div id="productItemsDisplay">
-    <div class="addItem">
+    <div class="addItem" routerLink="./upload">
         <img [src]="addIconImage" alt="add item icon"/>
     </div>
     <ng-container *ngFor="let product of sellerProducts">
         <div class="item1" (click)="viewProduct(product._id)">
-            <img src="${{demoImage}}" class="product-image" alt="Product Image"/>
+            <img [src]="product.image" class="product-image" alt="Product Image"/>
             <div class="ItemDescription">
                 <h1 title="${{product.name}}" class="productname"> {{product.name}} </h1>
                 <p class="productdescription"> {{product.description}} </p>

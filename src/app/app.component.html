@@ -1,6 +1,13 @@
 <app-desktop-nav [ngClass]="{dontShow: notSeller}"></app-desktop-nav>
+<div id="announcement" *ngIf="announcementMessage.status == true">
+    <p>{{announcementMessage.statusText}}</p>
+</div>
 <router-outlet></router-outlet>
 <ng-toast></ng-toast>
 <footer>
-    <p>footer</p>
+    <div><img [src]="logo" alt="" srcset=""></div>
+    <div style="display: flex; justify-content: space-around;">
+        <p style="margin: auto 5px;" *ngFor="let cat of featureSection" [routerLink]="cat.link"><b>{{ cat.name }}</b></p>
+    </div>
+    <div><p>© 2024 Ecommerce Connect</p></div>
 </footer>

@@ -1,0 +1,56 @@
+<div id="container">
+    <p>IMAGE:</p>
+
+    <div class="addItem" *ngIf="url==''">
+        <label for="file">
+            <img [src]="addIconImage" alt="add item icon"/>
+        </label>
+        <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
+    </div>
+
+    <div class="addedItem" *ngIf="url!=''">
+        <label for="file">
+            <img [src]="url" alt="add item icon"/>
+        </label>
+        <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
+    </div>
+    
+    <form [formGroup]="uploadProductForm">
+        <div>
+            <label for="name">Product Name:</label>
+            <input #name type="text" formControlName="name" />
+            <p id="error" *ngIf="uploadProductForm.controls['name'].value == '' 
+            && uploadProductForm.controls['name'].touched">* Product name is a required field</p>
+        </div>
+        <div>
+            <label for="description">Product Description:</label>
+            <textarea type="" formControlName="description"></textarea>
+            <p id="error" *ngIf="uploadProductForm.controls['description'].value == '' 
+            && uploadProductForm.controls['description'].touched">* Product description is a required field</p>
+        </div>
+        <div>
+            <label for="price">Product Price:</label>
+            <input name="price" type="text" formControlName="price"/>
+            <p id="error" *ngIf="uploadProductForm.controls['price'].value == 0
+            && uploadProductForm.controls['price'].touched">* Product price is a required field</p>
+        </div>
+        <div>
+            <label for="stock">Product Stock:</label>
+            <input name="stock" type="text" formControlName="stock"/>
+        </div>
+        <div>
+            <p>category: </p>
+            <div id="productCategoryDisplay">
+                <p *ngFor="let cat of categories">
+                    {{cat.name}} 
+                    <input type="checkbox" [value]='cat._id' (change)="addCategory(cat._id)"/>
+                </p>
+            </div>
+        </div>
+    </form>
+
+    <div class="buttonSection">
+        <button class="actionButton" (click)="goBack()">CANCEL</button>
+        <button class="actionButton" (click)="addProduct()"> SAVE<img [src]="progressLoader" *ngIf="sending"></button>
+    </div>
+</div>

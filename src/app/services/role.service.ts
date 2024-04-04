@@ -13,16 +13,17 @@ export class RoleService implements OnInit{
     private http:HttpClient,
   ) { }
   ngOnInit(): void {
-    this.getAllRole().subscribe((data:any)=>{
-      data.forEach((roleObject:any)=>this.role.push(roleObject));
+    this.getAllRole().subscribe(async (data:any)=>{
+      await data.forEach((roleObject:any)=>this.role.push(roleObject));
+      console.log(this.role);
     });
   }
 
   getAllRole(){
     return this.http.get(`${environment.renderApiLink}/api/role`)
   }
-  getUserRole(id:string){
-    const userRole:any = this.role.filter((a)=> a._id == id);
+  async getUserRole(id:string){
+    const userRole:any = await this.role.filter((a)=> a._id == id);
     return userRole
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { categoryModel } from 'src/app/models/categoryModel';
 import { productModel } from 'src/app/models/productModel';
 import { ProductService } from 'src/app/services/product.service';
@@ -15,7 +16,6 @@ export class EditProductComponent implements OnInit {
   sending:boolean=false
   progressLoader = '../../../assets/icons/loader.gif';
   closeIcon = '../../../assets/icons/closeicon.png';
-  demoImage = '../../../assets/images/air-force-1.webp';
   productDetails:productModel={
     name: '',
     _id: '',
@@ -29,6 +29,8 @@ export class EditProductComponent implements OnInit {
       surname: '',
       email: '',
       number: 0,
+      businessDescription:'',
+      businessName:'',
       hashedPassword: '',
       role: {
         id: '',
@@ -47,7 +49,8 @@ ngModel: any;
   constructor(
     private productService:ProductService,
     private activitedRoute:ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private toaster:NgToastService
   ){}
 
   ngOnInit(): void {
@@ -78,14 +81,17 @@ ngModel: any;
   }
   updateProduct(){
     this.sending=!this.sending;
-    this.productService.updateproductById(this.productDetails._id,this.productDetails).subscribe((data)=>{
+    this.productService.updateproductById(this.productDetails._id,this.productDetails).subscribe((data:any)=>{
       this.sending=!this.sending;
-      if (data) {
-        this.notification=!this.notification;
-        setTimeout(()=>this.notification=!this.notification,5000);
+      if (data.status == "SUCCESS") {
+        this.toaster.success({detail:data.status,summary:"product updated successfully",duration:5000});
+        this.goBack();
+      }else{
+        this.toaster.error({detail:data.status,summary:"problem occured while updating product",duration:5000})
       }
     })
   }
+
   goBack(){
     this.router.navigate(['/seller/products']);
   }

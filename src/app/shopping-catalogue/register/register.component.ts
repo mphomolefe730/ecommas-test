@@ -1,8 +1,11 @@
-import { Component , OnInit} from '@angular/core';
+import { AfterViewInit, Component , OnInit} from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { confirmPasswordValidator } from './confirmPassword';
 import { UserService } from 'src/app/services/user.service';
+import { NgToastService } from 'ng-angular-popup';
 import { userModel } from 'src/app/models/userModel';
+import { RoleService } from 'src/app/services/role.service';
 
 @Component({
   selector: 'app-register',
@@ -10,19 +13,20 @@ import { userModel } from 'src/app/models/userModel';
   styleUrls: ['./register.component.scss']
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewInit {
   signupForm: any;
   formSubmitted: boolean = false;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
+  rolesSelector:{_id:string,role:string}[]=[];
 
   constructor(
     private userService: UserService,
-   
+    private roleService:RoleService,
+    private toastcontroller: NgToastService,
   ){}
 
   ngOnInit(): void {
-
     this.signupForm = new FormGroup({
       role: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -43,7 +47,14 @@ export class RegisterComponent implements OnInit {
       ]),
       confirmPassword: new FormControl('', Validators.required)
     }, {validators: confirmPasswordValidator.match()});
-      
+  }
+
+  async ngAfterViewInit(): Promise<void> {
+    setTimeout(async ()=>{
+      await this.roleService.role.forEach((role)=>{
+        if (role.role != "admin") this.rolesSelector.push(role);
+      }) 
+    },2500)
   }
 
   togglePassword(event: Event) {
@@ -54,6 +65,15 @@ export class RegisterComponent implements OnInit {
     event.preventDefault();
     this.hideConfirmPassword = !this.hideConfirmPassword;
   }
+
+  async toastAlert(message: string) {
+    this.toastcontroller.success({
+      detail: "SUCCESS",
+      summary: message,
+      duration: 2000
+    });
+  }
+
 
   onSubmit() {
     this.formSubmitted = true;
