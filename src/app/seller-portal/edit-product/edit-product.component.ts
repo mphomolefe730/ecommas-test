@@ -45,7 +45,7 @@ export class EditProductComponent implements OnInit {
     stock: new FormControl(this.productDetails.stock),
     catergories: new FormControl(this.productDetails.categories)
   });
-ngModel: any;
+
   constructor(
     private productService:ProductService,
     private activitedRoute:ActivatedRoute,

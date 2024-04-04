@@ -1,0 +1,35 @@
+<div>
+    <!-- <div id="banner">
+        <img src="" alt="Banner Image" *ngIf="userInformation.banner != ''">
+        <img src="" alt="Banner Image" *ngIf="userInformation.banner === ''">
+    </div> -->
+    <div>
+        <!-- <div id="banner">
+            <img [src]="userInformation.profileImage" alt="Profile Image" id="profileImage">
+        </div> -->
+        <div>
+            <div id="tabs" *ngFor="let tab of tabLinks" [routerLink]="tab.link">
+                <span>
+                    <i [class]="tab.icon"></i>
+                </span>
+                <span>
+                    {{tab.name}}
+                </span>
+                <span>
+                    <i class="fa-solid fa-arrow-right"></i>                    
+                </span>
+            </div>
+            <div id="tabs" style="background-color: rgba(255,0,0,0.25);" (click)="signOut()">
+                <span>
+                    <i [class]="signoutButton.icon"></i>
+                </span>
+                <span>
+                    {{signoutButton.name}}
+                </span>
+                <span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

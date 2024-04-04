@@ -24,14 +24,18 @@ export class AuthService {
   getToken():string|null{
     return sessionStorage.getItem('smartOne_token');
   }
+  
   isLoggedIn(){
     return this.getToken() != null;
   }
+
   logOut(){
     sessionStorage.removeItem('smartOne_token');
     sessionStorage.removeItem('smartOne_user');
+    this.user.next(null);
     this.router.navigate(['/']);
   }
+
   logIn(values:{email:string,hashedPassword:string}):void{
     this.logginService.login(values).subscribe((data:any)=>{
       if(data.message == 'login successful') {

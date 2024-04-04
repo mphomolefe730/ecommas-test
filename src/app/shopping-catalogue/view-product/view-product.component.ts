@@ -87,14 +87,11 @@ export class ViewProductComponent implements OnInit{
   
         this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
           this.shoppingCart= await cart;
-          console.log(cart);
         })
       }
 
       this.activeRouter.params.subscribe((data:any)=>{
-        console.log(data);
         this.productService.getProductById(data.productid).subscribe((item:any)=>{
-          console.log(item);
           this.productSellerId = item.seller._id
           this.productDetails = item;
           this.productDetails.seller.email='';
@@ -109,7 +106,7 @@ export class ViewProductComponent implements OnInit{
   }
 
   copyToClipBoard(){
-    this.clipboard.copy(this.router.url);
+    this.clipboard.copy('https://ecommerceconnect.co.za/#'+this.router.url);
     this.toaster.success({detail: "SUCCESS",summary:'link copied to clipboard',duration:2000});
   }
 

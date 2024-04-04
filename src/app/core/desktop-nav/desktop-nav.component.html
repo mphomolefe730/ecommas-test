@@ -1,10 +1,10 @@
 <div style="margin-top:35px;">
     <nav class="splitByTwo">
         <div routerLink="/">
-            <img class="logo" src="{{logoOfCompany}}" alt="logo">
+            <img class="logo" [src]="logoOfCompany" alt="logo">
         </div>
         <div class="buttonSection">
-            <button class="actionButton"><p>account</p></button>
+            <button class="actionButton" routerLink="/account"><p>account</p></button>
             <button class="actionButton" routerLink="/cart"><img src="{{shoppingCartImage}}" alt="shopping cart"></button>
         </div>
     </nav>

@@ -8,7 +8,7 @@ import { HomepageComponent } from 'src/app/seller-portal/homepage/homepage.compo
   styleUrls: ['./seller-desktop-nav.component.scss']
 })
 export class SellerDesktopNavComponent {
-  logoOfCompany = '../../assets/icons/logo.png';
+  logoOfCompany = '../../assets/icons/logo.svg';
   menuShowing:boolean=false;
 
   constructor(

@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   })
   buttonText:string='SIGN-IN';
   progressLoader = '../../../assets/icons/loader.gif';
+  logoOfCompany = '../../../assets/icons/logo.svg';
 
   constructor(
     private authService:AuthService,
