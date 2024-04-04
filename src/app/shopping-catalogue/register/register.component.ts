@@ -1,7 +1,6 @@
 import { Component , OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { Guid } from 'guid-typescript';
 import { confirmPasswordValidator } from './confirmPassword';
 import { UserService } from 'src/app/services/user.service';
 import { ToastController } from '@ionic/angular';
@@ -28,7 +27,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
 
     this.signupForm = new FormGroup({
-      id: new FormControl(Guid.create().toString()),
       role: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       businessName: new FormControl('', Validators.required),
@@ -76,8 +74,8 @@ export class RegisterComponent implements OnInit {
     this.formSubmitted = true;
 
     const userModel: userModel = {
-      // businessName: this.signupForm.value.businessName,
-      // businessDescription: this.signupForm.value.businessDescription,
+      businessName: this.signupForm.value.businessName,
+      businessDescription: this.signupForm.value.businessDescription,
       hashedPassword: this.signupForm.value.password,
       name: this.signupForm.value.name,
       surname: this.signupForm.value.surname,
