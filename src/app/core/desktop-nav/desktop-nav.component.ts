@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DesktopNavComponent {
   shoppingCartImage = './assets/icons/cart-shopping-solid.png';
-  logoOfCompany = './assets/icons/logo.png';
+  logoOfCompany = './assets/icons/logo.svg';
   searchicon = './assets/icons/searchIcon.png';
   searchForm:FormGroup = new FormGroup({
     search: new FormControl(''),

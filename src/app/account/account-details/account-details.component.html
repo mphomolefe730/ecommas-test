@@ -1,0 +1,25 @@
+<div id="image">
+    <img [src]="userInformation" alt="">
+</div>
+<form [formGroup]="userForm">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" formControlName="name" />
+    </div>
+    <div>
+        <label for="description">Surname:</label>
+        <textarea type="" formControlName="surname"></textarea>
+    </div>
+    <div>
+        <label for="price">Email:</label>
+        <input type="text" formControlName="email"/>
+    </div>
+    <div>
+        <label for="stock">Number:</label>
+        <input type="text" formControlName="number"/>
+    </div>
+    <div class="buttonSection">
+        <!-- <button class="actionButton" (click)="goBack()">CANCEL</button>
+        <button class="actionButton" (click)="updateProduct()"> SAVE<img [src]="progressLoader" *ngIf="sending"></button> -->
+    </div>
+</form>

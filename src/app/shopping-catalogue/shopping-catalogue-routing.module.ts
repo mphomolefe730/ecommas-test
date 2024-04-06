@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
+import { userGuard } from '../auth/user.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
   },{
     path: 'cart',
     component: CartComponent,
+    canActivate: [userGuard]
   },{
     path: 'sign-in',
     component: LoginComponent
