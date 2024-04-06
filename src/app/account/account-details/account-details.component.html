@@ -1,6 +1,17 @@
-<div id="image">
-    <img [src]="userInformation" alt="">
+<div id="image" *ngIf="userInformation.profileImage != undefined">
+    <label for="file">
+        <img [src]="userInformation.profileImage" alt="profile image">
+    </label>
+    <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
 </div>
+
+<div id="image" *ngIf="userInformation.profileImage == undefined">
+    <label for="file">
+        <img [src]="addIconImage" alt="profile image">
+    </label>
+    <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
+</div>
+
 <form [formGroup]="userForm">
     <div>
         <label for="name">Name:</label>
@@ -8,18 +19,18 @@
     </div>
     <div>
         <label for="description">Surname:</label>
-        <textarea type="" formControlName="surname"></textarea>
+        <textarea type="text" formControlName="surname"></textarea>
     </div>
     <div>
         <label for="price">Email:</label>
-        <input type="text" formControlName="email"/>
+        <input type="email" formControlName="email"/>
     </div>
     <div>
         <label for="stock">Number:</label>
-        <input type="text" formControlName="number"/>
+        <input type="number" formControlName="number"/>
     </div>
     <div class="buttonSection">
-        <!-- <button class="actionButton" (click)="goBack()">CANCEL</button>
-        <button class="actionButton" (click)="updateProduct()"> SAVE<img [src]="progressLoader" *ngIf="sending"></button> -->
+        <button class="actionButton">CANCEL</button>
+        <button class="actionButton"> SAVE</button>
     </div>
 </form>

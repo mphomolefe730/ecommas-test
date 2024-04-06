@@ -12,6 +12,7 @@ export class AuthService {
   public user = new BehaviorSubject<any>(null);
   public loggedInUser = this.user.asObservable();
   public isSeller = false;
+  public profileImage:string = '';
 
   constructor(
     private router:Router,
@@ -31,7 +32,7 @@ export class AuthService {
 
   logOut(){
     sessionStorage.removeItem('smartOne_token');
-    sessionStorage.removeItem('smartOne_user');
+    sessionStorage.removeItem('smartOne_User');
     this.user.next(null);
     this.router.navigate(['/']);
   }
@@ -42,8 +43,9 @@ export class AuthService {
         sessionStorage.removeItem("smartOne_User");
         sessionStorage.removeItem("smartOne_token");
         const userDetail = JSON.parse(atob(data.token.split('.')[1]));
+        this.profileImage = data.profileImage;
         sessionStorage.setItem("smartOne_token",JSON.stringify(data.token));
-        sessionStorage.setItem("smartOne_User", JSON.stringify({name: userDetail.name, role:userDetail.role}));
+        sessionStorage.setItem("smartOne_User", JSON.stringify({name: userDetail.name, role:userDetail.role, profileImage:data.profileImage}));
         const userRole:any = this.roleService.role.filter((a)=> a._id == userDetail.role);
         if (userRole[0].role == "seller"){
           this.isSeller = true;

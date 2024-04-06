@@ -91,6 +91,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       email: this.signupForm.value.email,
       number: this.signupForm.value.number,
       role: this.signupForm.value.role,
+      profileImage:''
     };
 
     if (this.signupForm.valid) {

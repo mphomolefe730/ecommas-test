@@ -33,6 +33,7 @@ export class ViewProductComponent implements OnInit{
       businessDescription:'',
       businessName:'',
       hashedPassword: '',
+      profileImage:'',
       role: {
         id:'',
         name:''

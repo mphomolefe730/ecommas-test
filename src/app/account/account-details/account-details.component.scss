@@ -1,0 +1,35 @@
+#image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    max-height: 250px;
+    input[type="file"] {
+        display: none;
+    }
+    img{
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+        max-width: 150px;
+        max-height: 150px;
+    }
+}
+form{
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 20px;
+    background-color: rgba(217,217,217,0.5);
+    border-radius: var(--border-10);
+    div{
+        display: grid;
+        grid-template-columns: 2fr 4fr;
+        max-height: 50px;
+        margin: 10px 0;
+        input{
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
