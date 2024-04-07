@@ -2,7 +2,6 @@ import { AfterViewInit, Component , OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { confirmPasswordValidator } from './confirmPassword';
 import { UserService } from 'src/app/services/user.service';
-import { NgToastService } from 'ng-angular-popup';
 import { userModel } from 'src/app/models/userModel';
 import { RoleService } from 'src/app/services/role.service';
 
@@ -22,7 +21,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UserService,
     private roleService:RoleService,
-    private toastcontroller: NgToastService,
   ){}
 
   ngOnInit(): void {
@@ -65,17 +63,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     this.hideConfirmPassword = !this.hideConfirmPassword;
   }
 
-  async toastAlert(message: string) {
-    this.toastcontroller.success({
-      detail: "SUCCESS",
-      summary: message,
-      duration: 2000
-    });
-  }
 
 
   onSubmit() {
-    this.toastAlert("Adding new user");
     this.formSubmitted = true;
 
     const userModel: userModel = {
@@ -92,11 +82,9 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
     if (this.signupForm.valid) {
       this.userService.createUser(userModel).subscribe((data: any) => {
-        this.toastAlert("Account successfully created");
         console.log(data);
       }, error => {
         this.formSubmitted = false;
-        this.toastAlert(error);
         console.log(error);
       });
     } else {

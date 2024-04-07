@@ -15,7 +15,7 @@ FROM nginx:latest
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY ngnix.config /etc/nginx/conf.d/nginx.conf
 
 COPY --from=builder /app/docs /usr/share/nginx/html
 
