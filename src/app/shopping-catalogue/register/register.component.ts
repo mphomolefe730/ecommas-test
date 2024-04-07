@@ -1,7 +1,5 @@
 import { AfterViewInit, Component , OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { Guid } from 'guid-typescript';
 import { confirmPasswordValidator } from './confirmPassword';
 import { UserService } from 'src/app/services/user.service';
 import { NgToastService } from 'ng-angular-popup';
@@ -22,7 +20,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   rolesSelector:{_id:string,role:string}[]=[];
 
   constructor(
-    private router: ActivatedRoute,
     private userService: UserService,
     private roleService:RoleService,
     private toastcontroller: NgToastService,
@@ -30,7 +27,6 @@ export class RegisterComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.signupForm = new FormGroup({
-      id: new FormControl(Guid.create().toString()),
       role: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       businessName: new FormControl('', Validators.required),
