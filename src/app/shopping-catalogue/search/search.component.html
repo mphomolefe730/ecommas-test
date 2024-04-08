@@ -1,6 +1,6 @@
 <div id="productItemsDisplay" *ngIf="seller.length!=0">
     <div *ngFor="let s of seller" class="item">
-        <img [src]=""/>
+        <img [src]="s.profileImage"/>
         <div class="ItemDescription">
             <p class="productname">{{s.name}}</p>
         </div>
