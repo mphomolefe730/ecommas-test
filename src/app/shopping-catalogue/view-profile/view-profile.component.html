@@ -1,1 +1,101 @@
-<p>view-profile works!</p>
+<nav aria-label="Breadcrumb">
+  <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <li>
+      <div class="flex items-center">
+        <a href="#" class="mr-2 text-sm font-medium text-gray-900" routerLink="">Home</a>
+        <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+          <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+        </svg>
+      </div>
+    </li>
+  </ol>
+</nav>
+
+
+    <!-- component -->
+
+<section class="pt-16 bg-blueGray-50">
+<div class="w-full lg:w-4/12 px-4 mx-auto">
+  <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
+    <div class="px-6">
+      <div class="flex flex-wrap justify-center">
+        <div class="w-full px-4 flex justify-center">
+          <div class="relative">
+            <img alt="..." [src]='user?.profileImage' class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+          </div>
+        </div>
+        <div class="w-full px-4 text-center mt-20">
+          <div class="flex justify-center py-4 lg:pt-4 pt-8">
+            <div class="mr-4 p-3 text-center">
+              <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                22
+              </span>
+              <span class="text-sm text-blueGray-400">Completed sales</span>
+            </div>
+            <div class="mr-4 p-3 text-center">
+              <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                10
+              </span>
+              <span class="text-sm text-blueGray-400">Specials</span>
+            </div>
+            <div class="lg:mr-4 p-3 text-center">
+              <span class="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                89
+              </span>
+              <span class="text-sm text-blueGray-400">Comments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-12">
+        <h3 class="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
+          {{user?.name}} {{user?.surname}}
+        </h3>
+        <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+          <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
+          Pretorious, Bosman
+        </div>
+        <div class="mb-2 text-blueGray-600 mt-10">
+          <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+          Sales
+        </div>
+        <div class="mb-2 text-blueGray-600">
+          <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+          Resturant
+        </div>
+      </div>
+      <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
+        <div class="flex flex-wrap justify-center">
+          <div class="w-full lg:w-9/12 px-4">
+            <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
+             Hi I'm Steve founder of Steves market
+            </p>
+            <a href="javascript:void(0);" class="font-normal text-pink-500">
+              Show more
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+<div class="bg-white mt-4">
+  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <h2 class="sr-only">Products</h2>
+
+    <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+      <div *ngFor="let prod of products">
+        <a href="#" class="group">
+          <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+            <img [src]='prod.image' alt="Tall slender porcelain bottle with natural clay textured body and cork stopper." class="h-full w-full object-cover object-center group-hover:opacity-75">
+          </div>
+          <h3 class="mt-4 text-sm text-gray-700">{{prod.name}}</h3>
+          <p class="mt-1 text-lg font-medium text-gray-900">R {{prod.price}}</p>
+        </a>
+      </div> 
+      
+    </div>
+  </div>
+</div>

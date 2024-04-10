@@ -1,4 +1,4 @@
-<div id="main">
+<!-- <div id="main">
     <div class="main-image" [ngClass]="{dontShow: app.deviceWidth<810}">
         <img [src]="productDetails.image" alt="">
     </div>
@@ -8,7 +8,7 @@
         </div>
         <div class="splitByTwo ">
             <div class="second">
-                <p>Seller: <span>{{productDetails.seller.name}}</span></p>
+                <p (click)="viewSellerProfile(productSellerId)">Seller: <span>{{productDetails.seller.name}}</span></p>
             </div>
             <div class="second" *ngIf="productOptions.length!=null">
                 <select  (change)="updateNumber($event)">
@@ -32,4 +32,533 @@
             <button id="purchase-btn" style="background-color: transparent;border: 2px solid black;color: black;" (click)="copyToClipBoard()">share item</button>
         </div>
         <app-recommandations></app-recommandations>
+</div> -->
+
+
+<div class="bg-white" *ngIf="viewProductDetails">
+  <div class="pt-6">
+    <nav aria-label="Breadcrumb">
+      <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <li>
+          <div class="flex items-center">
+            <a class="mr-2 text-sm font-medium text-gray-900" routerLink="">Home</a>
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+            </svg>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <a href="#" class="mr-2 text-sm font-medium text-gray-900"(click)="viewSellerProfile(productSellerId)">Profile</a>
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+            </svg>
+          </div>
+        </li>
+
+        <li class="text-sm">
+          <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">Product</a>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Image gallery -->
+    <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+      <!-- <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+        <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Two each of gray, white, and black shirts laying flat." class="h-full w-full object-cover object-center">
+      </div>
+      <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+        <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+          <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg" alt="Model wearing plain black basic tee." class="h-full w-full object-cover object-center">
+        </div>
+        <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+          <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg" alt="Model wearing plain gray basic tee." class="h-full w-full object-cover object-center">
+        </div>
+      </div> -->
+      <div class="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+        <img  [src]="productDetails.image" alt="Model wearing plain white basic tee." class="h-full w-full object-cover object-center">
+      </div>
+    </div>
+
+    <!-- Product info -->
+    <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+      <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{productDetails.name}}</h1>
+        <!-- <img class  = "h-full w-full" src="../../../assets/icons/share-social-outline.svg" alt="" (click)="copyToClipBoard()"> -->
+      </div>
+
+      <!-- Options -->
+      <div class="mt-4 lg:row-span-3 lg:mt-0">
+        <h2 class="sr-only">Product information</h2>
+        <p class="text-3xl tracking-tight text-gray-900">R {{productDetails.price}}</p>
+       
+        <!-- Reviews -->
+        <div class="mt-6">
+          <h3 class="sr-only">Reviews</h3>
+          <div class="flex items-center">
+            <div class="flex items-center">
+              <!-- Active: "text-gray-900", Default: "text-gray-200" -->
+              <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+              </svg>
+              <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+              </svg>
+              <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+              </svg>
+              <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+              </svg>
+              <svg class="text-gray-200 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <p class="sr-only">4 out of 5 stars</p>
+            <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
+
+          </div>
+        </div>
+
+        <form class="mt-10">
+          <!-- Colors -->
+          <div>
+            <h3 class="text-sm font-medium text-gray-900">Color</h3>
+
+            <fieldset class="mt-4">
+              <legend class="sr-only">Choose a color</legend>
+              <div class="flex items-center space-x-3">
+                <!--
+                  Active and Checked: "ring ring-offset-1"
+                  Not Active and Checked: "ring-2"
+                -->
+                <label  class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                  <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label">
+                  <span id="color-choice-0-label" class="sr-only">White</span>
+                  <span aria-hidden="true" class="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"></span>
+                </label>
+                <!--
+                  Active and Checked: "ring ring-offset-1"
+                  Not Active and Checked: "ring-2"
+                -->
+                <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                  <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label">
+                  <span id="color-choice-1-label" class="sr-only">Gray</span>
+                  <span aria-hidden="true" class="h-8 w-8 bg-gray-200 rounded-full border border-black border-opacity-10"></span>
+                </label>
+                <!--
+                  Active and Checked: "ring ring-offset-1"
+                  Not Active and Checked: "ring-2"
+                -->
+                <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
+                  <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label">
+                  <span id="color-choice-2-label" class="sr-only">Black</span>
+                  <span aria-hidden="true" class="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"></span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+          <div class = "mt-4">
+            <label id="listbox-label" class="inline-block text-sm font-medium leading-6 text-gray-900">Quantity</label>
+            <select class="inline-flex w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+              <option *ngFor="let i of itemQuantity">
+                {{i}}
+              </option>
+              <!-- <button type="button" class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                <span class="flex items-center">
+                 1
+                </span>
+                <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                  <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+              </button> -->
+   
+              <!-- <ul  class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" tabindex="-1" role="listbox" aria-labelledby="listbox-label" aria-activedescendant="listbox-option-3">
+                
+                <li class="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id="listbox-option-0" role="option">
+                  <div class="flex items-center">
+                    <span class="font-normal ml-3 block truncate">{{i}}</span>
+                  </div>
+                  <span class="text-indigo-600 absolute inset-y-0 right-0 flex items-center pr-4">
+                    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                    </svg>
+                  </span>
+                </li>
+          
+                
+              </ul> -->
+            </select>
+          </div>
+
+          <!-- Sizes -->
+          <div class="mt-10"  *ngIf="productDetails.categories[0]?.name=='clothing'">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-medium text-gray-900">Size</h3>
+              <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
+            </div>
+
+            <fieldset class="mt-4">
+              <legend class="sr-only">Choose a size</legend>
+              <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-not-allowed bg-gray-50 text-gray-200">
+                  <input type="radio" name="size-choice" value="XXS" disabled class="sr-only" aria-labelledby="size-choice-0-label">
+                  <span id="size-choice-0-label">XXS</span>
+                  <span aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                    <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                      <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                    </svg>
+                  </span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
+                  <span id="size-choice-1-label">XS</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="S" class="sr-only" aria-labelledby="size-choice-2-label">
+                  <span id="size-choice-2-label">S</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label">
+                  <span id="size-choice-3-label">M</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
+                  <span id="size-choice-4-label">L</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label">
+                  <span id="size-choice-5-label">XL</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="2XL" class="sr-only" aria-labelledby="size-choice-6-label">
+                  <span id="size-choice-6-label">2XL</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
+                  <input type="radio" name="size-choice" value="3XL" class="sr-only" aria-labelledby="size-choice-7-label">
+                  <span id="size-choice-7-label">3XL</span>
+                  <!--
+                    Active: "border", Not Active: "border-2"
+                    Checked: "border-indigo-500", Not Checked: "border-transparent"
+                  -->
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" (click)="addItemToCart()">Add to cart</button>
+        
+        </form>
+      </div>
+
+      <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+        <!-- Description and details -->
+        <div>
+          <h3 class="sr-only">Description</h3>
+
+          <div class="space-y-6">
+            <p class="text-base text-gray-900">{{productDetails.description}}</p>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
+
+          <div class="mt-4">
+            <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+              <li class="text-gray-400"><span class="text-gray-600">Hand cut and sewn locally</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <h2 class="text-sm font-medium text-gray-900">Details</h2>
+
+          <div class="mt-4 space-y-6">
+            <p class="text-sm text-gray-600">The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming &quot;Charcoal Gray&quot; limited release.</p>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <h2 class="text-sm font-medium text-gray-900">Provided by</h2>
+
+          <div class="bg-white py-5 sm:py-5">
+            <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
+              <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
+                <li>
+                  <div (click)="viewSellerProfile(productSellerId)" class="flex items-center gap-x-6 cursor-pointer">
+                    <img class="h-16 w-16 rounded-full" [src]='seller?.profileImage' alt="">
+                    <div>
+                      <h3 class="text-base font-semibold leading-7 tracking-tight focus:underline hover:underline text-gray-900">{{seller?.name}} {{seller?.surname}}</h3>   
+                      <p class="text-sm font-semibold leading-6 text-indigo-600 hover:text-red-700">{{seller?.email}}</p>
+                    </div>
+                  </div>
+                </li>
+          
+                <!-- More people... -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="relative z-10" role="dialog" aria-modal="true"  *ngIf="!viewProductDetails">
+  
+  <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block"></div>
+
+  <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+    <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
+      
+      <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
+        <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8" >
+          <button type="button" class="absolute z-10 right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" (click)="goBack()">
+            <span class="sr-only">Close</span>
+            <svg   class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
+            <div class=" grid grid-cols-1 aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5 text-center" >
+              <img [src]="productDetails.image" alt="Two each of gray, white, and black shirts arranged on table." class="object-cover object-center">
+            </div>
+            <div class="sm:col-span-8 lg:col-span-7 relative">
+              <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">{{productDetails.name}}</h2>
+
+              <section aria-labelledby="information-heading" class="mt-2">
+                <h3  id="information-heading" class="sr-only">Product information</h3>
+
+                <p class="text-2xl text-gray-900">R{{productDetails.price}}</p>
+
+                <!-- Reviews -->
+                <div class="mt-6">
+                  <h4 class="sr-only">Reviews</h4>
+                  <div class="flex items-center">
+                    <div class="flex items-center">
+                      <!-- Active: "text-gray-900", Default: "text-gray-200" -->
+                      <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                      </svg>
+                      <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                      </svg>
+                      <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                      </svg>
+                      <svg class="text-gray-900 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                      </svg>
+                      <svg class="text-gray-200 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <p class="sr-only">3.9 out of 5 stars</p>
+                    <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
+                  </div>
+                </div>
+              </section>
+
+              <section  aria-labelledby="options-heading" class="mt-10" (click)="viewSellerProfile(productSellerId)">
+                <h4 class="text-sm font-medium text-gray-900">Provided by</h4>
+                <button type="button" class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label">
+                  <span class="flex items-center">
+                    <img [src]="seller?.profileImage" alt="" class="h-5 w-5 flex-shrink-0 rounded-full">
+                    <span class="ml-3 block truncate">{{seller?.name}} {{seller?.surname}}</span>
+                  </span>
+                  <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M384 224v184a40 40 0 01-40 40H104a40 40 0 01-40-40V168a40 40 0 0140-40h167.48M336 64h112v112M224 288L440 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+                  </span>
+                </button>
+              </section>
+              
+              <section aria-labelledby="options-heading" class="mt-10">
+                <h3 id="options-heading" class="sr-only">Product options</h3>
+
+                <form>
+                  <!-- Colors -->
+                  <div>
+                    <h4 class="text-sm font-medium text-gray-900">Color</h4>
+
+                    <fieldset class="mt-4">
+                      <legend class="sr-only">Choose a color</legend>
+                      <span class="flex items-center space-x-3">
+                        <!--
+                          Active and Checked: "ring ring-offset-1"
+                          Not Active and Checked: "ring-2"
+                        -->
+                        <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                          <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label">
+                          <span id="color-choice-0-label" class="sr-only">White</span>
+                          <span aria-hidden="true" class="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"></span>
+                        </label>
+                        <!--
+                          Active and Checked: "ring ring-offset-1"
+                          Not Active and Checked: "ring-2"
+                        -->
+                        <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
+                          <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label">
+                          <span id="color-choice-1-label" class="sr-only">Gray</span>
+                          <span aria-hidden="true" class="h-8 w-8 bg-gray-200 rounded-full border border-black border-opacity-10"></span>
+                        </label>
+                        <!--
+                          Active and Checked: "ring ring-offset-1"
+                          Not Active and Checked: "ring-2"
+                        -->
+                        <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
+                          <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label">
+                          <span id="color-choice-2-label" class="sr-only">Black</span>
+                          <span aria-hidden="true" class="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"></span>
+                        </label>
+                      </span>
+                    </fieldset>
+                  </div>
+
+                  <!-- Sizes -->
+                  <div class="mt-10" *ngIf="productDetails.categories[0]?.name==='clothing'">
+                    <div class="flex items-center justify-between">
+                      <h4 class="text-sm font-medium text-gray-900">Size</h4>
+                      <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
+                    </div>
+
+                    <fieldset class="mt-4">
+                      <legend class="sr-only">Choose a size</legend>
+                      <div class="grid grid-cols-4 gap-4">
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="XXS" class="sr-only" aria-labelledby="size-choice-0-label">
+                          <span id="size-choice-0-label">XXS</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
+                          <span id="size-choice-1-label">XS</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="S" class="sr-only" aria-labelledby="size-choice-2-label">
+                          <span id="size-choice-2-label">S</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label">
+                          <span id="size-choice-3-label">M</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
+                          <span id="size-choice-4-label">L</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label">
+                          <span id="size-choice-5-label">XL</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-pointer bg-white text-gray-900 shadow-sm">
+                          <input type="radio" name="size-choice" value="XXL" class="sr-only" aria-labelledby="size-choice-6-label">
+                          <span id="size-choice-6-label">XXL</span>
+                          <!--
+                            Active: "border", Not Active: "border-2"
+                            Checked: "border-indigo-500", Not Checked: "border-transparent"
+                          -->
+                          <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                        </label>
+                        <!-- Active: "ring-2 ring-indigo-500" -->
+                        <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 cursor-not-allowed bg-gray-50 text-gray-200">
+                          <input type="radio" name="size-choice" value="XXXL" disabled class="sr-only" aria-labelledby="size-choice-7-label">
+                          <span id="size-choice-7-label">XXXL</span>
+                          <span aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                            <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                              <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                            </svg>
+                          </span>
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" (click)="addItemToCart()">Add to cart</button>
+                  <p class="text-center text-indigo-600 font-medium hover:underline hover:text-red-700 m-3 cursor-pointer" (click)="viewDetails()">View full details</p>
+                </form>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

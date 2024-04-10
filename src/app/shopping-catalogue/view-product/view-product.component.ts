@@ -8,6 +8,9 @@ import { cartModel } from 'src/app/models/cartModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { NgToastService } from 'ng-angular-popup';
 import { CartService } from 'src/app/services/cart.service';
+import { UserService } from 'src/app/services/user.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-view-product',
@@ -65,6 +68,13 @@ export class ViewProductComponent implements OnInit{
     }]
   };
   inCartSellerName:string='';
+  seller: any;
+  viewProductDetails: boolean = false;
+  itemCount: number = 10;
+  itemQuantity: number[] = [];
+
+  
+
 
   constructor(
     private activeRouter:ActivatedRoute,
@@ -74,7 +84,9 @@ export class ViewProductComponent implements OnInit{
     public app:AppComponent,
     private authService:AuthService,
     private toaster:NgToastService,
-    private cartService:CartService
+    private cartService:CartService,
+    private userService: UserService,
+    private location: Location,
   ){}
 
   ngOnInit(): void {
@@ -86,9 +98,11 @@ export class ViewProductComponent implements OnInit{
         this.shoppingCart.userId=this.userId;
         this.cartId = data.cartId;
   
-        this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
-          this.shoppingCart= await cart;
-        })
+        // this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
+        //   this.shoppingCart= await cart;
+        // })
+
+        console.log(this.productDetails);
       }
 
       this.activeRouter.params.subscribe((data:any)=>{
@@ -101,9 +115,17 @@ export class ViewProductComponent implements OnInit{
           this.shoppingCart.items.forEach((productItem:any)=>{
             if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
           })
+
+          this.userService.getUserById(this.productSellerId).subscribe((data)=> {
+            this.seller = data;
+          })
         })
       });
     });
+
+    for (let i = 1; i <= this.itemCount; i++) {
+      this.itemQuantity.push(i);
+    }
   }
 
   copyToClipBoard(){
@@ -152,4 +174,18 @@ export class ViewProductComponent implements OnInit{
   updateNumber(event:any){
     this.selectedOption=event.target.value;
   }
+
+  viewSellerProfile(id: string) {
+    this.router.navigate([`./profile/${id}`])
+  }
+
+  viewDetails() {
+    this.viewProductDetails = true;
+  }
+
+  goBack() {
+    console.log("back");
+    this.location.back();
+  }
 }
+

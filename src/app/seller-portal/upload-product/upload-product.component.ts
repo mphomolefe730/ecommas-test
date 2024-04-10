@@ -7,6 +7,7 @@ import { productModel } from 'src/app/models/productModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
+import { categoryModel } from 'src/app/models/categoryModel';
 
 @Component({
   selector: 'app-upload-product',
@@ -21,8 +22,8 @@ export class UploadProductComponent implements OnInit{
   progressLoader = '../../../assets/icons/loader.gif';
   addIconImage = '../../assets/icons/addicon.png';
   url:string='';
-  categories:{_id:string,name:string}[]=[];
-
+  categories: categoryModel[] = [];
+  
   uploadProductForm:FormGroup=new FormGroup({
     name:new FormControl('',Validators.required),
     price: new FormControl(0,Validators.required),
@@ -45,7 +46,8 @@ export class UploadProductComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.loggedInUser.subscribe(async (data)=>{
-      this.userId= await data.userId
+      //Removed the await on this line as it was giving me an error
+      this.userId = data.userId
     })
     this.categoryservice.getAllCategory().subscribe((categories:any)=>{
       this.categories = categories;
@@ -74,9 +76,12 @@ export class UploadProductComponent implements OnInit{
     this.uploadProductForm.value.image=this.url;
     if(this.uploadProductForm.status == 'INVALID'){
       this.sending=!this.sending;
-      this.toaster.error({detail: 'ERROR', summary: 'theres some fields not completed'});
+      this.toaster.error({detail: 'ERROR', summary: 'There are some fields not completed'});
       return ;
     }
+    
+    console.log(this.uploadProductForm.value.seller);
+
     this.productService.addNewProduct(this.uploadProductForm.value).subscribe(async(response:any)=>{
       const upload = await this.storage.upload(`product-images/${response.productId}`,this.filePath);
       const url = await upload.ref.getDownloadURL();
@@ -93,6 +98,7 @@ export class UploadProductComponent implements OnInit{
           seller: productInformation.seller,
           categories: productInformation.categories
         }
+        console.log(this.uploadProductForm.value.seller);
         this.productService.updateproductById(object._id,object).subscribe((updatedProduct:any)=>{
           this.router.navigate(['/seller/products'])
         })

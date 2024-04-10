@@ -1,4 +1,4 @@
-<div style="margin-top:35px;">
+<!-- <div style="margin-top:35px;">
     <nav class="splitByTwo">
         <div routerLink="/">
             <img class="logo" [src]="logoOfCompany" alt="logo">
@@ -16,4 +16,89 @@
         </div>
         <div><button type="submit" (click)="searchForProduct()"><img src="{{searchicon}}" alt="searchIcon"></button></div>
     </div>
-</div>
+</div> -->
+
+<header class="relative bg-white">
+
+    <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8" >Website Not Active Yet. Sign Up Process In Progress</p>
+
+    <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="border-b border-gray-200">
+        <div class="flex h-16 items-center">
+          <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
+          <button type="button" class="relative rounded-md bg-white p-2 text-gray-400 lg:hidden">
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open menu</span>
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+
+          <!-- Logo -->
+          <div class="ml-4 flex lg:ml-0">
+            <a routerLink="/">
+              <span class="sr-only">Your Company</span>
+              <img class="h-8 w-auto" [src]="logoOfCompany" alt="">
+            </a>
+          </div>
+
+          <!-- Flyout menus -->
+  
+
+          <div class="ml-auto flex items-center">
+            <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+              <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" routerLink="/sign-in">Sign in</a>
+              <span class="h-6 w-px bg-gray-200" aria-hidden="true"></span>
+              <a href="#" class="text-sm font-medium text-gray-700 hover:text-gray-800" routerLink="sign-up">Create account</a>
+            </div>
+
+            <!-- <div class="hidden lg:ml-8 lg:flex">
+              <a href="#" class="flex items-center text-gray-700 hover:text-gray-800">
+                <img src="https://tailwindui.com/img/flags/flag-canada.svg" alt="" class="block h-auto w-5 flex-shrink-0">
+                <span class="ml-3 block text-sm font-medium">CAD</span>
+                <span class="sr-only">, change currency</span>
+              </a>
+            </div> -->
+
+            <!-- Search -->
+            <div class="flex lg:ml-6">
+              <a (click)="searchForProduct()" class="p-2 text-gray-400 hover:text-gray-500">
+                <span class="sr-only" >Search</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </a>
+            </div>
+
+            <!-- Cart -->
+            <div class="ml-4 flow-root lg:ml-6">
+              <a routerLink="/cart" class="group -m-2 flex items-center p-2">
+                <svg class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                <span class="sr-only">items in cart, view bag</span>
+              </a>
+            </div>
+            
+            <div class="relative ml-4 flow-root lg:ml-6">
+                <div>
+                  <button type="button" (click)="viewOptions()" class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                    <span class="absolute -inset-1.5"></span>
+                    <span class="sr-only">Open user menu</span>
+                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                  </button>
+                </div>
+
+                <div *ngIf="viewDropDown" (click)="viewOptions()" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                    <!-- Active: "bg-gray-100", Not Active: "" -->
+                    <p class="hover:text-red-500 block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0" routerLink="/account/details">Your Profile</p>
+                    <p class="hover:text-red-500 block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1" routerLink="/account/orders/">Order history</p>
+                    <p class="hover:text-red-500 block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2" (click)="signOut()">Sign out</p>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>

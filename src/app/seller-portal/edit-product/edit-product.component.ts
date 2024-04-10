@@ -39,12 +39,16 @@ export class EditProductComponent implements OnInit {
       }
     }
   };
+
+  productStatus: boolean = true;
+
   productForm:FormGroup= new FormGroup({
     name: new FormControl(this.productDetails.name),
     price: new FormControl(this.productDetails.price),
     description: new FormControl(this.productDetails.description),
     stock: new FormControl(this.productDetails.stock),
-    catergories: new FormControl(this.productDetails.categories)
+    catergories: new FormControl(this.productDetails.categories),
+    status: new FormControl(''),
   });
 
   constructor(
@@ -67,6 +71,7 @@ export class EditProductComponent implements OnInit {
         this.productDetails.stock=temp.stock;
         this.productDetails.seller=temp.seller;
         this.productDetails.categories=temp.categories;
+        this.productDetails.categories[0].status = this.productStatus;
       });
     });
   }
@@ -82,6 +87,8 @@ export class EditProductComponent implements OnInit {
   }
   updateProduct(){
     this.sending=!this.sending;
+    console.log(this.productDetails.categories);
+
     this.productService.updateproductById(this.productDetails._id,this.productDetails).subscribe((data:any)=>{
       this.sending=!this.sending;
       if (data.status == "SUCCESS") {

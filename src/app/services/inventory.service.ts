@@ -14,4 +14,8 @@ export class InventoryService {
   getAllSellerOrders(sellerId:string){
     return this.http.get(`${environment.renderApiLink}/api/inventory/${sellerId}`);
   }
+
+  getSellerInventory(id: string) {
+    return this.http.get(`${environment.renderApiLink}/api/inventory/${id}`);
+  }
 }

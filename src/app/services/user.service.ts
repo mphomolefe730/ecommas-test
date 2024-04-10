@@ -15,6 +15,9 @@ export class UserService {
   createUser(user: userModel){
     return this.http.post(`${environment.renderApiLink}/api/user/add`, user);
   }
+  getUserById(id: string) {
+    return this.http.get(`${environment.renderApiLink}/api/user/${id}`);
+  }
   searchForUser(query:{search:string}){
     return this.http.post(`${environment.renderApiLink}/api/user/search`,query);
   }

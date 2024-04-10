@@ -7,6 +7,7 @@ import { ViewProductComponent } from './view-product/view-product.component';
 import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { userGuard } from '../auth/user.guard';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,9 @@ const routes: Routes = [
   },{
     path:'search/:query',
     component:SearchComponent
+  },{
+    path: 'profile/:seller',
+    component: ViewProfileComponent
   }
 ];
 
