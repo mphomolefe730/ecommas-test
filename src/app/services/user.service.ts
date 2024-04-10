@@ -24,7 +24,4 @@ export class UserService {
   updateUser(newEntity:any,userId:string){
     return this.http.put(`${environment.renderApiLink}/api/user/${userId}`,newEntity);
   }
-  getUserById(userId:string){
-    return this.http.get(`${environment.renderApiLink}/api/user/${userId}`);
-  }
 }
