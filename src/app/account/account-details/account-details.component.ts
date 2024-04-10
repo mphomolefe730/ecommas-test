@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { userModel } from 'src/app/models/userModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -32,16 +33,17 @@ export class AccountDetailsComponent implements OnInit{
   userForm:FormGroup= new FormGroup({
     businessName:new FormControl(''),
     businessDescription:new FormControl(''),
-    name:new FormControl(''),
-    surname:new FormControl(''),
-    email:new FormControl(''),
-    number:new FormControl(''),
+    name:new FormControl(this.userInformation.name),
+    surname:new FormControl(this.userInformation.surname),
+    email:new FormControl(this.userInformation.email),
+    number:new FormControl(this.userInformation.number),
   })
 
   constructor(
     private authService:AuthService,
     private firebaseService:FirebaseService,
-    private userService:UserService
+    private userService:UserService,
+    private router:Router
   ){}
 
   ngOnInit(): void {
@@ -50,6 +52,15 @@ export class AccountDetailsComponent implements OnInit{
         this.userInformation.name = await data.name;
         this.userId = await data.userId;
         this.userInformation.profileImage = await this.authService.profileImage;
+        this.userForm.value.name = await data.name
+        this.userService.getUserById(this.userId).subscribe(async (data:any)=>{
+          // this.userForm.value.businessName= data
+          // this.userForm.value.businessDescription= data
+          this.userInformation.name = await data.name;
+          this.userInformation.surname = await data.surname;
+          this.userInformation.email = await data.email;
+          this.userInformation.number = await data.number;
+        })
       })
     }
   }
@@ -58,5 +69,8 @@ export class AccountDetailsComponent implements OnInit{
     let object = {profileImage: newUrlForProfile};
     this.userService.updateUser(object,this.userId).subscribe((data:any)=>{
     })
+  }
+  goBack(){
+    this.router.navigate(["/account"])
   }
 }
