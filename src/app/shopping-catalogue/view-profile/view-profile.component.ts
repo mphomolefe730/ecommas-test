@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service';
 import { productModel } from 'src/app/models/productModel';
 import { ActivatedRoute } from '@angular/router';
 import { userModel } from 'src/app/models/userModel';
+import { ViewProductService } from 'src/app/services/view-product.service';
 
 @Component({
   selector: 'app-view-profile',
@@ -17,6 +18,7 @@ export class ViewProfileComponent implements OnInit {
     private productService: ProductService,
     private activeRoute: ActivatedRoute,
     private userService: UserService,
+    private viewProductServ: ViewProductService,
   ){};
 
 
@@ -41,5 +43,9 @@ export class ViewProfileComponent implements OnInit {
       this.products = products;
       console.log(this.products);
     })
+  }
+
+  viewProductDetails(id: string, productName: string) {
+    this.viewProductServ.viewProduct(id, productName);
   }
 }
