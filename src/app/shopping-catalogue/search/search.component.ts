@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
+
 export class SearchComponent implements OnInit{
   productsToShow:productModel[]=[];
   seller:userModel[]=[];
@@ -21,6 +22,7 @@ export class SearchComponent implements OnInit{
     private activeRoute:ActivatedRoute,
     private router:Router
   ){}
+
   ngOnInit(): void {
     this.activeRoute.params.subscribe((data)=>{
       const { query } = data;
