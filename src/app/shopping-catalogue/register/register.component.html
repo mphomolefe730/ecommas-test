@@ -153,7 +153,7 @@
           </div>
           <p class = "text-red-500" *ngIf="password.touched && password.errors?.required">Password field is required</p>
                 <p *ngIf="password.errors?.minlength"> - Must be at least 8 characters long.</p>
-                <div *ngIf="password.errors?.pattern">
+                <div  class = "text-red-500" *ngIf="password.errors?.pattern">
                  <p> - Must include at least one lowercase.</p>
                  <p> - Must include at least one uppercase.</p> 
                  <p> - Must include at least one digit.</p>
