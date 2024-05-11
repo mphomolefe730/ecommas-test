@@ -27,23 +27,28 @@ export class ViewProfileComponent implements OnInit {
   userId: string = '';
 
   ngOnInit() {
-
     this.activeRoute.params.subscribe((data: any) => {
       this.userId = data.seller;
-    });
-
-    this.getSellersProducts(this.userId);
+      console.log(data);
+      this.productService.getAllSellerProducts(this.userId).subscribe((products: any)=> {
+        this.products = products;
+        console.log(this.products);
+      })
+  
+      // this.getSellersProducts(this.userId);
       this.userService.getUserById(this.userId).subscribe((data: any)=>{
         this.user = data
+        console.log(data);
+      });
     });
   }
   
-  getSellersProducts(id: string): any {
-    this.productService.getAllSellerProducts(id).subscribe((products: any)=> {
-      this.products = products;
-      console.log(this.products);
-    })
-  }
+  // getSellersProducts(id: string): any {
+  //   this.productService.getAllSellerProducts(id).subscribe((products: any)=> {
+  //     this.products = products;
+  //     console.log(this.products);
+  //   })
+  // }
 
   viewProductDetails(id: string, productName: string) {
     this.viewProductServ.viewProduct(id, productName);

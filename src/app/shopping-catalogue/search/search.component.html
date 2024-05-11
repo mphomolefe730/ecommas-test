@@ -1,5 +1,5 @@
 <div id="productItemsDisplay" *ngIf="seller.length!=0">
-    <div *ngFor="let s of seller" class="item">
+    <div *ngFor="let s of seller" class="item" (click)="viewSellerProfile(s._id)">
         <img [src]="s.profileImage"/>
         <div class="ItemDescription">
             <p class="productname">{{s.name}}</p>

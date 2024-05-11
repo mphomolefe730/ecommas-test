@@ -13,7 +13,8 @@ import { UserService } from 'src/app/services/user.service';
 
 export class SearchComponent implements OnInit{
   productsToShow:productModel[]=[];
-  seller:userModel[]=[];
+  // seller:userModel[]=[];
+  seller:{profileImage:string,name:string,_id:string}[]=[]
   progressLoader:string = '../../../assets/icons/loader.gif';
   searching:boolean=true;
   constructor(
@@ -44,5 +45,8 @@ export class SearchComponent implements OnInit{
     this.productService.addToRecentlyViewedProduct(productId);
     const productNameFormated = productName.split(' ').join('-');
     this.router.navigate([`product/${productNameFormated}/pd/${productId}`]);
+  }
+  viewSellerProfile(id: string) {
+    this.router.navigate([`./profile/${id}`])
   }
 }

@@ -1,5 +1,8 @@
 <!-- ######################### RECENTLY VIEWED ITEMS ############################# -->
-<div id="productItemCatergoryBar" *ngIf="recentVisited.length!=0"><div><h3>Recently Viewed</h3></div> <div><button class="seeMore">MORE</button></div></div>
+<div id="productItemCatergoryBar" *ngIf="recentVisited.length!=0">
+    <div><h3>Recently Viewed</h3></div> 
+    <div><button class="seeMore">MORE</button></div>
+</div>
 <div id="recentsVisits" *ngIf="recentVisited.length!=0">
     <div *ngFor="let i of recentVisited" class="item" (click)="viewProduct(i._id,i.name)">
         <!-- <img src="${{i.image}}" class="product-image" alt="Product Image"/> -->

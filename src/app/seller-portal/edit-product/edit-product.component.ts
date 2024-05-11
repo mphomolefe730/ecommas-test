@@ -29,14 +29,14 @@ export class EditProductComponent implements OnInit {
       surname: '',
       email: '',
       number: 0,
-      businessDescription:'',
-      businessName:'',
+      businessDescription: '',
+      businessName: '',
       hashedPassword: '',
-      profileImage:'',
+      profileImage: '',
       role: {
         id: '',
         name: ''
-      }
+      },
     }
   };
   productForm:FormGroup= new FormGroup({
