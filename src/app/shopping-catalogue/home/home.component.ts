@@ -22,18 +22,20 @@ export class HomeComponent implements OnInit {
     private productService:ProductService,
     private categoryService:CategoryService,
     private router:Router,
-    ){}
+  ){}
     
   ngOnInit(){
     //get all the recent viewed items ##################################
     let tempRecentlyViewedString:string = String(this.productService.recentlyViewed);
-    if (tempRecentlyViewedString.length!=0){
+    let arrOfItems = JSON.parse(tempRecentlyViewedString);
+    if (arrOfItems.length != 0){
       JSON.parse(tempRecentlyViewedString).forEach((productId:string)=>{
         this.productService.getProductById(productId).subscribe((data:any)=>{
           this.recentVisited.push(data);
         });
       })
     }
+
     //get all the active categories and place items in variables ######
     this.categoryService.getActiveCategory().subscribe((data:any)=>{
       const tempData:categoryModel[] = data

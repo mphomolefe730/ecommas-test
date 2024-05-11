@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RecommandationsComponent } from './recommandations/recommandations.component';
 import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
+import { ViewProfileComponent } from './view-profile/view-profile.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SearchComponent } from './search/search.component';
     CartComponent,
     RegisterComponent,
     LoginComponent,
-    SearchComponent
+    SearchComponent,
+    ViewProfileComponent
   ],
   imports: [
     CommonModule,

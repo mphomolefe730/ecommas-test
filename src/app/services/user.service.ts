@@ -18,4 +18,10 @@ export class UserService {
   searchForUser(query:{search:string}){
     return this.http.post(`${environment.renderApiLink}/api/user/search`,query);
   }
+  updateUser(newEntity:any,userId:string){
+    return this.http.put(`${environment.renderApiLink}/api/user/${userId}`,newEntity);
+  }
+  getUserById(userId:string){
+    return this.http.get(`${environment.renderApiLink}/api/user/${userId}`);
+  }
 }

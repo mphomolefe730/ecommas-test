@@ -1,87 +1,112 @@
-<div class = "page-content">
-    <div class="signup-form">
-       <div class = "header"><h2>Sign up</h2></div>
-        <!-- <div class = "social-login">
-            <div><img src="../../assets/icons/logo-facebook.svg" alt="signin with facebook"/></div>
-            <div><img src="../../assets/icons/logo-linkedin.svg" alt="signin with Linkedin"/></div>
-            <div><img src="../../assets/icons/logo-google.svg" alt="signin with google"/></div>
-        </div> -->
-        <div><p>Please fill in all the fields</p></div>
-        <form  [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="user-input-section">
-            <div class = "error-display select-wrapper">
-                <label class="role-label">Select role</label>
-                <select aria-label="role" formControlName="role">
-                    <option disabled selected>Select a role</option>
-                    <option *ngFor="let role of rolesSelector" [value]="role._id">{{ role.role }}</option>
-                    <!-- <option value="65df70a448622e6eef537521">Service provider</option>
-                    <option value="65df70a448622e6eef537521">Customer</option> -->
-                </select>
-                <p *ngIf="role.touched && role.errors?.required">Role is a required field</p>
-            </div>    
-            
-            <div class = "error-display">
-                <label>Email</label>
-                <input type="text" formControlName="email" placeholder="Email">
-                <p *ngIf="email.touched && email.errors?.required">Email is a required field</p>
-                <p *ngIf="email.touched && email.errors?.email">Enter a valid email</p>
-            </div>
-            <div class = "error-display">
-                <label>Phone number</label>
-                <input type="text" formControlName="number" placeholder="Phone number">
-                <p *ngIf="number.touched && number.errors?.required">Phone number is a required field</p>
-                <p *ngIf="!signupForm.get('number').hasError('required') && !signupForm.get('number').hasError('pattern') && (signupForm.get('number').hasError('maxlength') || signupForm.get('number').hasError('minlength'))">Contact number should be 10 numerical characters</p>
-            </div> 
-           <div class = "error-display">
-            <label>Business name</label>
-            <input type="text" formControlName="businessName" placeholder="Business name">
-             <p *ngIf="businessName.touched && businessName.errors?.required">Business name is a required field</p>
-           </div>
+<div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+  <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
+    <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+  </div>
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Sign up</h2>
+    <p  class="mt-2 text-lg leading-8 text-gray-600">Let's get you signed-up</p>
+  </div>
+  <form  [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="mx-auto mt-16 max-w-xl sm:mt-20">
+    <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+      <div>
+        <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>
+        <div class="mt-2.5">
+          <input type="text" name="first-name" id="first-name" formControlName = "name" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+        </div>
+        <p class = "text-red-500" *ngIf="name.touched && name.errors?.required">Name is a required field</p>
+      </div>
+      <div>
+        <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
+        <div class="mt-2.5">
+          <input type="text" name="last-name" id="last-name" formControlName = "surname" autocomplete="family-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+        </div>
+        <p class = "text-red-500" *ngIf="surname.touched && surname.errors?.required">Surname is a required field</p>
+      </div>
+      
+      <div class="sm:col-span-2">
+        <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+        <div class="mt-2.5">
+          <input type="email" name="email" id="email" formControlName = "email" autocomplete="email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+        </div>
+        <p class = "text-red-500" *ngIf="email.touched && email.errors?.required">Email is a required field</p>
+        <p class = "text-red-500" *ngIf="email.touched && email.errors?.email">Enter a valid email</p>
+      </div>
+      <div class="sm:col-span-2">
+        <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>
+        <div class="relative mt-2.5">
+          <input type="tel" name="phone-number" id="phone-number" formControlName="number" autocomplete="tel" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+        </div>
+        <p class = "text-red-500" *ngIf="number.touched && number.errors?.required">Phone number is a required field</p>
+        <p class = "text-red-500" *ngIf="!signupForm.get('number').hasError('required') && !signupForm.get('number').hasError('pattern') && (signupForm.get('number').hasError('maxlength') || signupForm.get('number').hasError('minlength'))">Contact number should be 10 numerical characters</p>
+      </div>
 
-            <div class = "error-display">
-                <label>Business description</label>
-                <input type="text" formControlName="businessDescription" placeholder="Business description">
-                <p *ngIf="businessDescription.touched && businessDescription.errors?.required">Business description field is a required field</p>
-
-            </div>
-
-            <div class = "error-display">
-                <label>Name</label>
-                <input type="text" formControlName="name" placeholder="Name">
-                <p *ngIf="name.touched && name.errors?.required">Name is a required field</p>
-            </div>
-
-            <div class = "error-display">
-                <label>Surname</label>
-                <input type="text" formControlName="surname" placeholder="Surname">
-                <p *ngIf="surname.touched && surname.errors?.required">Surname is a required field</p>
-            </div>
-
-            
-           
-            <div class = "error-display">
-
-                <label>Password</label>
-                <input  [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Password">
-                <p *ngIf="password.touched && password.errors?.required">Password field is required</p>
+      <div class="sm:col-span-2">
+          <label for="role" class="block text-sm font-medium leading-6 text-gray-900">Role</label>
+          <div class="mt-2">
+            <select formControlName="role" id="country" name="role" autocomplete="country-name" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                <option selected disabled>Choose a role</option>
+                <option *ngFor="let role of rolesSelector" [value]="role._id">{{ role.role }}</option>
+            </select>
+          </div>
+          <p class = "text-red-500" *ngIf="role.touched && role.errors?.required">Role is a required field</p>
+        </div>
+      <div class="sm:col-span-2">
+          <label for="company" class="block text-sm font-semibold leading-6 text-gray-900" >Business name</label>
+          <div class="mt-2.5">
+            <input type="text" name="company" id="company" autocomplete="organization"  formControlName="businessName"class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+          </div>
+          <p class = "text-red-500" *ngIf="businessName.touched && businessName.errors?.required">Business name is a required field</p>
+        </div>
+      <div class="sm:col-span-2">
+        <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Business description</label>
+        <div class="mt-2.5">
+          <textarea name="message" formControlName="businessDescription" id="message" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6"></textarea>
+        </div>
+        <p class = "text-red-500" *ngIf="businessDescription.touched && businessDescription.errors?.required">Business description field is a required field</p>
+      </div>
+      <div>
+          <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900"  >Password</label>
+          <div class="mt-2.5">
+            <input type="text" name="last-name" id="last-name" autocomplete="family-name" formControlName="password" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+          </div>
+          <p class = "text-red-500" *ngIf="password.touched && password.errors?.required">Password field is required</p>
                 <p *ngIf="password.errors?.minlength"> - Must be at least 8 characters long.</p>
-                <div *ngIf="password.errors?.pattern">
+                <div  class = "text-red-500" *ngIf="password.errors?.pattern">
                  <p> - Must include at least one lowercase.</p>
                  <p> - Must include at least one uppercase.</p> 
                  <p> - Must include at least one digit.</p>
                  <p> - Must include at least one special character</p>
                  <p> - List of special characters <span>! @ # $ % ^ & ? </span></p>
                 </div>
+        </div>
 
-            </div> 
-
-            <div class = "error-display">
-                <label>Confirm password</label>
-                <input type="password" formControlName="confirmPassword" placeholder="Retype password">
-                <p *ngIf="confirmPassword.errors?.required">Retype password is a required field</p>
-                <p *ngIf="confirmPassword.errors?.mismatch">Passwords don't match</p>
-            </div> 
-        </form>
-        <p>Already got an acount? <a routerLink="/sign-in">sign-in</a> </p>
-        <button type="submit" class="submit-btn"(click)="onSubmit()">Submit</button>
+        <div>
+          <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900" >Confirm password</label>
+          <div class="mt-2.5">
+            <input type="text" name="last-name" id="last-name" autocomplete="family-name" formControlName="confirmPassword" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:text-sm sm:leading-6">
+          </div>
+          <p class = "text-red-500" *ngIf="confirmPassword.errors?.required">Confirm password is a required field</p>
+          <p class = "text-red-500" *ngIf="confirmPassword.errors?.mismatch">Passwords don't match</p>
+        </div>
+      <!-- <div class="flex gap-x-4 sm:col-span-2">
+        <div class="flex h-6 items-center">
+           <span class="sr-only">Agree to policies</span>
+            <input type="checkbox" value="" class="sr-only peer">
+            <div class="transition duration-200 ease-in-out w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1px] after:start-[1px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-700"></div>
+        </div>
+        <label class="text-sm leading-6 text-gray-600" id="switch-1-label">
+          By selecting this, you agree to our
+          <a href="#" class="font-semibold text-green-600">privacy&nbsp;policy</a>.
+        </label>
+      </div> --> 
     </div>
+    <div class="mt-10">
+      <button type="submit" class="block w-full rounded-md bg-green-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" (click)="onSubmit()" [disabled] = "signupForm.invalid">Register</button>
+      <p class="mt-10 text-center text-sm text-gray-500">
+          Already have an acount?
+          <a href="#" class="font-semibold leading-6 text-green-900 hover:text-green-700" routerLink="/sign-in">Sign-in</a>
+        </p>
+  </div>
+    
+  </form>
 </div>

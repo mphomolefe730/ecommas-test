@@ -51,6 +51,7 @@ export class UploadProductComponent implements OnInit{
       this.categories = categories;
     })
   }
+  
   async upload($event:any){
     this.filePath = $event?.target?.files[0];
     const upload = await this.storage.upload(`product-images/${this.userId}`,this.filePath);

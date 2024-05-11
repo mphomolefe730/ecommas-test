@@ -21,14 +21,13 @@ export class ProductService implements OnInit {
     if (this.recentlySearched == null) localStorage.setItem("smartOne_recentlySearched","[]");
   }
 
-  addToRecentlyViewedProduct(id:string):void{
-    let temprecentlyViewed:string[] = JSON.parse(String(this.recentlyViewed));
-    //check if element was already in array, if true - remove it
+  async addToRecentlyViewedProduct(id:string):Promise<void>{
+    let temprecentlyViewed:string[] = await JSON.parse(String(this.recentlyViewed));
     const checker = temprecentlyViewed.includes(id);
     if (checker == true) {
       const index = temprecentlyViewed.indexOf(id);
       temprecentlyViewed.splice(index,1);
-    }//add the element to the beginning of the array
+    }
     temprecentlyViewed.unshift(id);
     localStorage.clear();
     localStorage.setItem("smartOne_recentlyViewed",JSON.stringify(temprecentlyViewed));

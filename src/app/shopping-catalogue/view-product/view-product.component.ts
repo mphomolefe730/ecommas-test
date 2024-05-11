@@ -33,6 +33,7 @@ export class ViewProductComponent implements OnInit{
       businessDescription:'',
       businessName:'',
       hashedPassword: '',
+      profileImage:'',
       role: {
         id:'',
         name:''
@@ -64,7 +65,7 @@ export class ViewProductComponent implements OnInit{
     }]
   };
   inCartSellerName:string='';
-
+  sellersid: any;
   constructor(
     private activeRouter:ActivatedRoute,
     private router:Router,
@@ -84,15 +85,18 @@ export class ViewProductComponent implements OnInit{
         this.userId = await data.userId;
         this.shoppingCart.userId=this.userId;
         this.cartId = data.cartId;
-  
-        this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
-          this.shoppingCart= await cart;
-        })
+        
+        console.log(this.cartId)
+        // this.cartService.getCartByUserId(this.userId).subscribe(async (cart:any)=>{
+        //   this.shoppingCart= await cart;
+        // })
       }
 
       this.activeRouter.params.subscribe((data:any)=>{
         this.productService.getProductById(data.productid).subscribe((item:any)=>{
-          this.productSellerId = item.seller._id
+          console.log(item) 
+          this.sellersid = item.seller._id;
+          this.productSellerId = item.seller._id;
           this.productDetails = item;
           this.productDetails.seller.email='';
           this.productDetails.seller.surname='';
@@ -102,7 +106,7 @@ export class ViewProductComponent implements OnInit{
           })
         })
       });
-    });
+    });    
   }
 
   copyToClipBoard(){
@@ -151,4 +155,9 @@ export class ViewProductComponent implements OnInit{
   updateNumber(event:any){
     this.selectedOption=event.target.value;
   }
+
+  viewSellerProfile(id: string) {
+    this.router.navigate([`./profile/${id}`])
+  }
+
 }
