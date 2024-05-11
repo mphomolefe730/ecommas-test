@@ -8,7 +8,7 @@
         </div>
         <div class="splitByTwo ">
             <div class="second">
-                <p>Seller: <span>{{productDetails.seller.name}}</span></p>
+                <p (click)="viewSellerProfile(productSellerId)" class="cursor-pointer hover:text-cyan-600 hover:underline">Seller: <span>{{productDetails.seller.name}}</span></p>
             </div>
             <div class="second" *ngIf="productOptions.length!=null">
                 <select  (change)="updateNumber($event)">

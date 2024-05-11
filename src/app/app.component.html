@@ -6,8 +6,8 @@
 <ng-toast></ng-toast>
 <footer>
     <div><img [src]="logo" alt="ecommerce connect logo" srcset=""></div>
-    <div style="display: flex; justify-content: space-around;">
-        <p style="margin: auto 5px;" *ngFor="let cat of featureSection" [routerLink]="cat.link"><b>{{ cat.name }}</b></p>
+    <div class="flex justify-around">
+        <p class="ms-auto mb-1" *ngFor="let cat of featureSection" [routerLink]="cat.link"><b>{{ cat.name }}</b></p>
     </div>
     <div><p>© 2024 Ecommerce Connect</p></div>
 </footer>

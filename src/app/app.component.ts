@@ -36,6 +36,8 @@ export class AppComponent implements OnInit{
         const token = this.authService.getToken();
         const tempUser = JSON.parse(atob(token!.split('.')[1]));
         const role = await this.roleService.getUserRole(tempUser.role);
+        const json = JSON.parse(String(sessionStorage.getItem("smartOne_User")));
+        this.authService.profileImage = json.profileImage;
         if (role[0].role == 'seller') {
           this.authService.isSeller = true;
           this.router.navigate(['/seller']);

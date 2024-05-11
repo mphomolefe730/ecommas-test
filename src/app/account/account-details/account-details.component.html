@@ -1,25 +1,37 @@
-<div id="image">
-    <img [src]="userInformation" alt="">
+<div id="image" *ngIf="userInformation.profileImage != undefined">
+    <label for="file">
+        <img [src]="userInformation.profileImage" alt="profile image">
+    </label>
+    <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
 </div>
+
+<div id="image" *ngIf="userInformation.profileImage == undefined">
+    <label for="file">
+        <img [src]="addIconImage" alt="profile image">
+    </label>
+    <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
+</div>
+
 <form [formGroup]="userForm">
     <div>
         <label for="name">Name:</label>
-        <input type="text" formControlName="name" />
+        <input type="text" formControlName="name" [(ngModel)]="userInformation.name"/>
     </div>
     <div>
         <label for="description">Surname:</label>
-        <textarea type="" formControlName="surname"></textarea>
+        <input type="text" formControlName="surname" [(ngModel)]="userInformation.surname"/>
     </div>
     <div>
         <label for="price">Email:</label>
-        <input type="text" formControlName="email"/>
+        <input type="email" formControlName="email" [(ngModel)]="userInformation.email"/>
     </div>
     <div>
         <label for="stock">Number:</label>
-        <input type="text" formControlName="number"/>
+        <input type="number" formControlName="number" [(ngModel)]="userInformation.number"/>
     </div>
+    <span><i>if your number starts with 0, dont include it*</i></span>
     <div class="buttonSection">
-        <!-- <button class="actionButton" (click)="goBack()">CANCEL</button>
-        <button class="actionButton" (click)="updateProduct()"> SAVE<img [src]="progressLoader" *ngIf="sending"></button> -->
+        <button class="actionButton" (click)="goBack()">CANCEL</button>
+        <button class="actionButton"> SAVE</button>
     </div>
 </form>
