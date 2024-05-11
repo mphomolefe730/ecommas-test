@@ -29,16 +29,11 @@ export class ViewProfileComponent implements OnInit {
   ngOnInit() {
     this.activeRoute.params.subscribe((data: any) => {
       this.userId = data.seller;
-      console.log(data);
       this.productService.getAllSellerProducts(this.userId).subscribe((products: any)=> {
         this.products = products;
-        console.log(this.products);
       })
-  
-      // this.getSellersProducts(this.userId);
       this.userService.getUserById(this.userId).subscribe((data: any)=>{
         this.user = data
-        console.log(data);
       });
     });
   }
