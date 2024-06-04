@@ -38,13 +38,15 @@ export class CartComponent implements OnInit{
   ngOnInit(): void {
     if (this.authService.isLoggedIn() == null) this.router.navigate(['/sign-in']);
     this.authService.loggedInUser.subscribe(async (data:any)=>{
-      this.shoppingCart.userId=await data.userId;
-      this.cartService.getCartByUserId(data.userId).subscribe(async (data:any)=>{
-        this.shoppingCart=await data;
-        this.shoppingCart.items.forEach((item)=>{
-          this.cartTotalPrice += item.price
+      if (data != null){
+        this.shoppingCart.userId=await data.userId;
+        this.cartService.getCartByUserId(data.userId).subscribe(async (data:any)=>{
+          this.shoppingCart=await data;
+          this.shoppingCart.items.forEach((item)=>{
+            this.cartTotalPrice += item.price
+          })
         })
-      })
+      }
     })
   }
   

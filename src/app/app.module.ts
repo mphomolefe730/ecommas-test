@@ -30,7 +30,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     AngularFireStorageModule
   ],
   providers: [
-    {provide: LocationStrategy,useClass: HashLocationStrategy}
+    // {provide: LocationStrategy,useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

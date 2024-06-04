@@ -14,8 +14,8 @@ export class RoleService implements OnInit{
   ) { }
   ngOnInit(): void {
     this.getAllRole().subscribe(async (data:any)=>{
-      await data.forEach((roleObject:any)=>this.role.push(roleObject));
-      console.log(this.role);
+      if (data != null) await data.forEach((roleObject:any)=>this.role.push(roleObject));
+      // console.log(this.role);
     });
   }
 
