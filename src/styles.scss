@@ -190,3 +190,19 @@ h1{
     border-radius: var(--radiusForButtons);
     color: white;
 }
+
+
+.holderImages{
+    width: 100%;
+    text-align: center;
+    max-height: 400px;
+    margin: 20% auto;
+    h1{
+        color: var(--accent-color);
+        text-transform: uppercase;
+        width: 100%;
+    }
+    img{
+        max-width: 60%;
+    }
+}

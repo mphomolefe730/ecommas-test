@@ -24,9 +24,9 @@
         <p class="productdescription2">{{productDetails.description}}</p>
 
         <div>
-            <button id="purchase-btn" *ngIf="purchasing == 'addToCart'" (click)="addItemToCart()">ADD TO CART</button>
+            <button id="purchase-btn" [disabled]="buttonDisabled" *ngIf="purchasing == 'addToCart'" (click)="addItemToCart()">ADD TO CART</button>
             <button id="purchase-btn" *ngIf="purchasing == 'loading'">loading</button>
-            <button id="purchase-btn" *ngIf="purchasing == 'removeFromCart'">REMOVE FROM CART</button>
+            <button id="purchase-btn" *ngIf="purchasing == 'removeFromCart'" (click)="removeItemFromCart(productDetails._id)">REMOVE FROM CART</button>
         </div>
         <div>
             <button id="purchase-btn" style="background-color: transparent;border: 2px solid black;color: black;" (click)="copyToClipBoard()">share item</button>

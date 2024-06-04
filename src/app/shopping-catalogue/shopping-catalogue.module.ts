@@ -10,6 +10,7 @@ import { RecommandationsComponent } from './recommandations/recommandations.comp
 import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { CartFinalizeOrderComponent } from './cart-finalize-order/cart-finalize-order.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ViewProfileComponent } from './view-profile/view-profile.component';
     RegisterComponent,
     LoginComponent,
     SearchComponent,
-    ViewProfileComponent
+    ViewProfileComponent,
+    CartFinalizeOrderComponent
   ],
   imports: [
     CommonModule,

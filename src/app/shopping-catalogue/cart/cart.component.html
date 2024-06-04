@@ -1,4 +1,4 @@
-<div class="checkout-container" *ngIf="shoppingCart.items[0].price!=0">
+<div class="checkout-container" *ngIf="shoppingCart != null && shoppingCart.items.length != 0">
     <div class="checkout">
         <div>
             <div><p>Total: {{shoppingCart.items.length}} items</p></div>
@@ -8,10 +8,10 @@
         </div>
     </div>
     <div>
-        <button class="checkout-btn">checkout</button>
+        <button class="checkout-btn" (click)="checkout(shoppingCart._id)">checkout</button>
     </div>
 </div>
-<div *ngIf="shoppingCart.items[0].price!=0">
+<div *ngIf="shoppingCart != null && shoppingCart.items.length != 0">
     <div *ngFor="let item of shoppingCart.items" class="main">
         <div class="image">
             <img [src]="item.productId.image" alt="">
@@ -34,5 +34,24 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="mainExtras">
+        <h1>EXTRAS</h1>
+        <textarea name="add-on" id="add-on-textarea"></textarea>
+    </div>
+</div>
+
+<div *ngIf="shoppingCart == null || shoppingCart.items.length == 0">
+    <div class="holderImages">
+        <h1>Your cart is empty.</h1>
+        <p>Let's fill it up with awesome stuff!</p>
+        <button routerLink="/" style="
+        background-color: var(--accent-color);
+        color:white; 
+        border-radius: 10px; 
+        border:0px; 
+        padding: 10px;
+        margin: 10px;"
+        >BROWSER ITEMS</button>
     </div>
 </div>

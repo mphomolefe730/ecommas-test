@@ -8,6 +8,7 @@ import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { userGuard } from '../auth/user.guard';
 import { ViewProfileComponent } from './view-profile/view-profile.component';
+import { CartFinalizeOrderComponent } from './cart-finalize-order/cart-finalize-order.component';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
   },{
     path: 'cart',
     component: CartComponent,
-    canActivate: [userGuard]
+    canActivate: [userGuard],
   },{
     path: 'sign-in',
     component: LoginComponent
@@ -33,6 +34,9 @@ const routes: Routes = [
   },{
     path: 'profile/:seller',
     component:ViewProfileComponent
+  },{
+    path:'cart/final-order/:id',
+    component:CartFinalizeOrderComponent
   }
 ];
 

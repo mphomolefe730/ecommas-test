@@ -55,3 +55,14 @@ p{
     border: 0;
     text-transform: uppercase;
 }
+.mainExtras{
+    margin-top: 10px;
+    background-color: rgba(245,245,192,1);
+    padding: var(--border-10);
+    border-radius: var(--border-10);
+    textarea{
+        width:98%;
+        min-height: 150px;
+    }
+
+}

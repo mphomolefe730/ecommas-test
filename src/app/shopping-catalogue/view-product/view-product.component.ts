@@ -18,6 +18,7 @@ import { CartService } from 'src/app/services/cart.service';
 export class ViewProductComponent implements OnInit{
   purchasing:string='addToCart';
   productSellerId:string='';
+  buttonDisabled:boolean = true;
   productDetails:productModel={
     name: '',
     _id: '',
@@ -91,7 +92,6 @@ export class ViewProductComponent implements OnInit{
 
       this.activeRouter.params.subscribe((data:any)=>{
         this.productService.getProductById(data.productid).subscribe((item:any)=>{
-          // console.log(item) 
           this.sellersid = item.seller._id;
           this.productSellerId = item.seller._id;
           this.productDetails = item;
@@ -101,6 +101,7 @@ export class ViewProductComponent implements OnInit{
           this.shoppingCart.items.forEach((productItem:any)=>{
             if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
           })
+          this.buttonDisabled=false;
         })
       });
     });    
@@ -130,23 +131,37 @@ export class ViewProductComponent implements OnInit{
       quantity:this.selectedOption,
       price:this.productDetails.price*this.selectedOption
     }
-
-    await this.shoppingCart.items.push(item);
-    this.cartService.updateUserCart(this.userId,this.shoppingCart).subscribe((data:any)=>{
-      if (data.status == "SUCCESS"){
-        this.toaster.success({
-          detail:data.status,
-          summary: data.message
+    let dProduct = false;
+    await this.shoppingCart.items.forEach((productItem)=>{
+      if (item.productId._id == productItem.productId._id){
+        this.toaster.error({
+          detail:"ERROR",
+          summary: "Product already exist in cart",
+          duration: 3000
         });
         this.purchasing= 'removeFromCart';
-      }else{
-        this.toaster.error({
-          detail:data.status,
-          summary: data.message
-        });
-        this.purchasing= 'addToCart';
+        dProduct = true;
       }
-    });
+      return;
+    })
+    if (dProduct == false){
+      await this.shoppingCart.items.push(item);
+      this.cartService.updateUserCart(this.userId,this.shoppingCart).subscribe((data:any)=>{
+        if (data.status == "SUCCESS"){
+          this.toaster.success({
+            detail:data.status,
+            summary: data.message
+          });
+          this.purchasing= 'removeFromCart';
+        }else{
+          this.toaster.error({
+            detail:data.status,
+            summary: data.message
+          });
+          this.purchasing= 'addToCart';
+        }
+      });
+    }
   }
 
   updateNumber(event:any){
@@ -157,4 +172,22 @@ export class ViewProductComponent implements OnInit{
     this.router.navigate([`./profile/${id}`])
   }
 
+  removeItemFromCart(productId:string){
+    this.shoppingCart.items = this.shoppingCart.items.filter((item)=>item.productId._id!==productId);
+    this.cartService.updateUserCart(this.userId,this.shoppingCart).subscribe((data:any)=>{
+      if (data.status == "SUCCESS"){
+        this.toaster.success({
+          detail:data.status,
+          summary: data.message
+        });
+        this.purchasing= 'addToCart';
+      }else{
+        this.toaster.error({
+          detail:data.status,
+          summary: data.message
+        });
+        this.purchasing= 'removeFromCart';
+      }
+    });
+  }
 }

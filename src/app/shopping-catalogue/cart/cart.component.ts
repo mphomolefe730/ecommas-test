@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { cartModel } from 'src/app/models/cartModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -33,6 +34,7 @@ export class CartComponent implements OnInit{
     private cartService:CartService,
     private authService:AuthService,
     private router:Router,
+    private toaster:NgToastService,
   ){}
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class CartComponent implements OnInit{
         this.cartService.getCartByUserId(data.userId).subscribe(async (data:any)=>{
           this.shoppingCart=await data;
           this.shoppingCart.items.forEach((item)=>{
-            this.cartTotalPrice += item.price
+            this.cartTotalPrice += item.price;
           })
         })
       }
@@ -66,8 +68,26 @@ export class CartComponent implements OnInit{
   removeFromCart(productId:string){
     this.shoppingCart.items = this.shoppingCart.items.filter((item)=>item.productId._id!==productId);
     this.cartTotalPrice = 0;
-    this.shoppingCart.items.forEach((item)=>{
-      this.cartTotalPrice += item.productId.price * item.quantity;
+    this.cartService.updateUserCart(this.shoppingCart.userId,this.shoppingCart).subscribe((cartData:any)=>{
+      if (cartData.status == "SUCCESS"){
+        this.toaster.success({
+          detail:cartData.status,
+          summary: cartData.message
+        });
+        this.shoppingCart.items.forEach((item)=>{
+          this.cartTotalPrice += item.productId.price * item.quantity;
+        })      
+      }else{
+        this.toaster.error({
+          detail:cartData.status,
+          summary: cartData.message
+        });
+      }
     })
+  }
+  checkout(idOfCart:any){
+    this.router.navigate(
+      [`cart/final-order/${this.shoppingCart.userId}`],
+    );
   }
 }
