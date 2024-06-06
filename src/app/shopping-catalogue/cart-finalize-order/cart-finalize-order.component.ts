@@ -34,13 +34,11 @@ export class CartFinalizeOrderComponent implements OnInit {
   ngOnInit(): void { 
     this.authService.loggedInUser.subscribe(async (userData:any)=>{
       if (userData != null){
-        console.log(userData)
         this.cartService.getCartByUserId(userData.userId).subscribe(async (data:any)=>{
           this.shoppingCart=await data;
           this.shoppingCart.items.forEach((item)=>{
             this.cartTotalPrice += item.price
           })
-          console.log(data)
         })
       }
     })   
