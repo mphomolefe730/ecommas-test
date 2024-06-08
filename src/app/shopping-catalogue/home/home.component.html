@@ -4,7 +4,13 @@
     <div><button class="seeMore">MORE</button></div>
 </div>
 <div id="recentsVisits" *ngIf="recentVisited.length!=0">
-    <div *ngFor="let i of recentVisited" class="item" (click)="viewProduct(i._id,i.name)">
+    <div *ngFor="let i of recentVisited; index as j" 
+        class="item" 
+        (mouseup)="removeMouseDown(i._id,i.name)" 
+        (touchend)="removeMouseDown(i._id,i.name)" 
+        (touchstart) = "showMoreOptions(j,$event)"
+        (mousedown)="showMoreOptions(j)"
+    >
         <!-- <img src="${{i.image}}" class="product-image" alt="Product Image"/> -->
         <img [src]="i.image" class="product-image" alt="Product Image"/>
         <div class="ItemDescription">
@@ -14,6 +20,14 @@
                 <div><span>R {{i.price}}<br/>Rating</span></div>
                 <!-- <button class="purchase-btn" data-id="{{i._id}}">PURCHASE</button> -->
             </div>
+        </div>
+        <div *ngIf="menuStatus && j==numberClickedOn" 
+            class="extraMenuStyle"
+        >
+            <p *ngFor="let extra of extraMenuTabs" 
+            [routerLink]="extra.path" 
+            (click)="extra.action">{{extra.name}}
+            </p>
         </div>
     </div>
 </div>
