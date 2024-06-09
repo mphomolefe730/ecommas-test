@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { cartModel } from 'src/app/models/cartModel';
+import { inventoryModelToSend } from 'src/app/models/inventoryModelToSend';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -13,6 +14,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit{
   cartTotalPrice:number = 0; 
+  extraInformation:string|null='';
   shoppingCart: cartModel={
     _id:'',
     userId:'',
@@ -85,9 +87,36 @@ export class CartComponent implements OnInit{
       }
     })
   }
-  checkout(idOfCart:any){
-    this.router.navigate(
-      [`cart/final-order/${this.shoppingCart.userId}`],
-    );
+  checkout(){
+    // this.router.navigate(
+    //   [`cart/final-order/${this.shoppingCart.userId}`],
+    // );
+    let objectForInventory:inventoryModelToSend={
+      user: this.shoppingCart.userId,
+      items:[],
+      total: this.cartTotalPrice,
+      chat: [
+        {
+          chat: this.extraInformation,
+          user: this.shoppingCart.userId
+        }
+      ],
+      status:"UNFURFILLED"
+    }
+
+    this.shoppingCart.items.forEach((item)=>{
+      objectForInventory.items.push(
+        {
+          productId:item.productId._id,
+          quantity:item.quantity,
+          price:item.price
+        }
+      )
+    })
+
+    this.cartService.addToInventory(objectForInventory).subscribe({
+      next:()=>this.toaster.success({detail: "SUCCESS",summary:'offer has been sent awaiting confirmation',duration:5000}),
+      error:()=>this.toaster.error({detail: "OPPS",summary:'something went wrong whilst placing offer',duration:5000})
+    })
   }
 }

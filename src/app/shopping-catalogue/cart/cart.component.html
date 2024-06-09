@@ -8,7 +8,7 @@
         </div>
     </div>
     <div>
-        <button class="checkout-btn" (click)="checkout(shoppingCart._id)">checkout</button>
+        <button class="checkout-btn" (click)="checkout()">checkout</button>
     </div>
 </div>
 <div *ngIf="shoppingCart != null && shoppingCart.items.length != 0">
@@ -37,7 +37,7 @@
     </div>
     <div class="mainExtras">
         <h1>EXTRAS</h1>
-        <textarea name="add-on" id="add-on-textarea"></textarea>
+        <textarea name="add-on" id="add-on-textarea" [(ngModel)]="extraInformation"></textarea>
     </div>
 </div>
 
