@@ -33,6 +33,18 @@ export class ProductService implements OnInit {
     localStorage.setItem("smartOne_recentlyViewed",JSON.stringify(temprecentlyViewed));
     this.recentlyViewed = localStorage.getItem("smartOne_recentlyViewed");
   }
+  async addToRecentlySearchProducts(searchQuery:string):Promise<void>{
+    let tempRecentlySearched:string[] = await JSON.parse(String(this.recentlySearched));
+    tempRecentlySearched.unshift(searchQuery);
+    let i=0;
+    let tempRecentlySearchedLimited:string[]=[];
+    while(i<7){
+      tempRecentlySearchedLimited.push(tempRecentlySearched[i]);
+      ++i;
+    }
+    localStorage.setItem("smartOne_recentlySearched",JSON.stringify(tempRecentlySearchedLimited));
+    this.recentlySearched = JSON.stringify(tempRecentlySearchedLimited);
+  }
   
   
   getAllProducts(){

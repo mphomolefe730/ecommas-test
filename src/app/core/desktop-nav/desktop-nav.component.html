@@ -11,9 +11,12 @@
     <div id="searchBarHolding">
         <div>
             <form [formGroup]="searchForm" (ngSubmit)="searchForProduct()">
-                <input formControlName="search" type="text" placeholder="Type Here..." name="searchBar" id="searchBar"/>
+                <input formControlName="search" (blur)="showHistory=false" (focus)="showRecentMenu()" type="text" placeholder="Type Here..." name="searchBar" id="searchBar"/>
+                <div *ngIf="showHistory" [ngClass]="{searchBarHoldingActive:showHistory}" >
+                    <p *ngFor="let i of searchHistory">{{i}}</p>
+                </div>
             </form>
         </div>
         <div><button type="submit" (click)="searchForProduct()"><img src="{{searchicon}}" alt="searchIcon"></button></div>
-    </div>
+    </div> 
 </div>
