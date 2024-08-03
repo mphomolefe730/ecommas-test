@@ -122,9 +122,6 @@ firebase/compat/app
 
 firebase/compat/storage
 
-guid-typescript
-ISC
-
 idb
 ISC
 ISC License (ISC)
