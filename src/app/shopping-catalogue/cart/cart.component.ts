@@ -3,8 +3,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgToastService } from 'ng-angular-popup';
 import { cartModel } from 'src/app/models/cartModel';
+import { orderStatus } from 'src/app/models/orderStatus'
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,6 +15,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit{
   cartTotalPrice:number = 0; 
+  extraText:string|null=null;
   shoppingCart: cartModel={
     _id:'',
     userId:'',
@@ -31,6 +34,7 @@ export class CartComponent implements OnInit{
   };
 
   constructor(
+    private inventoryService:InventoryService,
     private cartService:CartService,
     private authService:AuthService,
     private router:Router,
@@ -85,9 +89,47 @@ export class CartComponent implements OnInit{
       }
     })
   }
-  checkout(idOfCart:any){
-    this.router.navigate(
-      [`cart/final-order/${this.shoppingCart.userId}`],
-    );
+
+  checkout(){
+    const completeOrder = {
+      user: this.shoppingCart.userId,
+      seller: this.shoppingCart.items[0].productId.seller,
+      items: this.shoppingCart.items,
+      status: orderStatus.unfurfilled,
+      chat:[{chat: this.extraText}],
+      total: this.cartTotalPrice
+    }
+    if (!completeOrder) {
+      this.toaster.error({
+        detail:"ERROR",
+        summary: "Order not furfilled"
+      });
+      return
+    }
+    this.inventoryService.addToSellerInventory(completeOrder).subscribe({
+      next:(feedback:any)=>{
+        this.shoppingCart.items = [];
+        this.cartService.updateUserCart(this.shoppingCart.userId,this.shoppingCart).subscribe((cartData:any)=>{
+          if (cartData.status == "SUCCESS"){
+            this.toaster.success({
+              detail:cartData.status,
+              summary: "Product(s) succussfully placed"
+            });
+            this.cartTotalPrice = 0;     
+            this.router.navigate(
+              [`cart/final-order/${feedback.message._id}`],
+            );
+          }else{
+            this.toaster.error({
+              detail:cartData.status,
+              summary: cartData.message
+          });
+          }
+        })
+      },
+      error:(feedback:any)=>{
+        console.log(feedback);
+      }
+    })
   }
 }

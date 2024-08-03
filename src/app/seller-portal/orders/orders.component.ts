@@ -17,8 +17,8 @@ export class OrdersComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.authService.loggedInUser.subscribe(async (data)=>{
-      this.userId= await data.userId;
+    this.authService.loggedInUser.subscribe(async (userInformation)=>{
+      this.userId= await userInformation.userId;
       this.inventoryService.getAllSellerOrders(this.userId).subscribe((data)=>{
         this.product= data;
       });

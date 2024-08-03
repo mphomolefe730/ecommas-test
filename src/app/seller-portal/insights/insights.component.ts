@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { inventoryModel } from 'src/app/models/inventoryModel';
-import { productModel } from 'src/app/models/productModel';
+import { orderStatus } from 'src/app/models/orderStatus';
 import { AuthService } from 'src/app/services/auth.service';
 import { InventoryService } from 'src/app/services/inventory.service';
 import { RoleService } from 'src/app/services/role.service';
@@ -49,17 +49,14 @@ export class InsightsComponent implements OnInit{
             switch(product.status){
               case "UNFURFILLED": {
                 this.unfurfilled+=1;
-                console.log(this.unfurfilled);
                 break;
               }
               case "PENDING": {
                 this.pending+=1;
-                console.log(this.pending);
                 break;
               }
               case "DECLINED": {
                 this.declined+=1;
-                console.log(this.declined);
                 break;
               }
               default:{

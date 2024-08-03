@@ -23,4 +23,12 @@
             <button class="actionButton">yes</button>
         </div>
     </div>
+
+    <div *ngIf="i.status=='PENDING'" class="splitByTwo">
+        <div>Order Action</div>
+        <div class="buttonSection">
+            <button class="actionButton">Cancel</button>
+            <button class="actionButton">Complete</button>
+        </div>
+    </div>
 </div>

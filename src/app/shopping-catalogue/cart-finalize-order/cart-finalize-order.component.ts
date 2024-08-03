@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { cartModel } from 'src/app/models/cartModel';
+import { ActivatedRoute } from '@angular/router';
+import { inventoryModel } from 'src/app/models/inventoryModel';
 import { AuthService } from 'src/app/services/auth.service';
-import { CartService } from 'src/app/services/cart.service';
+import { InventoryService } from 'src/app/services/inventory.service';
 
 @Component({
   selector: 'app-cart-finalize-order',
@@ -10,34 +11,28 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartFinalizeOrderComponent implements OnInit {
   cartTotalPrice:number = 0; 
-  shoppingCart: cartModel={
-    _id:'',
-    userId:'',
-    items:[{
-      productId:{
-        _id:'',
-        name:'', 
-        price:0,
-        image:'',
-        description:'',
-        seller:''
-      },
-      quantity:0,
-      price:0
-    }]
-  };
+  inventory:inventoryModel={
+    _id: '',
+    items: [],
+    seller: '',
+    status: '',
+    total: 0,
+    user: '',
+    chat: []
+  }
+
   constructor(
-    private cartService:CartService,
+    private inventoryService:InventoryService,
     private authService:AuthService,
+    private activeRouter:ActivatedRoute
   ){}
 
   ngOnInit(): void { 
     this.authService.loggedInUser.subscribe(async (userData:any)=>{
       if (userData != null){
-        this.cartService.getCartByUserId(userData.userId).subscribe(async (data:any)=>{
-          this.shoppingCart=await data;
-          this.shoppingCart.items.forEach((item)=>{
-            this.cartTotalPrice += item.price
+        this.activeRouter.params.subscribe((inventoryId:any)=>{
+          this.inventoryService.getOrderById(inventoryId.id).subscribe(async (data:any)=>{
+            this.inventory = data;
           })
         })
       }
