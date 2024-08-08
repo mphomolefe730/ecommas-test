@@ -1,0 +1,24 @@
+form{
+    // margin: 5px 25px;
+    div{
+        margin: 10px 0;
+        input,textarea{
+            width: 100%;
+            min-height: 25px;
+            border: 1px solid black;
+            border-radius: var(--border-10);
+        }
+
+        textarea{
+            min-height: 100px;
+        }
+    }
+}
+.actionButton{
+    border: 0;
+    background-color: rgba(0,0,0,1);
+    padding:15px;
+    width: 100%;
+    border-radius: var(--radiusForButtons);
+    color: white;
+}

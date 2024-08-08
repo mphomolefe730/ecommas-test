@@ -1,0 +1,12 @@
+<div class="container">
+    <h1 class="welcome">
+        BUSINESS MANAGER
+    </h1>
+    
+    <div class="sideMenu">
+        <p *ngFor="let i of sideLinks" [routerLink]="i.link" routerLinkActive="active1" class="actionButton">{{ i.name }}</p>
+    </div>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

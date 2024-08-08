@@ -34,8 +34,7 @@ export class AppComponent implements OnInit{
     setTimeout(async ()=>{
       if (this.authService.isLoggedIn()){
         const token = this.authService.getToken();
-        const tempUser = JSON.parse(atob(token!.split('.')[1]));
-        const role = await this.roleService.getUserRole(tempUser.role);
+        const role = await this.roleService.getUserRole(JSON.parse(atob(token!.split('.')[1])).role);
         const json = JSON.parse(String(sessionStorage.getItem("smartOne_User")));
         this.authService.profileImage = json.profileImage;
         if (role[0].role == 'seller') {
@@ -44,7 +43,7 @@ export class AppComponent implements OnInit{
         }else{
           this.authService.isSeller = false;
         }
-        this.authService.user.next(tempUser);
+        this.authService.user.next(JSON.parse(atob(token!.split('.')[1])));
       }
     }, 5000);
 

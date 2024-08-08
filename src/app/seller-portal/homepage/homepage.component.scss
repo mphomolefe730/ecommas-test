@@ -1,7 +1,6 @@
-#master{
-    display: grid;
-    grid-template-rows: 1fr;
-}
+// #master{
+    //     grid-template-rows: 1fr;
+// }
 
 .actionButton{
     padding: 15px 20px;
@@ -11,6 +10,7 @@
 }
 @media (min-width: 810px) {
     #master{
+        display: grid;
         grid-template-columns: 1fr 5fr;
     }
     .sideMenu{

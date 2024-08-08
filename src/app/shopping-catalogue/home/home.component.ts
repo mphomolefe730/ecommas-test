@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { productModel } from 'src/app/models/productModel';
-import { HomeService } from 'src/app/services/home.service';
 import { ProductService } from 'src/app/services/product.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { categoryModel } from 'src/app/models/categoryModel';
@@ -25,9 +24,6 @@ export class HomeComponent implements OnInit {
   extraMenuTabs:{name:string,path:string,icon:string,action:Function|null}[]=[
     {
       name:"View Seller",path:"",icon:"",action:null
-    },
-    {
-      name: "Add To Cart", path: "", icon: "",action: this.addToCart
     }
   ]
     
@@ -43,10 +39,9 @@ export class HomeComponent implements OnInit {
     let tempRecentlyViewedString:string = String(this.productService.recentlyViewed);
     let arrOfItems = JSON.parse(tempRecentlyViewedString);
     if (arrOfItems.length != 0){
-      JSON.parse(tempRecentlyViewedString).forEach((productId:string)=>{
+      arrOfItems.forEach((productId:string)=>{
         this.productService.getProductById(productId).subscribe((data:any)=>{
           this.recentVisited.push(data);
-          console.log(this.recentVisited);
         });
       })
     }
@@ -58,9 +53,10 @@ export class HomeComponent implements OnInit {
         this.activeCategory.push(category);
       });
       this.activeCategory.forEach((category:categoryModel)=>{
-        this.categoryService.getByCategory(category._id).subscribe((itemsInCategory:any)=>{
+        this.categoryService.getByCategory(category._id,{page:0}).subscribe((itemsInCategory:any)=>{
           itemsInCategory.forEach((record:productModel)=>{
-            this.productsToShow.unshift(record);
+            let checker = this.productsToShow.find((a)=> a._id == record._id);
+            if (checker === undefined) this.productsToShow.unshift(record);
           })
         })
       });
@@ -73,12 +69,10 @@ export class HomeComponent implements OnInit {
   }
 
   showMoreOptions(index:number,event:any=-1){
-    console.log('mouse down actived');
     if(event!=-1){
       event.preventDefault();
     }
     this.containerForDelayEvent = setTimeout(() => {
-      console.log('show extra menu');
       this.menuStatus=true; //change the status of menu to show
       //get index of seller path on extra tab menu
       let indexOfSellerMenu = this.extraMenuTabs.findIndex((menuItem)=>menuItem.name == "View Seller");
@@ -92,7 +86,6 @@ export class HomeComponent implements OnInit {
   }
 
   removeMouseDown(productId:string,productName:string){
-    console.log("remove mouse down");
     clearTimeout(this.containerForDelayEvent);
     if (!this.menuStatus) this.viewProduct(productId,productName);
     setTimeout(() => {
@@ -105,6 +98,5 @@ export class HomeComponent implements OnInit {
       detail: "SUCCESS",
       summary: "Product added to cart"
     });
-    console.log("working");
   }
 }

@@ -1,0 +1,15 @@
+.sideMenu{
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    margin-bottom: 10px;
+    display: flex;
+    // background-color: var(--accent-color);
+    p{
+        display: flex;
+        min-width: 100px;
+        padding: 10px 5px;
+        margin: 0 5px;
+        // border-radius: var(--radiusForButtons);
+    }
+}

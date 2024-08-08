@@ -28,6 +28,6 @@
     </div>
     <div class="buttonSection">
         <button class="actionButton" (click)="goBack()">CANCEL</button>
-        <button class="actionButton" (click)="updateProduct()"> SAVE<img [src]="progressLoader" *ngIf="sending"></button>
+        <button class="actionButton" (click)="updateProduct()"> SAVE<img [src]="progressLoader" class="loader" *ngIf="sending"></button>
     </div>
 </form>

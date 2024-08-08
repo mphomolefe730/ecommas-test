@@ -40,10 +40,10 @@ export class AuthService {
   logIn(values:{email:string,hashedPassword:string}):void{
     this.logginService.login(values).subscribe((data:any)=>{
       if(data.message == 'login successful') {
-        sessionStorage.removeItem("smartOne_User");
-        sessionStorage.removeItem("smartOne_token");
         const userDetail = JSON.parse(atob(data.token.split('.')[1]));
         this.profileImage = data.profileImage;
+        sessionStorage.removeItem("smartOne_User");
+        sessionStorage.removeItem("smartOne_token");
         sessionStorage.setItem("smartOne_token",JSON.stringify(data.token));
         sessionStorage.setItem("smartOne_User", JSON.stringify({name: userDetail.name, role:userDetail.role, profileImage:data.profileImage}));
         const userRole:any = this.roleService.role.filter((a)=> a._id == userDetail.role);

@@ -16,8 +16,6 @@ export class AccountDetailsComponent implements OnInit{
 
   userId:string='';
   userInformation:userModel={
-    businessName: '',
-    businessDescription: '',
     hashedPassword: '',
     name: '',
     profileImage:'',
@@ -31,8 +29,6 @@ export class AccountDetailsComponent implements OnInit{
   };
 
   userForm:FormGroup= new FormGroup({
-    businessName:new FormControl(''),
-    businessDescription:new FormControl(''),
     name:new FormControl(this.userInformation.name),
     surname:new FormControl(this.userInformation.surname),
     email:new FormControl(this.userInformation.email),
@@ -54,8 +50,6 @@ export class AccountDetailsComponent implements OnInit{
         this.userInformation.profileImage = await this.authService.profileImage;
         this.userForm.value.name = await data.name
         this.userService.getUserById(this.userId).subscribe(async (data:any)=>{
-          // this.userForm.value.businessName= data
-          // this.userForm.value.businessDescription= data
           this.userInformation.name = await data.name;
           this.userInformation.surname = await data.surname;
           this.userInformation.email = await data.email;

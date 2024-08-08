@@ -36,7 +36,6 @@ export class SearchComponent implements OnInit{
         })
         this.userService.searchForUser({search:query}).subscribe((users:any)=>{
           users.forEach((person:any)=>this.seller.push(person));
-          console.log(users);
         })
       });
     });

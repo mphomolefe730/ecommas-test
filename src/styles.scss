@@ -68,6 +68,11 @@ nav{
     margin: 2% 0;
     height: 40px;
 }
+
+.loader{
+    max-width: 20px;
+    mix-blend-mode: screen;
+}
 #searchBarHolding{
     display: grid;
     grid-template-columns: 5fr 0.75fr;

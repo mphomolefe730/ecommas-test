@@ -7,7 +7,7 @@
 
 <div id="image" *ngIf="userInformation.profileImage == undefined">
     <label for="file">
-        <img [src]="addIconImage" alt="profile image">
+        <img [src]="addIconImage" alt="Upload profile image">
     </label>
     <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
 </div>

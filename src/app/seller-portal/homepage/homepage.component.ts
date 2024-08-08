@@ -17,6 +17,8 @@ export class HomepageComponent implements OnInit{
   },{
     name:"Products",link:"/seller/products",image:""
   },{
+    name:"Business Manager",link:"/seller/business",image:""
+  },{
     name:"Customers",link:"/seller/customer",image:""
   },{
     name:"Finances",link:"/seller/finances",image:""

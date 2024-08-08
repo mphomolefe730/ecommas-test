@@ -35,6 +35,9 @@ const routes: Routes = [
       {
         path:'products/upload',
         component:UploadProductComponent
+      },{
+        path: 'business',
+        loadChildren: ()=> import('./business/business.module').then(m=>m.BusinessModule),
       }
     ]
   }

@@ -50,7 +50,6 @@ export class AccountHomeComponent implements OnInit{
     // }, 2000);
   }
   signOut(){
-    console.log("signing out")
     this.authService.logOut();
   }
 }

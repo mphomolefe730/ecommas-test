@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { inventoryModel } from 'src/app/models/inventoryModel';
 import { orderStatus } from 'src/app/models/orderStatus';
@@ -11,7 +11,7 @@ import { RoleService } from 'src/app/services/role.service';
   templateUrl: './insights.component.html',
   styleUrls: ['./insights.component.scss']
 })
-export class InsightsComponent implements OnInit{
+export class InsightsComponent implements AfterContentInit{
   user:string='';
   userId:string='';
   chart:any;
@@ -34,8 +34,7 @@ export class InsightsComponent implements OnInit{
     private authService:AuthService,
     private roleService:RoleService
   ){}
-  
-  ngOnInit(): void {
+  ngAfterContentInit(): void {
     this.authService.loggedInUser.subscribe(async (data)=>{
       this.user= await data.name;
       this.userId= await data.userId;
@@ -43,8 +42,8 @@ export class InsightsComponent implements OnInit{
     this.authService.loggedInUser.subscribe((userInformation)=>{
       const userRole:any = this.roleService.role.filter((a)=> a._id == userInformation.role);
       if (userRole.role == "seller") {
-        this.inventoryService.getAllSellerOrders(this.userId).subscribe((data)=>{
-          let product:any= data;
+        this.inventoryService.getAllSellerOrders(this.userId).subscribe((data:any)=>{
+          let product:any= data.order;
           product.forEach((product:inventoryModel)=>{
             switch(product.status){
               case "UNFURFILLED": {
@@ -61,7 +60,6 @@ export class InsightsComponent implements OnInit{
               }
               default:{
                 this.complete+=1;
-                console.log(this.complete);
               }
             }
           })

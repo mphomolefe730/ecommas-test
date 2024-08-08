@@ -31,8 +31,6 @@ export class ViewProductComponent implements OnInit{
       surname: '',
       email: '',
       number: 0,
-      businessDescription:'',
-      businessName:'',
       hashedPassword: '',
       profileImage:'',
       role: {

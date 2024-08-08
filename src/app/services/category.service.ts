@@ -17,7 +17,7 @@ export class CategoryService {
   getAllCategory(){
     return this.http.get(`${environment.renderApiLink}/api/home-management/`);
   }
-  getByCategory(category:string){
-    return this.http.get(`${environment.renderApiLink}/api/home-management/category/${category}`);
+  getByCategory(category:string,page:{page:number}){
+    return this.http.put(`${environment.renderApiLink}/api/home-management/category/${category}`,page);
   }
 }
