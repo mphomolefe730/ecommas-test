@@ -37,7 +37,6 @@ export class BusinessRegistrationComponent implements OnInit{
       this.businessManagerService.getBusinessBySellerId(this.businessFormWorking.userId).subscribe({
         next:(sellerBusiness:any)=>{
           if (sellerBusiness.message == "success") this.doesNotExist=false;
-          console.log(sellerBusiness);
         },
         error:(err)=>{
           console.log(err);

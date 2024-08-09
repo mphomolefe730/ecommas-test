@@ -21,4 +21,10 @@ export class InventoryService {
   addToSellerInventory(inventory:any){
     return this.http.post(`${environment.renderApiLink}/api/inventory/add/`,inventory);
   }
+  getInventoryBySellerAndCatergory(sellerId:string, value:string,page:number){
+    return this.http.post(`${environment.renderApiLink}/api/inventory/seller/${sellerId}/${value}`,{page:page})
+  }
+  updateInventoryStatus(id:number,status:string){
+    return this.http.put(`${environment.renderApiLink}/api/inventory/${id}`,{status:status});
+  }
 }

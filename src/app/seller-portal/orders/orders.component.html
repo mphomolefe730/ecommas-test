@@ -1,34 +1,48 @@
 <h1 class="welcome">ORDERS</h1>
-<div *ngFor="let i of product" class="mainOrder">
-    <div class="header">
-        <span>{{ i._id }}</span>
-        <span>{{ i.status }}</span>
-    </div>
-    <div class="body">
-        <div></div>
-        <div>Name</div>
-        <div>Quantity</div>
-        <div>Price</div>
-    </div>
-    <div *ngFor="let j of i.items; let k = index" class="body">
-        <div>{{ k+1 }}</div>
-        <div>{{ j.productId.name }}</div>
-        <div>{{ j.quantity }}</div>
-        <div>{{ j.price }}</div>
-    </div>
-    <div *ngIf="i.status=='UNFURFILLED'" class="splitByTwo">
-        <div>Accept order</div>
-        <div class="buttonSection">
-            <button class="actionButton">no</button>
-            <button class="actionButton">yes</button>
+<div>
+    <select (change)="filterOrder($event)">
+        <option *ngFor="let i of orderTypes" [value]="i">{{i}}</option>
+    </select>
+</div>
+<ng-container *ngIf="product.length!=0">
+    <div *ngFor="let i of product" class="mainOrder">
+        <div class="header">
+            <span>{{ i._id }}</span>
+            <span>{{ i.status }}</span>
+        </div>
+        <div class="body">
+            <div></div>
+            <div>Name</div>
+            <div>Quantity</div>
+            <div>Price</div>
+        </div>
+        <div *ngFor="let j of i.items; let k = index" class="body">
+            <div>{{ k+1 }}</div>
+            <div>{{ j.productId.name }}</div>
+            <div>{{ j.quantity }}</div>
+            <div>{{ j.price }}</div>
+        </div>
+        <div *ngIf="i.status=='UNFURFILLED'" class="splitByTwo">
+            <div>Accept order</div>
+            <div class="buttonSection">
+                <button class="actionButton" (click)="updateOrderStatus(i._id,'DECLINED')">no</button>
+                <button class="actionButton" (click)="updateOrderStatus(i._id,'PENDING')">yes</button>
+            </div>
+        </div>
+    
+        <div *ngIf="i.status=='PENDING'" class="splitByTwo">
+            <div>Order Action</div>
+            <div class="buttonSection">
+                <button class="actionButton" (click)="updateOrderStatus(i._id,'CANCELLED')">Cancel</button>
+                <button class="actionButton" (click)="updateOrderStatus(i._id,'COMPLETE')">Complete</button>
+            </div>
         </div>
     </div>
+</ng-container>
 
-    <div *ngIf="i.status=='PENDING'" class="splitByTwo">
-        <div>Order Action</div>
-        <div class="buttonSection">
-            <button class="actionButton">Cancel</button>
-            <button class="actionButton">Complete</button>
-        </div>
+<div *ngIf="product.length==0">
+    <div class="holderImages">
+        <h1>Empty</h1>
+        <p>looks like this catergory has no entry yet</p>
     </div>
 </div>
