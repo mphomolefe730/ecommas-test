@@ -80,7 +80,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
       email: this.signupForm.value.email,
       number: this.signupForm.value.number,
       role: this.signupForm.value.role,
-      profileImage: this.defaultProfilePicture
+      profileImage: this.defaultProfilePicture,
+      verified: false
     };
 
     if (this.signupForm.valid) {

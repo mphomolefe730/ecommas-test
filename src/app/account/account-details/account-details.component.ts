@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgToastService } from 'ng-angular-popup';
 import { userModel } from 'src/app/models/userModel';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -18,15 +19,20 @@ export class AccountDetailsComponent implements OnInit{
   userInformation:userModel={
     hashedPassword: '',
     name: '',
-    profileImage:'',
+    profileImage: '',
     surname: '',
     email: '',
     number: 0,
     role: {
-      id:'',
-      name:''
-    }
+      id: '',
+      name: ''
+    },
+    verified: false
   };
+
+  verificationNumbers:FormGroup= new FormGroup({
+    otp: new FormControl('')
+  });
 
   userForm:FormGroup= new FormGroup({
     name:new FormControl(this.userInformation.name),
@@ -39,21 +45,24 @@ export class AccountDetailsComponent implements OnInit{
     private authService:AuthService,
     private firebaseService:FirebaseService,
     private userService:UserService,
-    private router:Router
+    private router:Router,
+    private toaster:NgToastService
   ){}
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()){
-      this.authService.loggedInUser.subscribe(async (data)=>{
-        this.userInformation.name = await data.name;
-        this.userId = await data.userId;
+      this.authService.loggedInUser.subscribe(async (localData)=>{
+        this.userInformation.name = await localData.name;
+        this.userId = await localData.userId;
         this.userInformation.profileImage = await this.authService.profileImage;
-        this.userForm.value.name = await data.name
+        this.userForm.value.name = await localData.name
+        
         this.userService.getUserById(this.userId).subscribe(async (data:any)=>{
           this.userInformation.name = await data.name;
           this.userInformation.surname = await data.surname;
           this.userInformation.email = await data.email;
           this.userInformation.number = await data.number;
+          this.userInformation.verified = await data.verifies;
         })
       })
     }
@@ -66,5 +75,16 @@ export class AccountDetailsComponent implements OnInit{
   }
   goBack(){
     this.router.navigate(["/account"])
+  }
+  verifyOtp(otpValue:any){
+    this.userService.verifyAccount(this.userId,otpValue).subscribe({
+      next:(object:any)=>{
+        this.toaster.success({detail:object.status,summary:object.message});
+        this.userInformation.verified=true;
+      },
+      error:(error:any)=>{
+        this.toaster.error({detail:error.error.status,summary:error.error.message});
+      }
+    })
   }
 }

@@ -24,4 +24,7 @@ export class UserService {
   getUserById(userId:string){
     return this.http.get(`${environment.renderApiLink}/api/user/${userId}`);
   }
+  verifyAccount(id:string,otp:number){
+    return this.http.post(`${environment.renderApiLink}/api/user//verify/${id}/${otp}`,{})
+  }
 }

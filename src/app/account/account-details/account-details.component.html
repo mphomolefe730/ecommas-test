@@ -11,6 +11,12 @@
     </label>
     <input type="file" id="file" (change)="upload($event)" accept="*.png,*.jpg,*.jpeg,image/*">
 </div>
+<form [formGroup]="verificationNumbers" *ngIf="!this.userInformation.verified">
+    <h3>ACCOUNT VERIFICATION</h3>
+    <p>account not yet verified, check emails for otp</p>
+    <input type="number" formControlName="otp" [(ngModel)]="verificationNumbers.value.otp"/>
+    <input type="submit" value="SUBMIT" (click)="verifyOtp(verificationNumbers.value.otp)">
+</form>
 
 <form [formGroup]="userForm">
     <div>

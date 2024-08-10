@@ -35,6 +35,7 @@ export class EditProductComponent implements OnInit {
         id: '',
         name: ''
       },
+      verified: false
     }
   };
   productForm:FormGroup= new FormGroup({

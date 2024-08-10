@@ -7,5 +7,6 @@ export interface userModel {
     surname:string,
     email:string,
     number:number,
-    role:roleModel
+    role:roleModel,
+    verified:boolean
 }

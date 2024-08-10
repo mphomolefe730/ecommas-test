@@ -32,11 +32,12 @@ export class ViewProductComponent implements OnInit{
       email: '',
       number: 0,
       hashedPassword: '',
-      profileImage:'',
+      profileImage: '',
       role: {
-        id:'',
-        name:''
-      }
+        id: '',
+        name: ''
+      },
+      verified: false
     },
     categories: []
   };
