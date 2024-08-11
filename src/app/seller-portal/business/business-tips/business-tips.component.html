@@ -1,1 +1,20 @@
-<p>business-tips works!</p>
+<div id="parent">
+    <div *ngFor="let summary of summaries; let i = index;" (click)="viewArticle(summary.businessTipId)" class="container">
+        <div>
+            <h3>
+                {{i+1}}
+            </h3>
+        </div>
+    
+        <div class="thumblenail">
+            <img [src]="summary.tipThumbnail" alt="image of youtube video"/>
+        </div>
+    
+        <div class="information">
+            <h3>
+                {{summary.tipTitle}}
+            </h3>
+            <small>{{summary.tipDescription}}</small>
+        </div>
+    </div>
+</div>

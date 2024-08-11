@@ -29,7 +29,7 @@ select{
     padding: 5px 10px;
     border-radius: var(--box-margin);
     color:white;
-    background-color: rgba(0,0,255,0.5);
+    background-color: var(--thirdColor);
     option{
         padding: 15px 45px;
         text-transform: uppercase;

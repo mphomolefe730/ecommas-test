@@ -1,0 +1,15 @@
+<div>
+    <span style="
+    border: 0;
+    background-color: rgba(0,0,0,1);
+    margin-left: 2%;
+    padding: 5px 15px;
+    border-radius: var(--radiusForButtons);
+    color: white;">CLOSE</span>
+    <h1>{{tip.title}}</h1>
+    <small>date created: {{tip.createdAt.toString().slice(0,10)}}</small>
+    <iframe width="100%" [src]="tip.link" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div>
+        <p style="overflow-wrap: break-word;">{{tip.description}}</p>
+    </div>
+</div>

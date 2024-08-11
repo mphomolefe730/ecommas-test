@@ -6,13 +6,15 @@ import { BusinessHomeComponent } from './business-home/business-home.component';
 import { BusinessRegistrationComponent } from './business-registration/business-registration.component';
 import { BusinessTipsComponent } from './business-tips/business-tips.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { BusinessViewTipComponent } from './business-view-tip/business-view-tip.component';
 
 
 @NgModule({
   declarations: [
     BusinessHomeComponent,
     BusinessRegistrationComponent,
-    BusinessTipsComponent
+    BusinessTipsComponent,
+    BusinessViewTipComponent
   ],
   imports: [
     CommonModule,

@@ -17,4 +17,10 @@ export class BusinessManagerService {
   getBusinessBySellerId(businessName:string){
     return this.http.get(`${environment.renderApiLink}/api/business/seller/${businessName}`)
   }
+  getAllBusinessTipSummaries(pageNumber:number){
+    return this.http.post(`${environment.renderApiLink}/api/businessTips/summary`,{page:pageNumber})
+  }
+  getBusinessTipById(tipId:string){
+    return this.http.get(`${environment.renderApiLink}/api/businessTips/${tipId}`);
+  }
 }

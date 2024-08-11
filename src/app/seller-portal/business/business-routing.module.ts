@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BusinessHomeComponent } from './business-home/business-home.component';
 import { BusinessRegistrationComponent } from './business-registration/business-registration.component';
 import { BusinessTipsComponent } from './business-tips/business-tips.component';
+import { BusinessViewTipComponent } from './business-view-tip/business-view-tip.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
     },{
       path: 'register',
       component: BusinessRegistrationComponent
+    },{
+      path:"tips/:id",
+      component:BusinessViewTipComponent
     }]
   }
 ];

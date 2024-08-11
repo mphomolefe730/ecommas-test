@@ -1,0 +1,34 @@
+.container{
+    display: grid;
+    grid-template-columns: 0.1fr 1fr 5fr;
+    border: 0;
+    border-radius: var(--border-10);
+    background-color: var(--accent-color);
+    color: white;
+    padding:10px 0;
+    animation-name: "rightTransition";
+    animation-duration: 0.5;
+}
+.thumblenail{
+    text-align: center;
+    img{
+        max-width: 100px;
+        border-radius: var(--border-10);
+    }
+}
+.information{
+    h3,small{
+        margin: 5px;
+    }
+}
+
+#parent{
+    display: block;
+}
+
+@media (min-width: 809px) {
+    #parent{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
