@@ -58,14 +58,14 @@ export class EditProductComponent implements OnInit {
       this.productDetails._id=data['id'];
       this.productService.getProductById(this.productDetails._id).subscribe((productInformation)=>{
         const temp:any=productInformation;
-        this.productDetails.categories=temp.categories;
-        this.productDetails.name=temp.name;
-        this.productDetails.price=temp.price;
-        this.productDetails.image=temp.image;
-        this.productDetails.description=temp.description;
-        this.productDetails.stock=temp.stock;
-        this.productDetails.seller=temp.seller;
-        this.productDetails.categories=temp.categories;
+        this.productDetails.categories=temp.productInfo.categories;
+        this.productDetails.name=temp.productInfo.name;
+        this.productDetails.price=temp.productInfo.price;
+        this.productDetails.image=temp.productInfo.image;
+        this.productDetails.description=temp.productInfo.description;
+        this.productDetails.stock=temp.productInfo.stock;
+        this.productDetails.seller=temp.productInfo.seller;
+        this.productDetails.categories=temp.productInfo.categories;
       });
     });
   }

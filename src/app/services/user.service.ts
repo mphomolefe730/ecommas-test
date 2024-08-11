@@ -18,12 +18,22 @@ export class UserService {
   searchForUser(query:{search:string}){
     return this.http.post(`${environment.renderApiLink}/api/user/search`,query);
   }
+
+  searchForSeller(query:{search:string}){
+    return this.http.post(`${environment.renderApiLink}/api/user/search/seller`,query);
+  }
+
   updateUser(newEntity:any,userId:string){
     return this.http.put(`${environment.renderApiLink}/api/user/${userId}`,newEntity);
   }
+  
   getUserById(userId:string){
     return this.http.get(`${environment.renderApiLink}/api/user/${userId}`);
   }
+  getUserBySellerId(userId:string){
+    return this.http.get(`${environment.renderApiLink}/api/user/seller/${userId}`)
+  }
+
   verifyAccount(id:string,otp:number){
     return this.http.post(`${environment.renderApiLink}/api/user//verify/${id}/${otp}`,{})
   }

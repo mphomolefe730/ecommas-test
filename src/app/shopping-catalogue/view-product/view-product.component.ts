@@ -48,6 +48,7 @@ export class ViewProductComponent implements OnInit{
   user:string='';
   userId:string='';
   selectedOption:number=1;
+  businessInfo:string='';
   shoppingCart: cartModel={
     _id:'',
     userId:'',
@@ -91,12 +92,16 @@ export class ViewProductComponent implements OnInit{
 
       this.activeRouter.params.subscribe((data:any)=>{
         this.productService.getProductById(data.productid).subscribe((item:any)=>{
-          this.sellersid = item.seller._id;
-          this.productSellerId = item.seller._id;
-          this.productDetails = item;
+          this.sellersid = item.productInfo.seller._id;
+          this.productSellerId = item.productInfo.seller._id;
+          this.productDetails = item.productInfo;
           this.productDetails.seller.email='';
           this.productDetails.seller.surname='';
           this.productDetails.seller.number=0;
+          if(item.businessInfo){
+            this.businessInfo = item.businessInfo[0].businessName
+            console.log(item.businessInfo)
+          }
           this.shoppingCart.items.forEach((productItem:any)=>{
             if (productItem.productId._id == data.productid) this.purchasing= 'removeFromCart';
           })
@@ -130,7 +135,7 @@ export class ViewProductComponent implements OnInit{
       quantity:this.selectedOption,
       price:this.productDetails.price*this.selectedOption
     }
-    let dProduct = false;
+    let duplicatedProduct = false;
     await this.shoppingCart.items.forEach((productItem)=>{
       if (item.productId._id == productItem.productId._id){
         this.toaster.error({
@@ -139,11 +144,11 @@ export class ViewProductComponent implements OnInit{
           duration: 3000
         });
         this.purchasing= 'removeFromCart';
-        dProduct = true;
+        duplicatedProduct = true;
       }
       return;
     })
-    if (dProduct == false){
+    if (duplicatedProduct == false){
       await this.shoppingCart.items.push(item);
       this.cartService.updateUserCart(this.userId,this.shoppingCart).subscribe((data:any)=>{
         if (data.status == "SUCCESS"){

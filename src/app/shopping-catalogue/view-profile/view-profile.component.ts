@@ -25,6 +25,11 @@ export class ViewProfileComponent implements OnInit {
   products:productModel[] = [];
   user: userModel | undefined;
   userId: string = '';
+  businessInfo:{businessDescription:string, businessName:string, profileImage:string}={
+    businessDescription: '',
+    businessName: '',
+    profileImage: ''
+  };
 
   ngOnInit() {
     this.activeRoute.params.subscribe((data: any) => {
@@ -32,8 +37,15 @@ export class ViewProfileComponent implements OnInit {
       this.productService.getAllSellerProducts(this.userId).subscribe((products: any)=> {
         this.products = products;
       })
-      this.userService.getUserById(this.userId).subscribe((data: any)=>{
-        this.user = data
+      this.userService.getUserBySellerId(this.userId).subscribe({
+        next:(data: any)=>{
+          console.log(data.message[0]);
+          if (data.type == "seller") this.user = data.message;
+          if (data.type == "business") this.businessInfo = data.message[0];
+        },
+        error:(err)=>{
+          console.log(err)
+        }
       });
     });
   }

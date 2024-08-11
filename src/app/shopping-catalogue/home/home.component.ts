@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     if (arrOfItems.length != 0){
       arrOfItems.forEach((productId:string)=>{
         this.productService.getProductById(productId).subscribe((data:any)=>{
-          this.recentVisited.push(data);
+          this.recentVisited.push(data.productInfo);
         });
       })
     }

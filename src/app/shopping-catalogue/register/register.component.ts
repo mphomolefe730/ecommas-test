@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
   formSubmitted: boolean = false;
   hidePassword: boolean = true;
   hideConfirmPassword: boolean = true;
-  defaultProfilePicture:string = 'https://firebasestorage.googleapis.com/v0/b/ecommerce-connect-c7850.appspot.com/o/profile-pictures%2F66afc3eb06c2285b78ae1f84?alt=media&token=868d22bd-fce2-49f8-8c4b-af5be6cabfb9'
+  defaultProfilePicture:string = 'https://firebasestorage.googleapis.com/v0/b/ecommerce-connect-c7850.appspot.com/o/profile-pictures%2Fdefault_profile_picture.png?alt=media&token=693a4bd4-4bfc-4c46-97ae-9e168c66faba'
   progressLoader = '../../../assets/icons/loader.gif';
   rolesSelector:{_id:string,role:string}[]=[];
 

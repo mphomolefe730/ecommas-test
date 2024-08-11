@@ -3,6 +3,8 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 350px));
     gap: 10px;
     margin: 5px 5px;
+    animation-name: rightTransition;
+    animation-duration: .5s;
 }
 
 .purchase-btn{
@@ -14,6 +16,15 @@
     //     margin: 2.5px;
     //     max-width: 25px;
     // }
+}
+.seller{
+    background: rgba(0,0,255,0.25);
+}
+.business{
+    background: rgba(0,255,0,0.25);
+}
+small{
+    text-transform: uppercase;
 }
 .holderImages{
     width: 100%;
@@ -50,6 +61,8 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     margin-bottom: 10px;
+    animation-name: rightTransition;
+    animation-duration: .5s;
     .item{
         .productname{
             overflow: hidden;

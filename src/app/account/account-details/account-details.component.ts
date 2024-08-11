@@ -62,15 +62,19 @@ export class AccountDetailsComponent implements OnInit{
           this.userInformation.surname = await data.surname;
           this.userInformation.email = await data.email;
           this.userInformation.number = await data.number;
-          this.userInformation.verified = await data.verifies;
+          this.userInformation.verified = await data.verified;
         })
       })
     }
   }
+  
   async upload(event:any){
     const newUrlForProfile = await this.firebaseService.upload(event,this.userId,'profile-pictures');
     let object = {profileImage: newUrlForProfile};
     this.userService.updateUser(object,this.userId).subscribe((data:any)=>{
+      this.authService.profileImage = data.profileImage;
+      this.userInformation.profileImage = data.profileImage;
+      sessionStorage.setItem("smartOne_User", JSON.stringify({name: data.name, role:data.role, profileImage:data.profileImage}));
     })
   }
   goBack(){

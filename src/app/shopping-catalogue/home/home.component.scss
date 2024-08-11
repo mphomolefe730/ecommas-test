@@ -6,6 +6,8 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
     margin-bottom: 10px;
+    animation-name: rightTransition;
+    animation-duration: .5s;
 }
 
 #productItemsDisplay::-webkit-scrollbar {

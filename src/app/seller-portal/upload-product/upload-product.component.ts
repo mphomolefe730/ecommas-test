@@ -90,8 +90,8 @@ export class UploadProductComponent implements OnInit{
           image: url,
           description: this.uploadProductForm.value.description,
           stock: this.uploadProductForm.value.stock,
-          seller: productInformation.seller,
-          categories: productInformation.categories
+          seller: productInformation.productInfo.seller,
+          categories: productInformation.productInfo.categories
         }
         this.productService.updateproductById(object._id,object).subscribe((updatedProduct:any)=>{
           this.router.navigate(['/seller/products'])

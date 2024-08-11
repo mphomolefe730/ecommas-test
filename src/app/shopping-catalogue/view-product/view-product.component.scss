@@ -1,3 +1,7 @@
+#main{
+    animation-name: rightTransition;
+    animation-duration: .5s;
+}
 .mobile{
     // border: 2px solid black;
     .main-image{
@@ -44,9 +48,12 @@
 .alert{
     background-color: black;
 }
-// .main-image{
-//     display: none;
-// }
+
+.main-image{
+    img{
+        max-width: 100%;
+    }
+}
 
 @media (min-width: 809px) {
     #main{

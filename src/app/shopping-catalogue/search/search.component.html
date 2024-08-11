@@ -1,11 +1,23 @@
+<small *ngIf="businesses.length!=0">businesses</small>
+<div id="productItemsDisplay" *ngIf="businesses.length!=0">
+    <div *ngFor="let b of businesses" class="item business" (click)="viewSellerProfile(b._id)">
+        <img [src]="b.profileImage"/>
+        <div class="ItemDescription">
+            <p class="productname">{{b.businessName}}</p>
+        </div>
+    </div>
+</div>
+
+<small *ngIf="seller.length!=0">independent sellers</small>
 <div id="productItemsDisplay" *ngIf="seller.length!=0">
-    <div *ngFor="let s of seller" class="item" (click)="viewSellerProfile(s._id)">
+    <div *ngFor="let s of seller" class="item seller" (click)="viewSellerProfile(s._id)">
         <img [src]="s.profileImage"/>
         <div class="ItemDescription">
             <p class="productname">{{s.name}}</p>
         </div>
     </div>
 </div>
+
 <div *ngIf="productsToShow.length!=0">
     <div id="productItemCatergoryBar"><div><h3>PRODUCTS</h3></div> </div>
     <div id="productItemsDisplay2">
@@ -24,6 +36,7 @@
         </ng-container>
     </div>
 </div>
+
 <div *ngIf="productsToShow.length==0">
     <div class="holderImages" *ngIf="!searching">
         <h1>opps</h1>

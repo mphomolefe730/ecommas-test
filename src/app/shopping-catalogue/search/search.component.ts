@@ -15,6 +15,7 @@ export class SearchComponent implements OnInit{
   productsToShow:productModel[]=[];
   // seller:userModel[]=[];
   seller:{profileImage:string,name:string,_id:string}[]=[]
+  businesses:any=[]
   progressLoader:string = '../../../assets/icons/loader.gif';
   searching:boolean=true;
   constructor(
@@ -31,11 +32,18 @@ export class SearchComponent implements OnInit{
         this.searching=false;
         this.productsToShow=[];
         this.seller=[];
+        this.businesses=[];
         items.forEach((product:productModel)=>{
           this.productsToShow.push(product);
         })
-        this.userService.searchForUser({search:query}).subscribe((users:any)=>{
-          users.forEach((person:any)=>this.seller.push(person));
+        this.userService.searchForSeller({search:query}).subscribe({
+          next:(object:any)=>{
+            if (object.seller) object.seller.forEach((person:any)=>this.seller.push(person));
+            if (object.businesses) object.businesses.forEach((businessObject:any)=>this.businesses.push(businessObject));
+          },
+          error:(err)=>{
+            console.log(err);
+          }
         })
       });
     });

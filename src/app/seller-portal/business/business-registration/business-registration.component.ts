@@ -14,10 +14,12 @@ export class BusinessRegistrationComponent implements OnInit{
   sending:boolean=false;
   progressLoader:string='../../../../assets/icons/loader.gif';
   doesNotExist:boolean=true;
+  defaultProfilePicture:string = 'https://firebasestorage.googleapis.com/v0/b/ecommerce-connect-c7850.appspot.com/o/profile-pictures%2Fdefault_profile_picture.png?alt=media&token=693a4bd4-4bfc-4c46-97ae-9e168c66faba';
   businessFormWorking:businessModel={
     businessName: '',
     businessDescription: '',
-    userId: ''
+    userId: '',
+    profileImage: this.defaultProfilePicture
   };
   businessForm:FormGroup= new FormGroup({
     businessName: new FormControl(this.businessFormWorking.businessName,Validators.required),

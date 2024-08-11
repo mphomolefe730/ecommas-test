@@ -1,3 +1,17 @@
+<div *ngIf="shoppingCart == null || shoppingCart.items.length == 0">
+    <div class="holderImages">
+        <h1>Your cart is empty.</h1>
+        <p>Let's fill it up with awesome stuff!</p>
+        <button routerLink="/" style="
+        background-color: var(--accent-color);
+        color:white; 
+        border-radius: 10px; 
+        border:0px; 
+        padding: 10px;
+        margin: 10px;"
+        >BROWSER ITEMS</button>
+    </div>
+</div>
 <div class="checkout-container" *ngIf="shoppingCart != null && shoppingCart.items.length != 0">
     <div class="checkout">
         <div>
@@ -11,7 +25,7 @@
         <button class="checkout-btn" (click)="checkout()">checkout</button>
     </div>
 </div>
-<div *ngIf="shoppingCart != null && shoppingCart.items.length != 0">
+<div *ngIf="shoppingCart != null && shoppingCart.items.length != 0" style="animation-name: rightTransition;animation-duration: .5s;">
     <div *ngFor="let item of shoppingCart.items" class="main">
         <div class="image">
             <img [src]="item.productId.image" alt="">
@@ -39,19 +53,4 @@
         <h1>EXTRAS</h1>
         <textarea name="add-on" id="add-on-textarea" [(ngModel)]="extraText"></textarea>
     </form>
-</div>
-
-<div *ngIf="shoppingCart == null || shoppingCart.items.length == 0">
-    <div class="holderImages">
-        <h1>Your cart is empty.</h1>
-        <p>Let's fill it up with awesome stuff!</p>
-        <button routerLink="/" style="
-        background-color: var(--accent-color);
-        color:white; 
-        border-radius: 10px; 
-        border:0px; 
-        padding: 10px;
-        margin: 10px;"
-        >BROWSER ITEMS</button>
-    </div>
 </div>
